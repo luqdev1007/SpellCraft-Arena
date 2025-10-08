@@ -353,7 +353,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8971971640168239361}
   m_Layer: 0
-  m_Name: Enemy
+  m_Name: Ice Elemental
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
