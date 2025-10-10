@@ -1,5 +1,6 @@
 ﻿using Assets._Project.Develop.Infrastructure;
 using Assets._Project.Develop.Infrastructure.DI;
+using Assets._Project.Develop.Runtime.Gameplay.TypeMode;
 using Assets._Project.Develop.Runtime.Utilites.CoroutinesManagment;
 using Assets._Project.Develop.Runtime.Utilites.SceneManagement;
 using System;
@@ -12,6 +13,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
     {
         private DIContainer _container;
         private GameplayInputArgs _inputArgs;
+        private TypeModeHandler _typeModeHandler;
 
         public override void ProcessRegistrations(DIContainer container, IInputSceneArgs sceneArgs = null)
         {
@@ -27,9 +29,11 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
 
         public override IEnumerator Initialize()
         {
-            Debug.Log($"You entered level {_inputArgs.LevelNumber}");
+            foreach (var s in _inputArgs.TypeSymbolsGameMode.Symbols)
+                Debug.Log($"Allowed to type symbol: {s}");
 
             Debug.Log("Gameplay scene init");
+            _typeModeHandler = new TypeModeHandler(_container, _inputArgs);
 
             yield break;
         }
@@ -37,16 +41,9 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
         public override void Run()
         {
             Debug.Log("Start gameplay scene");
-        }
 
-        private void Update()
-        {
-            if (Input.GetKeyDown(KeyCode.F))
-            {
-                SceneSwitcherService sceneSwitcherService = _container.Resolve<SceneSwitcherService>();
-                ICoroutinesPerformer coroutinesPerformer = _container.Resolve<ICoroutinesPerformer>();
-                coroutinesPerformer.StartPerform(sceneSwitcherService.ProcessingSwitchTo(Scenes.MainMenu));
-            }
+            ICoroutinesPerformer coroutinesPerformer = _container.Resolve<ICoroutinesPerformer>();
+            coroutinesPerformer.StartPerform(_typeModeHandler.ProcessingStartGame());
         }
     }
 }

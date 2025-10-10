@@ -1,4 +1,5 @@
-﻿using Assets._Project.Develop.Runtime.Utilites.AssetsManagment;
+﻿using Assets._Project.Develop.Runtime.Gameplay.TypeMode;
+using Assets._Project.Develop.Runtime.Utilites.AssetsManagment;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -12,7 +13,8 @@ namespace Assets._Project.Develop.Runtime.Utilites.ConfigsManagment
 
         private readonly Dictionary<Type, string> _configsResourcesPath = new()
         {
-            // {typeof(TestConfig), "Test Config" }
+            { typeof(TypeCharsGameModeConfig), "TypeCharsGameModeConfig" },
+            { typeof(TypeNumbersGameModeConfig), "TypeNumbersGameModeConfig" }
         };
 
         public ResourcesConfigsLoader(ResourcesAssetsLoader resources)

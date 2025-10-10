@@ -1,12 +1,14 @@
-﻿namespace Assets._Project.Develop.Runtime.Utilites.SceneManagement
+﻿using Assets._Project.Develop.Runtime.Gameplay.TypeMode;
+
+namespace Assets._Project.Develop.Runtime.Utilites.SceneManagement
 {
     public class GameplayInputArgs : IInputSceneArgs
     {
-        public int LevelNumber { get; }
-
-        public GameplayInputArgs(int levelNumber)
+        public GameplayInputArgs(TypeSymbolsGameMode typeSymbolsGameMode)
         {
-            LevelNumber = levelNumber;
+            TypeSymbolsGameMode = typeSymbolsGameMode;
         }
+
+        public TypeSymbolsGameMode TypeSymbolsGameMode { get; }
     }
 }
