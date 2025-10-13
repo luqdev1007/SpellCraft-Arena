@@ -1,7 +1,6 @@
 ﻿using Assets._Project.Develop.Infrastructure;
 using Assets._Project.Develop.Infrastructure.DI;
 using Assets._Project.Develop.Runtime.Gameplay.TypeMode;
-using Assets._Project.Develop.Runtime.Utilites.CoroutinesManagment;
 using Assets._Project.Develop.Runtime.Utilites.SceneManagement;
 using System;
 using System.Collections;
@@ -29,13 +28,9 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
 
         public override IEnumerator Initialize()
         {
-            foreach (var s in _inputArgs.TypeSymbolsGameMode.Symbols)
-                Debug.Log($"Allowed to type symbol: {s}");
-
             Debug.Log("Gameplay scene init");
 
             _typeModeHandler = new TypeModeHandler(_container, _inputArgs);
-            _container.RegisterAsSingle(_ => _typeModeHandler);
             _typeModeHandler.StartGame();
 
             yield break;
