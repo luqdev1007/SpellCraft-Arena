@@ -27,18 +27,18 @@ namespace Assets._Project.Develop.Runtime.Meta
         {
             if (Input.GetKeyDown(KeyCode.Alpha1))
             {
-                var config = _configsProviderService.GetConfig<TypeNumbersGameModeConfig>();
+                var config = _configsProviderService.GetConfig<TypeModeDigitsConfig>();
                 _coroutinesPerformer.StartPerform(SwitchToGameplay(config));
             }
 
             if (Input.GetKeyDown(KeyCode.Alpha2))
             {
-                var config = _configsProviderService.GetConfig<TypeCharsGameModeConfig>();
+                var config = _configsProviderService.GetConfig<TypeModeLettersConfig>();
                 _coroutinesPerformer.StartPerform(SwitchToGameplay(config));
             }
         }
 
-        private IEnumerator SwitchToGameplay(TypeSymbolsGameMode config)
+        private IEnumerator SwitchToGameplay(TypeModeConfig config)
         {
             yield return _sceneSwitcherService.ProcessingSwitchTo(
                 Scenes.Gameplay,

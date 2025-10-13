@@ -4,9 +4,9 @@ namespace Assets._Project.Develop.Runtime.Gameplay.TypeMode
 {
     public class TypeModeCombinationGeneratorService
     {
-        private readonly string[] _allowedSymbols;
+        private readonly string _allowedSymbols;
 
-        public TypeModeCombinationGeneratorService(string[] allowedSymbols)
+        public TypeModeCombinationGeneratorService(string allowedSymbols)
         {
             _allowedSymbols = allowedSymbols;
         }
@@ -17,7 +17,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.TypeMode
 
             for (int i = 0; i < length; i++)
             {
-                string randomSymbol = _allowedSymbols[Random.Range(0, _allowedSymbols.Length)];
+                char randomSymbol = _allowedSymbols[Random.Range(0, _allowedSymbols.Length)];
                 combination += randomSymbol;
             }
 

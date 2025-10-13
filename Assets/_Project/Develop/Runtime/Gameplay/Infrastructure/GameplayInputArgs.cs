@@ -4,11 +4,11 @@ namespace Assets._Project.Develop.Runtime.Utilites.SceneManagement
 {
     public class GameplayInputArgs : IInputSceneArgs
     {
-        public GameplayInputArgs(TypeSymbolsGameMode typeSymbolsGameMode)
+        public GameplayInputArgs(TypeModeConfig typeSymbolsGameMode)
         {
             TypeSymbolsGameMode = typeSymbolsGameMode;
         }
 
-        public TypeSymbolsGameMode TypeSymbolsGameMode { get; }
+        public TypeModeConfig TypeSymbolsGameMode { get; }
     }
 }

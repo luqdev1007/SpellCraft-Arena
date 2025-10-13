@@ -13,8 +13,8 @@ namespace Assets._Project.Develop.Runtime.Utilites.ConfigsManagment
 
         private readonly Dictionary<Type, string> _configsResourcesPath = new()
         {
-            { typeof(TypeCharsGameModeConfig), "TypeCharsGameModeConfig" },
-            { typeof(TypeNumbersGameModeConfig), "TypeNumbersGameModeConfig" }
+            { typeof(TypeModeLettersConfig), "TypeMode/LettersConfig" },
+            { typeof(TypeModeDigitsConfig), "TypeMode/DigitsConfig" }
         };
 
         public ResourcesConfigsLoader(ResourcesAssetsLoader resources)
