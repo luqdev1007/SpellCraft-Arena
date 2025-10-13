@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Assets._Project.Develop.Runtime.Utilites.DataManagment
 {
-    public class PlayerData
+    public class PlayerData : ISaveData
     {
         public Dictionary<CurrencyTypes, int> WalletData;
     }
