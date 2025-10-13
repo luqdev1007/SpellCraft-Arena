@@ -29,8 +29,7 @@ namespace Assets._Project.Develop.Runtime.Meta.Infrastructure
 
         private void Update()
         {
-            if (_gameModeSelectionService != null)
-                _gameModeSelectionService.Update();
+            _gameModeSelectionService?.Update();
         }
 
         public override void Run()

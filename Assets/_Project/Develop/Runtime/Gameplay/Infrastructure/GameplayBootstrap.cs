@@ -33,7 +33,10 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
                 Debug.Log($"Allowed to type symbol: {s}");
 
             Debug.Log("Gameplay scene init");
+
             _typeModeHandler = new TypeModeHandler(_container, _inputArgs);
+            _container.RegisterAsSingle(_ => _typeModeHandler);
+            _typeModeHandler.StartGame();
 
             yield break;
         }
@@ -41,9 +44,11 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
         public override void Run()
         {
             Debug.Log("Start gameplay scene");
+        }
 
-            ICoroutinesPerformer coroutinesPerformer = _container.Resolve<ICoroutinesPerformer>();
-            coroutinesPerformer.StartPerform(_typeModeHandler.ProcessingStartGame());
+        private void Update()
+        {
+            _typeModeHandler?.Update();
         }
     }
 }

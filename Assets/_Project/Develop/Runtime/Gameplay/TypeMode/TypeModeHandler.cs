@@ -1,7 +1,6 @@
 ﻿using Assets._Project.Develop.Infrastructure.DI;
 using Assets._Project.Develop.Runtime.Utilites.CoroutinesManagment;
 using Assets._Project.Develop.Runtime.Utilites.SceneManagement;
-using System.Collections;
 using UnityEngine;
 
 namespace Assets._Project.Develop.Runtime.Gameplay.TypeMode
@@ -13,6 +12,10 @@ namespace Assets._Project.Develop.Runtime.Gameplay.TypeMode
         private readonly string[] _allowedSymbols;
 
         private string _combination;
+        private int _currentIndex;
+        private bool _isGameActive;
+        private bool _isVictory;
+        private bool _isWaitingForContinue;
 
         public TypeModeHandler(DIContainer container, GameplayInputArgs inputArgs)
         {
@@ -21,62 +24,78 @@ namespace Assets._Project.Develop.Runtime.Gameplay.TypeMode
             _allowedSymbols = _inputArgs.TypeSymbolsGameMode.Symbols;
         }
 
-        public IEnumerator ProcessingStartGame()
+        public void StartGame()
         {
-            bool isGameCompleted = false;
-            bool isVictory = false;
-            int currentSymbolIndex = 0;
-
             GenerateCombination();
-            Debug.Log("Target combination: " + _combination);
+            _currentIndex = 0;
+            _isGameActive = true;
+            _isVictory = false;
+            _isWaitingForContinue = false;
 
-            while (isGameCompleted == false)
+            Debug.Log($"Target combination: {_combination}");
+        }
+
+        public void Update()
+        {
+            if (!_isGameActive && !_isWaitingForContinue)
+                return;
+
+            if (_isGameActive)
             {
-                yield return new WaitUntil(() => Input.anyKeyDown);
-
-                string pressedKey = Input.inputString.ToUpper();
-
-                if (string.IsNullOrEmpty(pressedKey))
-                    continue;
-
-                Debug.Log($"Pressed key: {pressedKey}");
-
-                if (pressedKey == _combination[currentSymbolIndex].ToString().ToUpper())
-                {
-                    currentSymbolIndex++;
-                    Debug.Log($"Correct! Progress: {currentSymbolIndex}/{_combination.Length}");
-                }
-                else
-                {
-                    isGameCompleted = true;
-                    isVictory = false;
-
-                    Debug.Log("Wrong key! Defeat...");
-                }
-
-                if (currentSymbolIndex >= _combination.Length)
-                {
-                    isGameCompleted = true;
-                    isVictory = true;
-
-                    Debug.Log("Combination completed! Victory!");
-                }
+                if (Input.anyKeyDown)
+                    HandleInput();
             }
+            else if (_isWaitingForContinue)
+            {
+                if (Input.GetKeyDown(KeyCode.Space))
+                    ContinueAfterResult();
+            }
+        }
 
-            yield return new WaitForEndOfFrame();
+        private void HandleInput()
+        {
+            string pressedKey = Input.inputString.ToUpper();
 
+            if (string.IsNullOrEmpty(pressedKey))
+                return;
+
+            Debug.Log($"Pressed key: {pressedKey}");
+
+            if (pressedKey == _combination[_currentIndex].ToString().ToUpper())
+            {
+                _currentIndex++;
+                Debug.Log($"Correct! Progress: {_currentIndex}/{_combination.Length}");
+
+                if (_currentIndex >= _combination.Length)
+                    EndGame(true);
+            }
+            else
+            {
+                EndGame(false);
+            }
+        }
+
+        private void EndGame(bool victory)
+        {
+            _isGameActive = false;
+            _isVictory = victory;
+            _isWaitingForContinue = true;
+
+            Debug.Log(victory ? "Combination completed! Victory!" : "Wrong key! Defeat...");
             Debug.Log("Press 'Space' to continue");
+        }
 
-            yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space));
+        private void ContinueAfterResult()
+        {
+            _isWaitingForContinue = false;
 
             SceneSwitcherService sceneSwitcherService = _container.Resolve<SceneSwitcherService>();
             ICoroutinesPerformer coroutinesPerformer = _container.Resolve<ICoroutinesPerformer>();
 
-            if (isVictory)
+            if (_isVictory)
                 coroutinesPerformer.StartPerform(sceneSwitcherService.ProcessingSwitchTo(Scenes.MainMenu));
             else
                 coroutinesPerformer.StartPerform(sceneSwitcherService.ProcessingSwitchTo(Scenes.Gameplay, _inputArgs));
-
         }
 
         private void GenerateCombination(int length = 5)
