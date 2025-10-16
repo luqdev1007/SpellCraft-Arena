@@ -1,6 +1,7 @@
 ﻿using Assets._Project.Develop.Infrastructure.DI;
 using Assets._Project.Develop.Runtime.Utilites.ConfigsManagment;
 using Assets._Project.Develop.Runtime.Utilites.CoroutinesManagment;
+using Assets._Project.Develop.Runtime.Utilites.DataProviders;
 using Assets._Project.Develop.Runtime.Utilites.LoadingScreen;
 using Assets._Project.Develop.Runtime.Utilites.SceneManagement;
 using System.Collections;
@@ -21,6 +22,8 @@ namespace Assets._Project.Develop.Infrastructure.EntryPoint
             DIContainer projectContainer = new DIContainer();
             ProjectContextRegistrations.Process(projectContainer);
 
+            projectContainer.Initialize();
+
             ICoroutinesPerformer coroutinePerformer = projectContainer.Resolve<ICoroutinesPerformer>();
             coroutinePerformer.StartPerform(Initialize(projectContainer));
         }
@@ -35,12 +38,22 @@ namespace Assets._Project.Develop.Infrastructure.EntryPoint
         {
             ILoadingScreen loadingScreen = container.Resolve<ILoadingScreen>();
             SceneSwitcherService sceneSwitcherService = container.Resolve<SceneSwitcherService>();
+            PlayerDataProvider playerDataProvider = container.Resolve<PlayerDataProvider>();
 
             loadingScreen.Show();
 
             Debug.Log("Begin servises init...");
 
             yield return container.Resolve<ConfigsProviderService>().LoadAsync();
+
+            bool isPlayerDataSaveExists = false;
+
+            yield return playerDataProvider.Exists(result => isPlayerDataSaveExists = result);
+
+            if (isPlayerDataSaveExists)
+                yield return playerDataProvider.Load();
+            else
+                playerDataProvider.Reset();
 
             yield return new WaitForSeconds(1); // simulation of long inits
 

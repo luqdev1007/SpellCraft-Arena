@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 namespace Assets._Project.Develop.Infrastructure.DI
 {
+
     public class DIContainer
     {
         private readonly Dictionary<Type, Registration> _container = new();
@@ -20,13 +21,15 @@ namespace Assets._Project.Develop.Infrastructure.DI
             _parent = parent;
         }
 
-        public void RegisterAsSingle<T>(Func<DIContainer, T> creator)
+        public IRegistrationOptions RegisterAsSingle<T>(Func<DIContainer, T> creator)
         {
             if (IsAlreadyRegister<T>())
                 throw new InvalidOperationException($"{typeof(T)} is already register");
 
             Registration registration = new Registration(container => creator.Invoke(container));
             _container.Add(typeof(T), registration);
+
+            return registration;
         }
 
         public bool IsAlreadyRegister<T>()
@@ -61,6 +64,15 @@ namespace Assets._Project.Develop.Infrastructure.DI
             }
 
             throw new InvalidOperationException($"Registration for {typeof(T)} not exists");
+        }
+
+        public void Initialize()
+        {
+            foreach (Registration registration in _container.Values)
+            {
+                if (registration.IsNonLazy)
+                    registration.CreateInstanceFrom(this);
+            }
         }
     }
 }

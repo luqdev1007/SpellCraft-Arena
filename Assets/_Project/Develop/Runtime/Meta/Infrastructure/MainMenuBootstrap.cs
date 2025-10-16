@@ -4,6 +4,7 @@ using Assets._Project.Develop.Runtime.Meta.Features.Wallet;
 using Assets._Project.Develop.Runtime.Utilites.CoroutinesManagment;
 using Assets._Project.Develop.Runtime.Utilites.DataManagment;
 using Assets._Project.Develop.Runtime.Utilites.DataManagment.Serializers;
+using Assets._Project.Develop.Runtime.Utilites.DataProviders;
 using Assets._Project.Develop.Runtime.Utilites.SceneManagement;
 using System.Collections;
 using System.Collections.Generic;
@@ -17,7 +18,8 @@ namespace Assets._Project.Develop.Runtime.Meta.Infrastructure
 
         private WalletService _walletService;
 
-        private PlayerData _playerData;
+        private ICoroutinesPerformer _coroutinesPerformer;
+        private PlayerDataProvider _playerDataProvider;
 
         public override void ProcessRegistrations(DIContainer container, IInputSceneArgs sceneArgs = null)
         {
@@ -32,12 +34,8 @@ namespace Assets._Project.Develop.Runtime.Meta.Infrastructure
 
             _walletService = _container.Resolve<WalletService>();
 
-            _playerData = new PlayerData();
-            _playerData.WalletData = new Dictionary<CurrencyTypes, int>()
-            {
-                {CurrencyTypes.Gold, 10 },
-                {CurrencyTypes.Diamond, 150 },
-            };
+            _playerDataProvider = _container.Resolve<PlayerDataProvider>();
+            _coroutinesPerformer = _container.Resolve<ICoroutinesPerformer>();
 
             yield break;
         }
@@ -70,6 +68,12 @@ namespace Assets._Project.Develop.Runtime.Meta.Infrastructure
 
                 _walletService.Spend(CurrencyTypes.Gold, 10);
                 Debug.Log($"{CurrencyTypes.Gold} left: {_walletService.GetCurrency(CurrencyTypes.Gold).Value}");
+            }
+
+            if (Input.GetKeyDown(KeyCode.S))
+            {
+                _coroutinesPerformer.StartPerform(_playerDataProvider.Save());
+                Debug.Log("Data is saved");
             }
         }
     }

@@ -1,4 +1,5 @@
-﻿using Assets._Project.Develop.Runtime.Utilites.AssetsManagment;
+﻿using Assets._Project.Develop.Runtime.Configs.Meta.Wallet;
+using Assets._Project.Develop.Runtime.Utilites.AssetsManagment;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -12,7 +13,7 @@ namespace Assets._Project.Develop.Runtime.Utilites.ConfigsManagment
 
         private readonly Dictionary<Type, string> _configsResourcesPath = new()
         {
-            // {typeof(TestConfig), "Test Config" }
+            { typeof(StartWalletConfig), "Configs/Meta/Wallet/StartWalletConfig" }
         };
 
         public ResourcesConfigsLoader(ResourcesAssetsLoader resources)
