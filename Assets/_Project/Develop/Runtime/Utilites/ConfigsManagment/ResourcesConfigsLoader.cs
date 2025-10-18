@@ -1,3 +1,4 @@
+using Assets._Project.Develop.Runtime.Configs.Meta.Stats;
 using Assets._Project.Develop.Runtime.Configs.Meta.Wallet;
 using Assets._Project.Develop.Runtime.Gameplay.TypeMode;
 using Assets._Project.Develop.Runtime.Utilites.AssetsManagment;
@@ -16,7 +17,8 @@ namespace Assets._Project.Develop.Runtime.Utilites.ConfigsManagment
         {
             { typeof(StartWalletConfig), "Configs/Meta/Wallet/StartWalletConfig" },
             { typeof(TypeModeLettersConfig), "Configs/Meta/TypeMode/LettersConfig" },
-            { typeof(TypeModeDigitsConfig), "Configs/Meta/TypeMode/DigitsConfig" }
+            { typeof(TypeModeDigitsConfig), "Configs/Meta/TypeMode/DigitsConfig" },
+            { typeof(GameRewardsConfig), "Configs/Meta/Stats/GameRewardsConfig" }
 
         };
 

@@ -1,13 +1,13 @@
 ﻿using Assets._Project.Develop.Infrastructure;
 using Assets._Project.Develop.Infrastructure.DI;
+using Assets._Project.Develop.Runtime.Configs.Meta.Stats;
+using Assets._Project.Develop.Runtime.Meta.Features.Stats;
 using Assets._Project.Develop.Runtime.Meta.Features.Wallet;
+using Assets._Project.Develop.Runtime.Utilites.ConfigsManagment;
 using Assets._Project.Develop.Runtime.Utilites.CoroutinesManagment;
-using Assets._Project.Develop.Runtime.Utilites.DataManagment;
-using Assets._Project.Develop.Runtime.Utilites.DataManagment.Serializers;
 using Assets._Project.Develop.Runtime.Utilites.DataProviders;
 using Assets._Project.Develop.Runtime.Utilites.SceneManagement;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Assets._Project.Develop.Runtime.Meta.Infrastructure
@@ -47,6 +47,7 @@ namespace Assets._Project.Develop.Runtime.Meta.Infrastructure
         {
             Debug.Log("Start main menu scene");
             Debug.Log("A - add 10 gold, S - spend 10 gold, F2 - save progress, 1 - digits game mode, 2 - letters game mode");
+            Debug.Log("3 - show stats, 4 - show gold, 5 - reset stats");
         }
 
         private void Update()
@@ -72,6 +73,37 @@ namespace Assets._Project.Develop.Runtime.Meta.Infrastructure
             {
                 _coroutinesPerformer.StartPerform(_playerDataProvider.Save());
                 Debug.Log("Data is saved");
+            }
+
+            if (Input.GetKeyDown(KeyCode.Alpha3))
+            {
+                var stats = _container.Resolve<GameStatsService>();
+                Debug.Log($"Wins: {stats.GetWins()}, Losses: {stats.GetLosses()}");
+            }
+
+            if (Input.GetKeyDown(KeyCode.Alpha4))
+            {
+                var wallet = _container.Resolve<WalletService>();
+                Debug.Log($"Gold: {wallet.GetCurrency(CurrencyTypes.Gold).Value}");
+            }
+
+            if (Input.GetKeyDown(KeyCode.Alpha5))
+            {
+                WalletService wallet = _container.Resolve<WalletService>();
+                GameRewardsConfig rewardsConfig = _container.Resolve<ConfigsProviderService>().GetConfig<GameRewardsConfig>();
+
+                if (wallet.IsEnough(CurrencyTypes.Gold, rewardsConfig.ResetCost))
+                {
+                    wallet.Spend(CurrencyTypes.Gold, rewardsConfig.ResetCost);
+                    PlayerDataProvider playerDataProvider = _container.Resolve<PlayerDataProvider>();
+                    playerDataProvider.CurrentData.Wins = 0;
+                    playerDataProvider.CurrentData.Losses = 0;
+                    Debug.Log("Progress reset!");
+                }
+                else
+                {
+                    Debug.Log("Not enough gold to reset progress!");
+                }
             }
         }
     }

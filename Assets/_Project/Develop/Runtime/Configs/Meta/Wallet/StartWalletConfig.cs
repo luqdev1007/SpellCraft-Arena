@@ -2,13 +2,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
 
 namespace Assets._Project.Develop.Runtime.Configs.Meta.Wallet
 {
-    [CreateAssetMenu(menuName = "Configs/Meta/Wallet/New Start Wallet Config", fileName = "StartWalletConfig", order = 54)]
+    [CreateAssetMenu(menuName = "StaticData/Configs/Wallet/New Start Wallet Config", fileName = "StartWalletConfig", order = 54)]
     public class StartWalletConfig : ScriptableObject
     {
         [SerializeField] private List<CurrencyConfig> _values;

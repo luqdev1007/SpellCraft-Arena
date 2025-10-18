@@ -1,5 +1,9 @@
 ﻿using Assets._Project.Develop.Infrastructure.DI;
+using Assets._Project.Develop.Runtime.Meta.Features.Stats;
+using Assets._Project.Develop.Runtime.Utilites.CoroutinesManagment;
+using Assets._Project.Develop.Runtime.Utilites.DataProviders;
 using Assets._Project.Develop.Runtime.Utilites.SceneManagement;
+using System.Collections;
 using UnityEngine;
 
 namespace Assets._Project.Develop.Runtime.Gameplay.TypeMode
@@ -43,10 +47,17 @@ namespace Assets._Project.Develop.Runtime.Gameplay.TypeMode
         public void Update()
         {
             if (_isGameActive)
+            {
                 HandleGameplayInput();
+            }
             else if (_isWaitingForContinue && _inputService.IsContinuePressed())
-                _resultService.ContinueAfterResult(_isVictory, _inputArgs);
+            {
+                ICoroutinesPerformer coroutinesPerformer = _container.Resolve<ICoroutinesPerformer>();
+                coroutinesPerformer.StartPerform(_resultService.ContinueAfterResult(_isVictory, _inputArgs));
+                _isWaitingForContinue = false;
+            }
         }
+
 
         private void HandleGameplayInput()
         {
