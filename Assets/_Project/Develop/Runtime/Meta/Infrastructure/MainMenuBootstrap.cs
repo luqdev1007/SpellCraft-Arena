@@ -18,6 +18,8 @@ namespace Assets._Project.Develop.Runtime.Meta.Infrastructure
         private GameModeSelectionService _gameModeSelectionService;
 
         private WalletService _walletService;
+        private GameStatsService _gameStatsService;
+        private GameRewardsConfig _gameRewardsConfig;
 
         private ICoroutinesPerformer _coroutinesPerformer;
         private PlayerDataProvider _playerDataProvider;
@@ -36,6 +38,10 @@ namespace Assets._Project.Develop.Runtime.Meta.Infrastructure
             _gameModeSelectionService = _container.Resolve<GameModeSelectionService>();
 
             _walletService = _container.Resolve<WalletService>();
+
+            _gameStatsService = _container.Resolve<GameStatsService>();
+
+            _gameRewardsConfig = _container.Resolve<ConfigsProviderService>().GetConfig<GameRewardsConfig>();
 
             _playerDataProvider = _container.Resolve<PlayerDataProvider>();
             _coroutinesPerformer = _container.Resolve<ICoroutinesPerformer>();
@@ -77,27 +83,21 @@ namespace Assets._Project.Develop.Runtime.Meta.Infrastructure
 
             if (Input.GetKeyDown(KeyCode.Alpha3))
             {
-                var stats = _container.Resolve<GameStatsService>();
-                Debug.Log($"Wins: {stats.GetWins()}, Losses: {stats.GetLosses()}");
+                Debug.Log($"Wins: {_gameStatsService.GetWins()}, Losses: {_gameStatsService.GetLosses()}");
             }
 
             if (Input.GetKeyDown(KeyCode.Alpha4))
             {
-                var wallet = _container.Resolve<WalletService>();
-                Debug.Log($"Gold: {wallet.GetCurrency(CurrencyTypes.Gold).Value}");
+                Debug.Log($"Gold: {_walletService.GetCurrency(CurrencyTypes.Gold).Value}");
             }
 
             if (Input.GetKeyDown(KeyCode.Alpha5))
             {
-                WalletService wallet = _container.Resolve<WalletService>();
-                GameRewardsConfig rewardsConfig = _container.Resolve<ConfigsProviderService>().GetConfig<GameRewardsConfig>();
-
-                if (wallet.IsEnough(CurrencyTypes.Gold, rewardsConfig.ResetCost))
+                if (_walletService.IsEnough(CurrencyTypes.Gold, _gameRewardsConfig.ResetCost))
                 {
-                    wallet.Spend(CurrencyTypes.Gold, rewardsConfig.ResetCost);
-                    PlayerDataProvider playerDataProvider = _container.Resolve<PlayerDataProvider>();
-                    playerDataProvider.CurrentData.Wins = 0;
-                    playerDataProvider.CurrentData.Losses = 0;
+                    _walletService.Spend(CurrencyTypes.Gold, _gameRewardsConfig.ResetCost);
+                    _playerDataProvider.CurrentData.Wins = 0;
+                    _playerDataProvider.CurrentData.Losses = 0;
                     Debug.Log("Progress reset!");
                 }
                 else
