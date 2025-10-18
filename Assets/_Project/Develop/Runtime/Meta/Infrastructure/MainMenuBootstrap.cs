@@ -15,6 +15,7 @@ namespace Assets._Project.Develop.Runtime.Meta.Infrastructure
     public class MainMenuBootstrap : SceneBootstrap
     {
         private DIContainer _container;
+        private GameModeSelectionService _gameModeSelectionService;
 
         private WalletService _walletService;
 
@@ -32,12 +33,20 @@ namespace Assets._Project.Develop.Runtime.Meta.Infrastructure
         {
             Debug.Log("Main menu scene init");
 
+
             _walletService = _container.Resolve<WalletService>();
 
             _playerDataProvider = _container.Resolve<PlayerDataProvider>();
             _coroutinesPerformer = _container.Resolve<ICoroutinesPerformer>();
+            _gameModeSelectionService = _container.Resolve<GameModeSelectionService>();
+
 
             yield break;
+        }
+
+        private void Update()
+        {
+            _gameModeSelectionService?.Update();
         }
 
         public override void Run()
@@ -45,7 +54,6 @@ namespace Assets._Project.Develop.Runtime.Meta.Infrastructure
             Debug.Log("Start main menu scene");
         }
 
-        // delete later
         private void Update()
         {
             if (Input.GetKeyDown(KeyCode.F))
