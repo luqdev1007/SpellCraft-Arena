@@ -83,7 +83,7 @@ namespace Assets._Project.Develop.Runtime.Meta.Infrastructure
 
             if (Input.GetKeyDown(KeyCode.Alpha3))
             {
-                Debug.Log($"Wins: {_gameStatsService.GetWins()}, Losses: {_gameStatsService.GetLosses()}");
+                Debug.Log($"Wins: {_gameStatsService.Wins}, Losses: {_gameStatsService.Losses}");
             }
 
             if (Input.GetKeyDown(KeyCode.Alpha4))

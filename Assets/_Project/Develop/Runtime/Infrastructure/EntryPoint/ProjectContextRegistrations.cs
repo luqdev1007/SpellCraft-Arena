@@ -1,5 +1,4 @@
 ﻿using Assets._Project.Develop.Infrastructure.DI;
-using Assets._Project.Develop.Runtime.Configs.Meta.Stats;
 using Assets._Project.Develop.Runtime.Meta.Features.Stats;
 using Assets._Project.Develop.Runtime.Meta.Features.Wallet;
 using Assets._Project.Develop.Runtime.Utilites.AssetsManagment;
@@ -47,7 +46,7 @@ namespace Assets._Project.Develop.Infrastructure.EntryPoint
 
         private static GameStatsService CreateGameStatsService(DIContainer container)
         {
-            return new GameStatsService(container.Resolve<PlayerDataProvider>(), container.Resolve<WalletService>(), container.Resolve<ConfigsProviderService>());
+            return new GameStatsService(container.Resolve<PlayerDataProvider>());
         }
 
         private static PlayerDataProvider CreatePlayerDataProvider(DIContainer container)

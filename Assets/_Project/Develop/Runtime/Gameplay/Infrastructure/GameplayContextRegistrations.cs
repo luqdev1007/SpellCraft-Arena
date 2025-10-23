@@ -1,6 +1,8 @@
 ﻿using Assets._Project.Develop.Infrastructure.DI;
 using Assets._Project.Develop.Runtime.Gameplay.TypeMode;
 using Assets._Project.Develop.Runtime.Meta.Features.Stats;
+using Assets._Project.Develop.Runtime.Meta.Features.Wallet;
+using Assets._Project.Develop.Runtime.Utilites.ConfigsManagment;
 using Assets._Project.Develop.Runtime.Utilites.CoroutinesManagment;
 using Assets._Project.Develop.Runtime.Utilites.DataProviders;
 using Assets._Project.Develop.Runtime.Utilites.SceneManagement;
@@ -30,7 +32,9 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
             return new TypeModeResultService(container.Resolve<SceneSwitcherService>(),
                 container.Resolve<ICoroutinesPerformer>(),
                 container.Resolve<GameStatsService>(),
-                container.Resolve<PlayerDataProvider>());
+                container.Resolve<PlayerDataProvider>(),
+                container.Resolve<WalletService>(),
+                container.Resolve<ConfigsProviderService>());
         }
 
         private static TypeModeInputService CreateTypeModeInputService(DIContainer container)
