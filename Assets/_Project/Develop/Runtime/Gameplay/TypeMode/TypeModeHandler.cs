@@ -50,7 +50,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.TypeMode
             }
             else if (_isWaitingForContinue && _inputService.IsContinuePressed())
             {
-                _coroutinesPerformer.StartPerform(_resultService.ContinueAfterResult(_isVictory, _inputArgs));
+                _coroutinesPerformer.StartPerform(_isVictory? _resultService.ContinueAfterVictory(_inputArgs) : _resultService.ContinueAfterLose(_inputArgs));
                 _isWaitingForContinue = false;
             }
         }

@@ -17,9 +17,9 @@ namespace Assets._Project.Develop.Runtime.Gameplay.TypeMode
         private readonly GameStatsService _gameStatsService;
         private readonly PlayerDataProvider _playerDataProvider;
 
-        public TypeModeResultService(SceneSwitcherService sceneSwitcher, 
-            ICoroutinesPerformer coroutinesPerformer, 
-            GameStatsService statsService, 
+        public TypeModeResultService(SceneSwitcherService sceneSwitcher,
+            ICoroutinesPerformer coroutinesPerformer,
+            GameStatsService statsService,
             PlayerDataProvider playerDataProvider)
         {
             _sceneSwitcherService = sceneSwitcher;
@@ -34,20 +34,18 @@ namespace Assets._Project.Develop.Runtime.Gameplay.TypeMode
             Debug.Log("Press 'Space' to continue");
         }
 
-        public IEnumerator ContinueAfterResult(bool isVictory, GameplayInputArgs inputArgs)
+        public IEnumerator ContinueAfterVictory(GameplayInputArgs inputArgs)
         {
-            if (isVictory)
-            {
-                _gameStatsService.RegisterVictory();
-                yield return _coroutinesPerformer.StartPerform(_playerDataProvider.Save());
-                _coroutinesPerformer.StartPerform(_sceneSwitcherService.ProcessingSwitchTo(Scenes.MainMenu));
-            }
-            else
-            {
-                _gameStatsService.RegisterDefeat();
-                yield return _coroutinesPerformer.StartPerform(_playerDataProvider.Save());
-                _coroutinesPerformer.StartPerform(_sceneSwitcherService.ProcessingSwitchTo(Scenes.Gameplay, inputArgs));
-            }
+            _gameStatsService.RegisterVictory();
+            yield return _coroutinesPerformer.StartPerform(_playerDataProvider.Save());
+            _coroutinesPerformer.StartPerform(_sceneSwitcherService.ProcessingSwitchTo(Scenes.MainMenu));
+        }
+
+        public IEnumerator ContinueAfterLose(GameplayInputArgs inputArgs)
+        {
+            _gameStatsService.RegisterDefeat();
+            yield return _coroutinesPerformer.StartPerform(_playerDataProvider.Save());
+            _coroutinesPerformer.StartPerform(_sceneSwitcherService.ProcessingSwitchTo(Scenes.Gameplay, inputArgs));
         }
     }
 }
