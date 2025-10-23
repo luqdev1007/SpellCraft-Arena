@@ -9,6 +9,7 @@ namespace Assets._Project.Develop.Runtime.Meta.Features.Stats
 {
     public class GameStatsService : IDataReader<PlayerData>, IDataWriter<PlayerData>
     {
+        // тут должен был би быть медиатор
         private readonly PlayerDataProvider _playerDataProvider;
         private readonly WalletService _walletService;
         private readonly ConfigsProviderService _configsProviderService;
