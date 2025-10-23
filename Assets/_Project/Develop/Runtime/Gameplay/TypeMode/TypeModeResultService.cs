@@ -12,11 +12,20 @@ namespace Assets._Project.Develop.Runtime.Gameplay.TypeMode
 {
     public class TypeModeResultService
     {
-        private readonly DIContainer _container;
+        private readonly SceneSwitcherService _sceneSwitcherService;
+        private readonly ICoroutinesPerformer _coroutinesPerformer;
+        private readonly GameStatsService _gameStatsService;
+        private readonly PlayerDataProvider _playerDataProvider;
 
-        public TypeModeResultService(DIContainer container)
+        public TypeModeResultService(SceneSwitcherService sceneSwitcher, 
+            ICoroutinesPerformer coroutinesPerformer, 
+            GameStatsService statsService, 
+            PlayerDataProvider playerDataProvider)
         {
-            _container = container;
+            _sceneSwitcherService = sceneSwitcher;
+            _coroutinesPerformer = coroutinesPerformer;
+            _gameStatsService = statsService;
+            _playerDataProvider = playerDataProvider;
         }
 
         public void HandleResult(bool isVictory)
@@ -27,22 +36,17 @@ namespace Assets._Project.Develop.Runtime.Gameplay.TypeMode
 
         public IEnumerator ContinueAfterResult(bool isVictory, GameplayInputArgs inputArgs)
         {
-            SceneSwitcherService sceneSwitcher = _container.Resolve<SceneSwitcherService>();
-            ICoroutinesPerformer coroutinesPerformer = _container.Resolve<ICoroutinesPerformer>();
-            GameStatsService statsService = _container.Resolve<GameStatsService>();
-            PlayerDataProvider playerDataProvider = _container.Resolve<PlayerDataProvider>();
-
             if (isVictory)
             {
-                statsService.RegisterVictory();
-                yield return coroutinesPerformer.StartPerform(playerDataProvider.Save());
-                coroutinesPerformer.StartPerform(sceneSwitcher.ProcessingSwitchTo(Scenes.MainMenu));
+                _gameStatsService.RegisterVictory();
+                yield return _coroutinesPerformer.StartPerform(_playerDataProvider.Save());
+                _coroutinesPerformer.StartPerform(_sceneSwitcherService.ProcessingSwitchTo(Scenes.MainMenu));
             }
             else
             {
-                statsService.RegisterDefeat();
-                yield return coroutinesPerformer.StartPerform(playerDataProvider.Save());
-                coroutinesPerformer.StartPerform(sceneSwitcher.ProcessingSwitchTo(Scenes.Gameplay, inputArgs));
+                _gameStatsService.RegisterDefeat();
+                yield return _coroutinesPerformer.StartPerform(_playerDataProvider.Save());
+                _coroutinesPerformer.StartPerform(_sceneSwitcherService.ProcessingSwitchTo(Scenes.Gameplay, inputArgs));
             }
         }
     }

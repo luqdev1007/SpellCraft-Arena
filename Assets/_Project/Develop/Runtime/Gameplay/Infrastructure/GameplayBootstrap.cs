@@ -30,7 +30,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
         {
             Debug.Log("Gameplay scene init");
 
-            _typeModeHandler = new TypeModeHandler(_container, _inputArgs);
+            _typeModeHandler = _container.Resolve<TypeModeHandler>();
             _typeModeHandler.StartGame();
 
             yield break;

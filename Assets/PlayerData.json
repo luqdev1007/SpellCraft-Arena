@@ -1,8 +1,8 @@
 {
   "WalletData": {
-    "Gold": 40,
+    "Gold": 50,
     "Diamond": 10
   },
-  "Wins": 2,
-  "Losses": 2
+  "Wins": 4,
+  "Losses": 4
 }
