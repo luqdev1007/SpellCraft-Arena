@@ -28,7 +28,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.TypeMode
             _container = container;
             _inputArgs = inputArgs;
 
-            _generator = new TypeModeCombinationGeneratorService(_inputArgs.TypeSymbolsGameMode.Symbols);
+            _generator = new TypeModeCombinationGeneratorService(_inputArgs.AllowedSymbols);
             _inputService = new TypeModeInputService();
             _resultService = new TypeModeResultService(_container);
         }

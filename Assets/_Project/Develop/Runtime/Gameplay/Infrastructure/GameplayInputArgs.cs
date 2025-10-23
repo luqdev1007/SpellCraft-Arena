@@ -1,14 +1,12 @@
-﻿using Assets._Project.Develop.Runtime.Gameplay.TypeMode;
-
-namespace Assets._Project.Develop.Runtime.Utilites.SceneManagement
+﻿namespace Assets._Project.Develop.Runtime.Utilites.SceneManagement
 {
     public class GameplayInputArgs : IInputSceneArgs
     {
-        public GameplayInputArgs(TypeModeConfig typeSymbolsGameMode)
+        public GameplayInputArgs(string allowedSymbols)
         {
-            TypeSymbolsGameMode = typeSymbolsGameMode;
+            AllowedSymbols = allowedSymbols;
         }
 
-        public TypeModeConfig TypeSymbolsGameMode { get; }
+        public string AllowedSymbols { get; }
     }
 }

@@ -27,22 +27,22 @@ namespace Assets._Project.Develop.Runtime.Meta
         {
             if (Input.GetKeyDown(KeyCode.Alpha1))
             {
-                var config = _configsProviderService.GetConfig<TypeModeDigitsConfig>();
-                _coroutinesPerformer.StartPerform(SwitchToGameplay(config));
+                string allowedSymbols = _configsProviderService.GetConfig<TypeModeConfig>().GetValueFor(TypeModeSymbols.Digits);
+                _coroutinesPerformer.StartPerform(SwitchToGameplay(allowedSymbols));
             }
 
             if (Input.GetKeyDown(KeyCode.Alpha2))
             {
-                var config = _configsProviderService.GetConfig<TypeModeLettersConfig>();
-                _coroutinesPerformer.StartPerform(SwitchToGameplay(config));
+                string allowedSymbols = _configsProviderService.GetConfig<TypeModeConfig>().GetValueFor(TypeModeSymbols.Letters);
+                _coroutinesPerformer.StartPerform(SwitchToGameplay(allowedSymbols));
             }
         }
 
-        private IEnumerator SwitchToGameplay(TypeModeConfig config)
+        private IEnumerator SwitchToGameplay(string allowedSymbols)
         {
             yield return _sceneSwitcherService.ProcessingSwitchTo(
                 Scenes.Gameplay,
-                new GameplayInputArgs(config)
+                new GameplayInputArgs(allowedSymbols)
             );
         }
     }

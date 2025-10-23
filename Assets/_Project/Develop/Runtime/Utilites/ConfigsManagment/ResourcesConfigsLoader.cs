@@ -16,8 +16,7 @@ namespace Assets._Project.Develop.Runtime.Utilites.ConfigsManagment
         private readonly Dictionary<Type, string> _configsResourcesPath = new()
         {
             { typeof(StartWalletConfig), "Configs/Meta/Wallet/StartWalletConfig" },
-            { typeof(TypeModeLettersConfig), "Configs/Meta/TypeMode/LettersConfig" },
-            { typeof(TypeModeDigitsConfig), "Configs/Meta/TypeMode/DigitsConfig" },
+            { typeof(TypeModeConfig), "Configs/Meta/TypeMode/TypeModeConfig" },
             { typeof(GameRewardsConfig), "Configs/Meta/Stats/GameRewardsConfig" }
 
         };
