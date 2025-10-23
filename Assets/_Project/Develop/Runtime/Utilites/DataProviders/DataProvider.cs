@@ -15,8 +15,6 @@ namespace Assets._Project.Develop.Runtime.Utilites.DataProviders
          
         private TData _data;
 
-        protected TData Data => _data;
-
         protected DataProvider(ISaveLoadService saveLoadService)
         {
             _saveLoadService = saveLoadService;

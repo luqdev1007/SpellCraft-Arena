@@ -96,8 +96,7 @@ namespace Assets._Project.Develop.Runtime.Meta.Infrastructure
                 if (_walletService.IsEnough(CurrencyTypes.Gold, _gameRewardsConfig.ResetCost))
                 {
                     _walletService.Spend(CurrencyTypes.Gold, _gameRewardsConfig.ResetCost);
-                    _playerDataProvider.CurrentData.Wins = 0;
-                    _playerDataProvider.CurrentData.Losses = 0;
+                    _gameStatsService.Reset();
                     Debug.Log("Progress reset!");
                 }
                 else

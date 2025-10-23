@@ -16,8 +16,6 @@ namespace Assets._Project.Develop.Runtime.Utilites.DataProviders
             _configsProviderService = configsProviderService;
         }
 
-        public PlayerData CurrentData => Data;
-
         protected override PlayerData GetOriginData()
         {
             return new PlayerData()

@@ -42,7 +42,7 @@ namespace Assets._Project.Develop.Infrastructure.EntryPoint
 
             container.RegisterAsSingle<ISaveLoadService>(CreateSaveLoadService);
 
-            container.RegisterAsSingle(CreateGameStatsService);
+            container.RegisterAsSingle(CreateGameStatsService).NonLazy();
         }
 
         private static GameStatsService CreateGameStatsService(DIContainer container)
