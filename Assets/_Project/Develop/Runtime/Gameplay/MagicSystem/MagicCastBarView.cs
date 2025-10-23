@@ -1,24 +1,39 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class MagicCastBarView : MonoBehaviour
 {
     [SerializeField] private Button _openAspectsButton;
+    [SerializeField] private Button _attackButton;
     [SerializeField] private AspectButton[] _aspectButtons;
     [SerializeField] private Image _aspectsArcFilledImage;
+    [SerializeField] private Image _currentActiveSpellImage;
 
     private Coroutine _openningCoroutine;
     private bool _openned = false;
 
+    public Image CurrentActiveSpellImage => _currentActiveSpellImage;
+
+    public static event Action<bool> AspectsPanelToggled;
+    public static event Action AttackButtonClicked;
+
     private void OnEnable()
     {
         _openAspectsButton.onClick.AddListener(OnOpenAspectsButtonClicked);
+        _attackButton.onClick.AddListener(OnAttackButtonClicked);
+    }
+
+    private void OnAttackButtonClicked()
+    {
+        AttackButtonClicked?.Invoke();
     }
 
     private void OnDisable()
     {
         _openAspectsButton.onClick.RemoveListener(OnOpenAspectsButtonClicked);
+        _attackButton.onClick.RemoveListener(OnAttackButtonClicked);
     }
 
     private void OnOpenAspectsButtonClicked()
@@ -78,6 +93,7 @@ public class MagicCastBarView : MonoBehaviour
             _openned = true;
         }
 
+        AspectsPanelToggled?.Invoke(_openned);
         _openningCoroutine = null;
     }
 }

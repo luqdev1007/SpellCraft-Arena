@@ -1,14 +1,16 @@
-﻿using TMPro;
+﻿using System;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(Button))]
 public class AspectButton : MonoBehaviour
 {
-    [SerializeField] private TMP_Text _testAspectsText;
-    [SerializeField] private string _aspectName;
+    [SerializeField] private AspectNames _aspectName;
 
     private Button _button;
+
+    public static event Action<AspectNames> Clicked;
 
     private void Awake()
     {
@@ -27,6 +29,6 @@ public class AspectButton : MonoBehaviour
 
     private void OnButtonClicked()
     {
-        _testAspectsText.text = "Last Used Aspect: " + _aspectName;
+        Clicked?.Invoke(_aspectName);
     }
 }
