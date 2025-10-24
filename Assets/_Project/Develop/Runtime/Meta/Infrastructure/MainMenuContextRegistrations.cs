@@ -18,7 +18,6 @@ namespace Assets._Project.Develop.Runtime.Meta.Infrastructure
         {
             Debug.Log("Process registrations on main menu scene");
 
-            container.RegisterAsSingle(CreateWalletPresenter).NonLazy();
             container.RegisterAsSingle(CreateGameModeSelectionService);
         }
 
@@ -29,15 +28,6 @@ namespace Assets._Project.Develop.Runtime.Meta.Infrastructure
                    container.Resolve<ICoroutinesPerformer>(),
                    container.Resolve<ConfigsProviderService>()
                );
-        }
-
-        private static WalletPresenter CreateWalletPresenter(DIContainer container)
-        {
-            IconTextListView walletView = Object.FindFirstObjectByType<IconTextListView>();
-
-            WalletPresenter walletPresenter = container.Resolve<ProjectPresentersFactory>().CreateWalletPresenter(walletView);
-
-            return walletPresenter;
         }
     }
 }
