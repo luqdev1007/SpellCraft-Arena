@@ -1,6 +1,7 @@
 ﻿using Assets._Project.Develop.Infrastructure;
 using Assets._Project.Develop.Infrastructure.DI;
 using Assets._Project.Develop.Runtime.Gameplay.TypeMode;
+using Assets._Project.Develop.Runtime.Meta.Features.Wallet;
 using Assets._Project.Develop.Runtime.Utilites.SceneManagement;
 using System;
 using System.Collections;
@@ -10,6 +11,8 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
 {
     public class GameplayBootstrap : SceneBootstrap
     {
+        private WalletService _walletService;
+
         private DIContainer _container;
         private GameplayInputArgs _inputArgs;
         private TypeModeHandler _typeModeHandler;
@@ -30,6 +33,8 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
         {
             Debug.Log("Gameplay scene init");
 
+            _walletService = _container.Resolve<WalletService>();
+
             _typeModeHandler = _container.Resolve<TypeModeHandler>();
             _typeModeHandler.StartGame();
 
@@ -44,6 +49,20 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
         private void Update()
         {
             _typeModeHandler?.Update();
+
+            if (Input.GetKeyDown(KeyCode.A))
+            {
+                _walletService.Add(CurrencyTypes.Gold, 10);
+                _walletService.Add(CurrencyTypes.Diamond, 10);
+            }
+
+            if (Input.GetKeyDown(KeyCode.S))
+            {
+                if (_walletService.IsEnough(CurrencyTypes.Gold, 10) == false)
+                    return;
+
+                _walletService.Spend(CurrencyTypes.Gold, 10);
+            }
         }
     }
 }

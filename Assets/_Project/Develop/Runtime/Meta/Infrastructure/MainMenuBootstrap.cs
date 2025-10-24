@@ -52,8 +52,8 @@ namespace Assets._Project.Develop.Runtime.Meta.Infrastructure
         public override void Run()
         {
             Debug.Log("Start main menu scene");
-            Debug.Log("A - add 10 gold, S - spend 10 gold, F2 - save progress, 1 - digits game mode, 2 - letters game mode");
-            Debug.Log("3 - show stats, 4 - show gold, 5 - reset stats");
+            Debug.Log("A - add 10 gold & diamonds, S - spend 10 gold, F2 - save progress, 1 - digits game mode, 2 - letters game mode");
+            Debug.Log("3 - show stats, 4 - reset stats");
         }
 
         private void Update()
@@ -63,7 +63,7 @@ namespace Assets._Project.Develop.Runtime.Meta.Infrastructure
             if (Input.GetKeyDown(KeyCode.A))
             {
                 _walletService.Add(CurrencyTypes.Gold, 10);
-                Debug.Log($"{CurrencyTypes.Gold} left: {_walletService.GetCurrency(CurrencyTypes.Gold).Value}");
+                _walletService.Add(CurrencyTypes.Diamond, 10);
             }
 
             if (Input.GetKeyDown(KeyCode.S))
@@ -72,7 +72,6 @@ namespace Assets._Project.Develop.Runtime.Meta.Infrastructure
                     return;
 
                 _walletService.Spend(CurrencyTypes.Gold, 10);
-                Debug.Log($"{CurrencyTypes.Gold} left: {_walletService.GetCurrency(CurrencyTypes.Gold).Value}");
             }
 
             if (Input.GetKeyDown(KeyCode.F2))
@@ -86,12 +85,8 @@ namespace Assets._Project.Develop.Runtime.Meta.Infrastructure
                 Debug.Log($"Wins: {_gameStatsService.Wins}, Losses: {_gameStatsService.Losses}");
             }
 
-            if (Input.GetKeyDown(KeyCode.Alpha4))
-            {
-                Debug.Log($"Gold: {_walletService.GetCurrency(CurrencyTypes.Gold).Value}");
-            }
 
-            if (Input.GetKeyDown(KeyCode.Alpha5))
+            if (Input.GetKeyDown(KeyCode.Alpha4))
             {
                 if (_walletService.IsEnough(CurrencyTypes.Gold, _gameRewardsConfig.ResetCost))
                 {

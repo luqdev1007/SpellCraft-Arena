@@ -1,6 +1,8 @@
 ﻿using Assets._Project.Develop.Infrastructure.DI;
 using Assets._Project.Develop.Runtime.Meta.Features.Stats;
 using Assets._Project.Develop.Runtime.Meta.Features.Wallet;
+using Assets._Project.Develop.Runtime.UI;
+using Assets._Project.Develop.Runtime.UI.Core;
 using Assets._Project.Develop.Runtime.Utilites.AssetsManagment;
 using Assets._Project.Develop.Runtime.Utilites.ConfigsManagment;
 using Assets._Project.Develop.Runtime.Utilites.CoroutinesManagment;
@@ -42,6 +44,20 @@ namespace Assets._Project.Develop.Infrastructure.EntryPoint
             container.RegisterAsSingle<ISaveLoadService>(CreateSaveLoadService);
 
             container.RegisterAsSingle(CreateGameStatsService).NonLazy();
+
+            container.RegisterAsSingle(CreateProjectPresentersFactory);
+
+            container.RegisterAsSingle(CreateViewsFactory);
+        }
+
+        private static ViewsFactory CreateViewsFactory(DIContainer container)
+        {
+            return new ViewsFactory(container.Resolve<ResourcesAssetsLoader>());
+        }
+
+        private static ProjectPresentersFactory CreateProjectPresentersFactory(DIContainer container)
+        {
+            return new ProjectPresentersFactory(container);
         }
 
         private static GameStatsService CreateGameStatsService(DIContainer container)

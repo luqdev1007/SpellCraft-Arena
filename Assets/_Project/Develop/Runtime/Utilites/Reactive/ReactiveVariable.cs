@@ -27,7 +27,6 @@ namespace Assets._Project.Develop.Runtime.Utilites.Reactive
                 _value = value;
 
                 if (_value.Equals(oldValue) == false)
-                    foreach (Subscriber<T, T> subscriber in _subscribers)
                         Invoke(oldValue, value);
             }
         }

@@ -22,7 +22,7 @@ namespace Assets._Project.Develop.Runtime.Meta.Features.Wallet
         }
 
 
-        public List<CurrencyTypes> AvailableCurrencies() => _currencies.Keys.ToList();
+        public List<CurrencyTypes> AvailableCurrencies => _currencies.Keys.ToList();
 
         public IReadOnlyVariable<int> GetCurrency(CurrencyTypes type) => _currencies[type];
 
