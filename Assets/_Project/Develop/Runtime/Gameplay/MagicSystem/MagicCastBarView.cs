@@ -9,10 +9,11 @@ public class MagicCastBarView : MonoBehaviour
     [SerializeField] private Button _attackButton;
     [SerializeField] private AspectButton[] _aspectButtons;
     [SerializeField] private Image _aspectsArcFilledImage;
+    [SerializeField] private Image _aspectsArcFilledImageBackground;
     [SerializeField] private Image _currentActiveSpellImage;
 
     private Coroutine _openningCoroutine;
-    private bool _openned = false;
+    private bool _openned = true;
 
     public Image CurrentActiveSpellImage => _currentActiveSpellImage;
 
@@ -55,11 +56,13 @@ public class MagicCastBarView : MonoBehaviour
             time += Time.deltaTime;
             float t = Mathf.Clamp01(time / duration);
             _aspectsArcFilledImage.fillAmount = Mathf.Lerp(start, end, t);
+            _aspectsArcFilledImageBackground.fillAmount = Mathf.Lerp(start, end, t);
 
             yield return null;
         }
 
         _aspectsArcFilledImage.fillAmount = end;
+        _aspectsArcFilledImageBackground.fillAmount = end;
     }
 
     private IEnumerator Toggling()
