@@ -22,7 +22,9 @@ public class AspectCombinationHandler : MonoBehaviour
     private void OnAttackButtonClicked()
     {
         if (_currentActiveSpell == null)
-            Debug.Log("Cast: " + _currentActiveSpell.SpellName);
+            return;
+
+        Debug.Log("Cast: " + _currentActiveSpell.SpellName);
     }
 
     private void OnDisable()

@@ -24,6 +24,10 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _SampleTexture2D_7d0bcb5fb65b4bee91e42f2395e574cb_Texture_1_Texture2D:
         m_Texture: {fileID: 2800000, guid: a71e7b2d849781e47bc6fea3fa1e084d, type: 3}
         m_Scale: {x: 1, y: 1}
@@ -42,9 +46,28 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - _ColorMask: 15
+    - _CycleDuration: 1
+    - _GlowFalloff: 3
+    - _GlowIntensity: 1
+    - _HighlightSharpness: 0.1
+    - _HighlightSpeed: 1
+    - _Intensity: 1
+    - _PulseSharpness: 5
+    - _PulseSpeed: 3
     - _QueueControl: 0
     - _QueueOffset: 0
-    m_Colors: []
+    - _ScrollSpeed: 0.1
+    - _Stencil: 0
+    - _StencilComp: 8
+    - _StencilOp: 0
+    - _StencilReadMask: 255
+    - _StencilWriteMask: 255
+    - _UIMaskSoftnessX: 1
+    - _UIMaskSoftnessY: 1
+    m_Colors:
+    - _ClipRect: {r: 0, g: 0, b: 0, a: 0}
+    - _HighlightColor: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
 --- !u!114 &3548546852450929881
