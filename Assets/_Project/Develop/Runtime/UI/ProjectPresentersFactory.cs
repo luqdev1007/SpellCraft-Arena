@@ -6,6 +6,7 @@ using Assets._Project.Develop.Runtime.UI.Core;
 using Assets._Project.Develop.Runtime.UI.Core.TestPopup;
 using Assets._Project.Develop.Runtime.UI.Wallet;
 using Assets._Project.Develop.Runtime.Utilites.ConfigsManagment;
+using Assets._Project.Develop.Runtime.Utilites.CoroutinesManagment;
 using Assets._Project.Develop.Runtime.Utilites.Reactive;
 
 namespace Assets._Project.Develop.Runtime.UI
@@ -43,7 +44,7 @@ namespace Assets._Project.Develop.Runtime.UI
 
         public TestPopupPresenter CreateTestPopupPresenter(TestPopupView view)
         {
-            return new TestPopupPresenter(view);
+            return new TestPopupPresenter(view, _container.Resolve<ICoroutinesPerformer>());
         }
     }
 }
