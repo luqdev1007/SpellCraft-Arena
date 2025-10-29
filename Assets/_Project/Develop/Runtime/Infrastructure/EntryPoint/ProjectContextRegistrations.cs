@@ -1,4 +1,5 @@
 ﻿using Assets._Project.Develop.Infrastructure.DI;
+using Assets._Project.Develop.Runtime.Meta.Features.LevelsProgression;
 using Assets._Project.Develop.Runtime.Meta.Features.Stats;
 using Assets._Project.Develop.Runtime.Meta.Features.Wallet;
 using Assets._Project.Develop.Runtime.UI;
@@ -49,27 +50,24 @@ namespace Assets._Project.Develop.Infrastructure.EntryPoint
             container.RegisterAsSingle(CreateProjectPresentersFactory);
 
             container.RegisterAsSingle(CreateViewsFactory);
+
+            container.RegisterAsSingle(CreateLevelsProgressionService).NonLazy();
         }
 
-        private static ViewsFactory CreateViewsFactory(DIContainer container)
-        {
-            return new ViewsFactory(container.Resolve<ResourcesAssetsLoader>());
-        }
+        private static LevelsProgressionService CreateLevelsProgressionService(DIContainer container)
+            => new LevelsProgressionService(container.Resolve<PlayerDataProvider>());
 
-        private static ProjectPresentersFactory CreateProjectPresentersFactory(DIContainer container)
-        {
-            return new ProjectPresentersFactory(container);
-        }
+        private static ViewsFactory CreateViewsFactory(DIContainer container) 
+            => new ViewsFactory(container.Resolve<ResourcesAssetsLoader>());
 
-        private static GameStatsService CreateGameStatsService(DIContainer container)
-        {
-            return new GameStatsService(container.Resolve<PlayerDataProvider>());
-        }
+        private static ProjectPresentersFactory CreateProjectPresentersFactory(DIContainer container) 
+            => new ProjectPresentersFactory(container);
 
-        private static PlayerDataProvider CreatePlayerDataProvider(DIContainer container)
-        {
-            return new PlayerDataProvider(container.Resolve<ISaveLoadService>(), container.Resolve<ConfigsProviderService>());
-        }
+        private static GameStatsService CreateGameStatsService(DIContainer container) 
+            => new GameStatsService(container.Resolve<PlayerDataProvider>());
+
+        private static PlayerDataProvider CreatePlayerDataProvider(DIContainer container) 
+            => new PlayerDataProvider(container.Resolve<ISaveLoadService>(), container.Resolve<ConfigsProviderService>());
 
         private static SaveLoadService CreateSaveLoadService(DIContainer container)
         {
@@ -95,15 +93,11 @@ namespace Assets._Project.Develop.Infrastructure.EntryPoint
             return new WalletService(currencies, container.Resolve<PlayerDataProvider>());
         }
 
-        private static SceneSwitcherService CreateSceneSwitcherService(DIContainer container)
-        {
-            return new SceneSwitcherService(container.Resolve<SceneLoaderService>(), container.Resolve<ILoadingScreen>(), container);
-        }
+        private static SceneSwitcherService CreateSceneSwitcherService(DIContainer container) 
+            => new SceneSwitcherService(container.Resolve<SceneLoaderService>(), container.Resolve<ILoadingScreen>(), container);
 
-        private static SceneLoaderService CreateSceneLoaderService(DIContainer container)
-        {
-            return new SceneLoaderService();
-        }
+        private static SceneLoaderService CreateSceneLoaderService(DIContainer container) 
+            => new SceneLoaderService();
 
         private static ConfigsProviderService CreateConfigProviderService(DIContainer container)
         {
@@ -113,10 +107,8 @@ namespace Assets._Project.Develop.Infrastructure.EntryPoint
             return new ConfigsProviderService(resourcesConfigsLoader);
         }
 
-        private static ResourcesAssetsLoader CreateResourcesAssetsLoader(DIContainer container)
-        {
-            return new ResourcesAssetsLoader();
-        }
+        private static ResourcesAssetsLoader CreateResourcesAssetsLoader(DIContainer container) 
+            => new ResourcesAssetsLoader();
 
         private static CoroutinesPerformer CreateCoroutinesPerformer(DIContainer container)
         {

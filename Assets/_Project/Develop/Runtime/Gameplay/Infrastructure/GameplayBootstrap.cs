@@ -43,7 +43,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
 
         public override void Run()
         {
-            Debug.Log("Start gameplay scene");
+            Debug.Log($"Start gameplay scene. Level: {_inputArgs.LevelNumber}");
         }
 
         private void Update()
