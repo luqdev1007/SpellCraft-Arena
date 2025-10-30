@@ -8,8 +8,12 @@ namespace Assets._Project.Develop.Runtime.UI.Core
     public abstract class PopupViewBase : MonoBehaviour, IShowableView
     {
         [SerializeField] private CanvasGroup _mainGroup;
-        [SerializeField] private Transform _body;
+        [SerializeField] private CanvasGroup _body;
         [SerializeField] private Image _anticlicker;
+
+        [SerializeField] private PopupAnimationTypes _animationType;
+
+        private float _anticlickerDefaultAlpha;
 
         private Tween _currentAnimation;
 
@@ -17,6 +21,7 @@ namespace Assets._Project.Develop.Runtime.UI.Core
 
         private void Awake()
         {
+            _anticlickerDefaultAlpha = _anticlicker.color.a;
             _mainGroup.alpha = 0;
         }
 
@@ -26,19 +31,10 @@ namespace Assets._Project.Develop.Runtime.UI.Core
 
             OnPreShow();
 
-            // anim
             _mainGroup.alpha = 1;
 
-            Sequence animation = DOTween.Sequence();
-
-            animation
-                .Append(_anticlicker
-                .DOFade(endValue: 0.75f, duration: 0.2f)
-                .From(0))
-                .Join(_body
-                .DOScale(endValue: 1, duration: 0.5f)
-                .From(0)
-                .SetEase(Ease.OutBack));
+            Sequence animation = PopupAnimationsCreator
+                .CreateShowAnimation(_body, _anticlicker, _animationType, _anticlickerDefaultAlpha);
 
             ModifyShowAnimation(animation);
 
@@ -53,10 +49,11 @@ namespace Assets._Project.Develop.Runtime.UI.Core
 
             OnPreHide();
 
-            // anim
             _mainGroup.alpha = 0;
 
-            Sequence animation = DOTween.Sequence();
+            Sequence animation = PopupAnimationsCreator
+                .CreateHideAnimation(_body, _anticlicker, _animationType, _anticlickerDefaultAlpha);
+
             ModifyHideAnimation(animation);
 
             animation.OnComplete(() => OnPostHide());
