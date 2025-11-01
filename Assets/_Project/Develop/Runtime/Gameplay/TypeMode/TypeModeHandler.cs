@@ -11,7 +11,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.TypeMode
         private readonly TypeModeCombinationGeneratorService _generator;
         private readonly TypeModeInputService _inputService;
         private readonly TypeModeResultService _resultService;
-
+        private readonly ChatPresenter _chatPresenter;
         private string _combination;
         private int _currentIndex;
         private bool _isGameActive;
@@ -22,13 +22,15 @@ namespace Assets._Project.Develop.Runtime.Gameplay.TypeMode
             ICoroutinesPerformer coroutinesPerformer, 
             TypeModeCombinationGeneratorService generator, 
             TypeModeInputService inputService, 
-            TypeModeResultService resultService)
+            TypeModeResultService resultService,
+            ChatPresenter chatPresenter)
         {
             _inputArgs = inputArgs;
             _coroutinesPerformer = coroutinesPerformer;
             _generator = generator;
             _inputService = inputService;
             _resultService = resultService;
+            _chatPresenter = chatPresenter;
         }
 
         public void StartGame()
@@ -40,6 +42,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.TypeMode
             _isVictory = false;
 
             Debug.Log($"Target combination: {_combination}");
+            _chatPresenter.SendMessageInChat("purple", "Admin", $"Target combination: {_combination}");
         }
 
         public void Update()

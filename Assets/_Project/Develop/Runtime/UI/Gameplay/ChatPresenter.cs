@@ -21,9 +21,14 @@ public class ChatPresenter : IPresenter
         _chatView.SendMessageButtonClicked -= OnSendMessageButtonClicked;
     }
 
+    public void SendMessageInChat(string color, string nickname, string message)
+    {
+        _chatView.AddText(color, nickname, message);
+    }
+
     private void OnSendMessageButtonClicked(string message)
     {
-        _chatView.AddText("red", "LuQmu5", message);
+        SendMessageInChat("red", "LuQmu5", message);
     }
 
     private void OnChatButtonClicked()

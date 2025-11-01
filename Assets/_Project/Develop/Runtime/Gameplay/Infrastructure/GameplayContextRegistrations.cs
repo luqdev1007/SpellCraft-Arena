@@ -3,13 +3,11 @@ using Assets._Project.Develop.Runtime.Gameplay.TypeMode;
 using Assets._Project.Develop.Runtime.Meta.Features.Stats;
 using Assets._Project.Develop.Runtime.Meta.Features.Wallet;
 using Assets._Project.Develop.Runtime.UI.Core;
-using Assets._Project.Develop.Runtime.UI.MainMenu;
 using Assets._Project.Develop.Runtime.Utilites.AssetsManagment;
 using Assets._Project.Develop.Runtime.Utilites.ConfigsManagment;
 using Assets._Project.Develop.Runtime.Utilites.CoroutinesManagment;
 using Assets._Project.Develop.Runtime.Utilites.DataProviders;
 using Assets._Project.Develop.Runtime.Utilites.SceneManagement;
-using System;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
@@ -90,7 +88,8 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
                 container.Resolve<ICoroutinesPerformer>(), 
                 container.Resolve<TypeModeCombinationGeneratorService>(),
                 container.Resolve<TypeModeInputService>(),
-                container.Resolve<TypeModeResultService>());
+                container.Resolve<TypeModeResultService>(),
+                container.Resolve<ChatPresenter>());
         }
     }
 }
