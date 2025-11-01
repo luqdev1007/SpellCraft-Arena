@@ -17,6 +17,7 @@ namespace Assets._Project.Develop.Runtime.UI.Core
             {ViewIDs.TestPopup, "UI/TestPopup" },
             {ViewIDs.LevelsMenuPopup, "UI/LevelsMenuPopup/LevelsMenuPopup" },
             {ViewIDs.LevelTile, "UI/LevelsMenuPopup/LevelTile" },
+            {ViewIDs.ChatView, "UI/Chat/ChatView" },
         };
 
         public ViewsFactory(ResourcesAssetsLoader resourcesAssetsLoader)

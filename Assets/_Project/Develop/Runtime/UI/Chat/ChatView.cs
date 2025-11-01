@@ -1,16 +1,7 @@
+using Assets._Project.Develop.Runtime.UI.Core;
 using UnityEngine;
 
-public class ChatView : MonoBehaviour
+public class ChatView : MonoBehaviour, IView
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    
 }
