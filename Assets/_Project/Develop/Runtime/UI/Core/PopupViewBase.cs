@@ -61,7 +61,11 @@ namespace Assets._Project.Develop.Runtime.UI.Core
             return _currentAnimation = animation.SetUpdate(true).Play();
         }
 
-        public void OnCloseButtonClicked() => CloseRequest?.Invoke();
+        public void OnCloseButtonClicked() 
+        {
+            print("close button clicked");
+            CloseRequest?.Invoke(); 
+        }
 
         protected virtual void ModifyShowAnimation(Sequence animation)
         {
