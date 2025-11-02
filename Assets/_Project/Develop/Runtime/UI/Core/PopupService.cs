@@ -66,11 +66,11 @@ namespace Assets._Project.Develop.Runtime.UI.Core
             return popup;
         }
 
-        public TestPopupPresenter OpenTestPopup(Action closeCallback = null)
+        public ConfirmPopupPresenter OpenConfirmPopup(Action closeCallback = null)
         {
-            TestPopupView view = ViewsFactory.Create<TestPopupView>(ViewIDs.TestPopup, PopupLayer);
+            ConfirmPopupView view = ViewsFactory.Create<ConfirmPopupView>(ViewIDs.ConfirmPopup, PopupLayer);
 
-            TestPopupPresenter popup = _presentersFactory.CreateTestPopupPresenter(view);
+            ConfirmPopupPresenter popup = _presentersFactory.CreateConfirmPopupPresenter(view);
 
             OnPopupCreated(popup, view, closeCallback);
 

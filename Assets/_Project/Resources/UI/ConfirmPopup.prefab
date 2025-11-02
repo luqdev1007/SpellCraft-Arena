@@ -90,7 +90,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7832774482420984827}
+      - m_Target: {fileID: 4548307466717915548}
         m_TargetAssemblyTypeName: Assets._Project.Develop.Runtime.UI.Core.PopupViewBase,
           Assembly-CSharp
         m_MethodName: OnCloseButtonClicked
@@ -249,9 +249,9 @@ GameObject:
   m_Component:
   - component: {fileID: 2748452572366247527}
   - component: {fileID: 3603109860158033846}
-  - component: {fileID: 7832774482420984827}
+  - component: {fileID: 4548307466717915548}
   m_Layer: 5
-  m_Name: TestPopup
+  m_Name: ConfirmPopup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -290,7 +290,7 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
---- !u!114 &7832774482420984827
+--- !u!114 &4548307466717915548
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -299,12 +299,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 2578291022720318076}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a6d65cf1f41bd7f4d8fbce62c04df5de, type: 3}
+  m_Script: {fileID: 11500000, guid: 0f7c454802aaf6d42a317cd4050ff859, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _mainGroup: {fileID: 3603109860158033846}
-  _body: {fileID: 6324027029345939137}
+  _body: {fileID: 528482626601830352}
   _anticlicker: {fileID: 4841338910405226764}
+  _animationType: 1
   _text: {fileID: 8797328434232003811}
 --- !u!1 &3236500782430078196
 GameObject:
@@ -706,7 +707,7 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 7832774482420984827}
+        - m_Target: {fileID: 4548307466717915548}
           m_TargetAssemblyTypeName: Assets._Project.Develop.Runtime.UI.Core.PopupViewBase,
             Assembly-CSharp
           m_MethodName: OnCloseButtonClicked

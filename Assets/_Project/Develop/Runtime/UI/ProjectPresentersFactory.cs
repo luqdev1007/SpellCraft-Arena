@@ -67,9 +67,9 @@ namespace Assets._Project.Develop.Runtime.UI
                 );
         }
 
-        public TestPopupPresenter CreateTestPopupPresenter(TestPopupView view)
+        public ConfirmPopupPresenter CreateConfirmPopupPresenter(ConfirmPopupView view)
         {
-            return new TestPopupPresenter(view, _container.Resolve<ICoroutinesPerformer>());
+            return new ConfirmPopupPresenter(view, _container.Resolve<ICoroutinesPerformer>());
         }
     }
 }

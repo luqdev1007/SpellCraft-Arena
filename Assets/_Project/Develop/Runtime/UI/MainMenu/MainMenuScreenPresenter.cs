@@ -1,9 +1,6 @@
 ﻿using Assets._Project.Develop.Runtime.Meta.Features.Stats;
 using Assets._Project.Develop.Runtime.Meta.Features.Wallet;
 using Assets._Project.Develop.Runtime.UI.Core;
-using Assets._Project.Develop.Runtime.UI.Wallet;
-using System;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Assets._Project.Develop.Runtime.UI.MainMenu
@@ -53,7 +50,7 @@ namespace Assets._Project.Develop.Runtime.UI.MainMenu
 
         private void OnResetStatsButtonClicked()
         {
-            Debug.Log("Reset");
+            _popupService.OpenConfirmPopup();
         }
     }
 }

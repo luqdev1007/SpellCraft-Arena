@@ -7,11 +7,13 @@ using System.Threading.Tasks;
 
 namespace Assets._Project.Develop.Runtime.UI.Core.TestPopup
 {
-    public class TestPopupPresenter : PopupPresenterBase
+    public class ConfirmPopupPresenter : PopupPresenterBase
     {
-        private readonly TestPopupView _view;
+        private readonly ConfirmPopupView _view;
 
-        public TestPopupPresenter(TestPopupView view, ICoroutinesPerformer coroutinesPerformer) : base (coroutinesPerformer)
+        public ConfirmPopupPresenter(
+            ConfirmPopupView view, 
+            ICoroutinesPerformer coroutinesPerformer) : base (coroutinesPerformer)
         {
             _view = view;
         }
@@ -22,7 +24,7 @@ namespace Assets._Project.Develop.Runtime.UI.Core.TestPopup
         {
             base.Initialize();
 
-            _view.SetText("ВАС ВЫ*БАЛИ");
+            _view.SetText("Вы уверены?");
         }
     }
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Assets._Project.Develop.Runtime.UI.Core.TestPopup
 {
-    public class TestPopupView : PopupViewBase
+    public class ConfirmPopupView : PopupViewBase
     {
         [SerializeField] private TMP_Text _text;
 

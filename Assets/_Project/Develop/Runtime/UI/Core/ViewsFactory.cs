@@ -15,7 +15,7 @@ namespace Assets._Project.Develop.Runtime.UI.Core
             {ViewIDs.CurrencyView, "UI/Wallet/CurrencyView" },
             {ViewIDs.MainMenuScreen, "UI/MainMenu/MainMenuScreenView" },
             {ViewIDs.MainMenuView, "UI/MainMenu/_MainMenuView" },
-            {ViewIDs.TestPopup, "UI/TestPopup" },
+            {ViewIDs.ConfirmPopup, "UI/ConfirmPopup" },
             {ViewIDs.LevelsMenuPopup, "UI/LevelsMenuPopup/LevelsMenuPopup" },
             {ViewIDs.LevelTile, "UI/LevelsMenuPopup/LevelTile" },
             {ViewIDs.ChatView, "UI/Chat/ChatView" },
