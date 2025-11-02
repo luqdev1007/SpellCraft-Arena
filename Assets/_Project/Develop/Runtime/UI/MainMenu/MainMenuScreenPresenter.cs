@@ -1,4 +1,6 @@
-﻿using Assets._Project.Develop.Runtime.UI.Core;
+﻿using Assets._Project.Develop.Runtime.Meta.Features.Stats;
+using Assets._Project.Develop.Runtime.Meta.Features.Wallet;
+using Assets._Project.Develop.Runtime.UI.Core;
 using Assets._Project.Develop.Runtime.UI.Wallet;
 using System;
 using System.Collections.Generic;
@@ -8,61 +10,50 @@ namespace Assets._Project.Develop.Runtime.UI.MainMenu
 {
     public class MainMenuScreenPresenter : IPresenter
     {
-        private MainMenuScreenView _screen;
-
-        private ProjectPresentersFactory _projectPresentersFactory;
-
+        private readonly MainMenuView _view;
+        private readonly ProjectPresentersFactory _projectPresentersFactory;
         private readonly MainMenuPopupService _popupService;
-
-        private readonly List<IPresenter> _childPresenters = new();
+        private readonly WalletService _wallet;
+        private readonly GameStatsService _statsService;
 
         public MainMenuScreenPresenter(
-            MainMenuScreenView screen,
+            MainMenuView view,
             ProjectPresentersFactory projectPresentersFactory,
-            MainMenuPopupService popupService)
+            MainMenuPopupService popupService,
+            WalletService wallet,
+            GameStatsService statsService)
         {
-            _screen = screen;
+            _view = view;
             _projectPresentersFactory = projectPresentersFactory;
             _popupService = popupService;
+            _wallet = wallet;
+            _statsService = statsService;
+
+            _view.SetGoldText(_wallet.GetCurrency(CurrencyTypes.Gold).Value.ToString());
+            _view.SetLosesText(_statsService.Losses.ToString());
+            _view.SetWinsText(_statsService.Wins.ToString());
         }
 
         public void Initialize()
         {
-            _screen.OpenTestPopupButtonClicked += OnOpenTestPopupButtonClicked;
-            _screen.OpenLevelsMenuButtonClicked += OnOpenLevelsMenuButtonClicked;
-
-            CreateWallet();
-
-            foreach (IPresenter presenter in _childPresenters)
-                presenter.Initialize();
+            _view.StartGameButtonClicked += OnStartGameButtonClicked;
+            _view.ResetStatsButtonClicked += OnResetStatsButtonClicked;
         }
 
         public void Dispose()
         {
-            _screen.OpenTestPopupButtonClicked -= OnOpenTestPopupButtonClicked;
-            _screen.OpenLevelsMenuButtonClicked -= OnOpenLevelsMenuButtonClicked;
-
-            foreach (IPresenter presenter in _childPresenters)
-                presenter.Dispose();
-
-            _childPresenters.Clear();
+            _view.StartGameButtonClicked -= OnStartGameButtonClicked;
+            _view.ResetStatsButtonClicked -= OnResetStatsButtonClicked;
         }
 
-        private void OnOpenTestPopupButtonClicked()
+        private void OnStartGameButtonClicked()
         {
-            _popupService.OpenTestPopup(() => Debug.Log("Pop up closed"));
+            Debug.Log("Start");
         }
 
-        private void OnOpenLevelsMenuButtonClicked()
+        private void OnResetStatsButtonClicked()
         {
-            _popupService.OpenLevelsMenuPopup();
-        }
-
-        private void CreateWallet()
-        {
-            WalletPresenter walletPresenter = _projectPresentersFactory.CreateWalletPresenter(_screen.WalletView);
-
-            _childPresenters.Add(walletPresenter);
+            Debug.Log("Reset");
         }
     }
 }

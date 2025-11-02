@@ -62,9 +62,9 @@ namespace Assets._Project.Develop.Runtime.Meta.Infrastructure
         {
             MainMenuUIRoot uiRoot = container.Resolve<MainMenuUIRoot>();
 
-            MainMenuScreenView view = container
+            MainMenuView view = container
                 .Resolve<ViewsFactory>()
-                .Create<MainMenuScreenView>(ViewIDs.MainMenuScreen, uiRoot.HUDLayer);
+                .Create<MainMenuView>(ViewIDs.MainMenuView, uiRoot.HUDLayer);
 
             MainMenuScreenPresenter presenter = container.Resolve<MainMenuPresentersFactory>().CreateMainMenuScreen(view);
 
