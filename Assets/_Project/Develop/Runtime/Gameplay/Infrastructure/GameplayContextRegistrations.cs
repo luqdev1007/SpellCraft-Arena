@@ -84,12 +84,11 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
 
         private static TypeModeHandler CreateTypeModeHandler(DIContainer container)
         {
-            return new TypeModeHandler(_inputArgs, 
-                container.Resolve<ICoroutinesPerformer>(), 
+            return new TypeModeHandler(_inputArgs,
                 container.Resolve<TypeModeCombinationGeneratorService>(),
-                container.Resolve<TypeModeInputService>(),
+                container.Resolve<ChatPresenter>(),
                 container.Resolve<TypeModeResultService>(),
-                container.Resolve<ChatPresenter>());
+                container.Resolve<ICoroutinesPerformer>());
         }
     }
 }

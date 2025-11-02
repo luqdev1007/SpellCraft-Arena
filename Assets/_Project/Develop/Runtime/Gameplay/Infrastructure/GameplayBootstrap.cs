@@ -48,8 +48,6 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
 
         private void Update()
         {
-            _typeModeHandler?.Update();
-
             if (Input.GetKeyDown(KeyCode.A))
             {
                 _walletService.Add(CurrencyTypes.Gold, 10);

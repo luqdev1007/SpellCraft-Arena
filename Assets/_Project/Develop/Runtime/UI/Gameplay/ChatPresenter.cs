@@ -1,8 +1,11 @@
 ﻿using Assets._Project.Develop.Runtime.UI.Core;
+using System;
 
 public class ChatPresenter : IPresenter
 {
     private ChatView _chatView;
+
+    public event Action<string> MessageSent;
 
     public ChatPresenter(ChatView chatView)
     {
@@ -24,6 +27,7 @@ public class ChatPresenter : IPresenter
     public void SendMessageInChat(string color, string nickname, string message)
     {
         _chatView.AddText(color, nickname, message);
+        MessageSent?.Invoke(message);
     }
 
     private void OnSendMessageButtonClicked(string message)

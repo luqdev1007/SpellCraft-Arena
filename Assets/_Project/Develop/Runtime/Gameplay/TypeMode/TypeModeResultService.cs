@@ -41,7 +41,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.TypeMode
             Debug.Log("Press 'Space' to continue");
         }
 
-        public IEnumerator ContinueAfterVictory(GameplayInputArgs inputArgs)
+        public IEnumerator ContinueAfterVictory()
         {
             _gameStatsService.RegisterVictory();
             _walletService.Add(CurrencyTypes.Gold, _configsProviderService.GetConfig<GameRewardsConfig>().RewardForWin);
