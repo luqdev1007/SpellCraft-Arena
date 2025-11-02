@@ -3,6 +3,7 @@ using Assets._Project.Develop.Runtime.Gameplay.TypeMode;
 using Assets._Project.Develop.Runtime.Meta.Features.Stats;
 using Assets._Project.Develop.Runtime.Meta.Features.Wallet;
 using Assets._Project.Develop.Runtime.UI.Core;
+using Assets._Project.Develop.Runtime.UI.Gameplay;
 using Assets._Project.Develop.Runtime.Utilites.AssetsManagment;
 using Assets._Project.Develop.Runtime.Utilites.ConfigsManagment;
 using Assets._Project.Develop.Runtime.Utilites.CoroutinesManagment;
@@ -25,12 +26,14 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
 
             container.RegisterAsSingle(CreateTypeModeGeneratorService);
             container.RegisterAsSingle(CreateTypeModeHandler);
-            container.RegisterAsSingle(CreateTypeModeInputService);
-            container.RegisterAsSingle(CreateTypeModeResultService);
+            container.RegisterAsSingle(CreateGameResultService);
 
             container.RegisterAsSingle(CreateGameplayUIRoot).NonLazy();
+
             container.RegisterAsSingle(CreateGameplayPresentersFactory);
+
             container.RegisterAsSingle(CreateChatPresenter).NonLazy();
+            container.RegisterAsSingle(CreateEndOfBattlePresenter).NonLazy();
             // pop ups?
         }
 
@@ -43,6 +46,19 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
                 .Create<ChatView>(ViewIDs.ChatView, uiRoot.HUDLayer);
 
             ChatPresenter presenter = container.Resolve<GameplayPresentersFactory>().CreateChatView(view);
+
+            return presenter;
+        }
+
+        private static EndOfBattlePresenter CreateEndOfBattlePresenter(DIContainer container)
+        {
+            GameplayUIRoot uiRoot = container.Resolve<GameplayUIRoot>();
+
+            EndOfBattleView view = container
+                .Resolve<ViewsFactory>()
+                .Create<EndOfBattleView>(ViewIDs.EndOfBattleView, uiRoot.HUDLayer);
+
+            EndOfBattlePresenter presenter = container.Resolve<GameplayPresentersFactory>().CreateEndOfBattleView(view);
 
             return presenter;
         }
@@ -62,19 +78,14 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
             return Object.Instantiate(gameplayUIRoot);
         }
 
-        private static TypeModeResultService CreateTypeModeResultService(DIContainer container)
+        private static GameResultService CreateGameResultService(DIContainer container)
         {
-            return new TypeModeResultService(container.Resolve<SceneSwitcherService>(),
+            return new GameResultService(
                 container.Resolve<ICoroutinesPerformer>(),
                 container.Resolve<GameStatsService>(),
                 container.Resolve<PlayerDataProvider>(),
                 container.Resolve<WalletService>(),
                 container.Resolve<ConfigsProviderService>());
-        }
-
-        private static TypeModeInputService CreateTypeModeInputService(DIContainer container)
-        {
-            return new TypeModeInputService();
         }
 
         private static TypeModeCombinationGeneratorService CreateTypeModeGeneratorService(DIContainer container)
@@ -87,7 +98,8 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
             return new TypeModeHandler(_inputArgs,
                 container.Resolve<TypeModeCombinationGeneratorService>(),
                 container.Resolve<ChatPresenter>(),
-                container.Resolve<TypeModeResultService>(),
+                container.Resolve<GameResultService>(),
+                container.Resolve<EndOfBattlePresenter>(),
                 container.Resolve<ICoroutinesPerformer>());
         }
     }

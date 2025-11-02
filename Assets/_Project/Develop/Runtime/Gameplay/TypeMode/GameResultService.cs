@@ -4,30 +4,26 @@ using Assets._Project.Develop.Runtime.Meta.Features.Wallet;
 using Assets._Project.Develop.Runtime.Utilites.ConfigsManagment;
 using Assets._Project.Develop.Runtime.Utilites.CoroutinesManagment;
 using Assets._Project.Develop.Runtime.Utilites.DataProviders;
-using Assets._Project.Develop.Runtime.Utilites.SceneManagement;
 using System.Collections;
-using UnityEngine;
 
 
 namespace Assets._Project.Develop.Runtime.Gameplay.TypeMode
 {
-    public class TypeModeResultService
+    public class GameResultService
     {
-        private readonly SceneSwitcherService _sceneSwitcherService;
         private readonly ICoroutinesPerformer _coroutinesPerformer;
         private readonly GameStatsService _gameStatsService;
         private readonly PlayerDataProvider _playerDataProvider;
         private readonly WalletService _walletService;
         private readonly ConfigsProviderService _configsProviderService;
 
-        public TypeModeResultService(SceneSwitcherService sceneSwitcher,
+        public GameResultService(
             ICoroutinesPerformer coroutinesPerformer,
             GameStatsService statsService,
             PlayerDataProvider playerDataProvider,
             WalletService walletService,
             ConfigsProviderService configsProviderService)
         {
-            _sceneSwitcherService = sceneSwitcher;
             _coroutinesPerformer = coroutinesPerformer;
             _gameStatsService = statsService;
             _playerDataProvider = playerDataProvider;
@@ -35,23 +31,16 @@ namespace Assets._Project.Develop.Runtime.Gameplay.TypeMode
             _configsProviderService = configsProviderService;
         }
 
-        public void HandleResult(bool isVictory)
-        {
-            Debug.Log(isVictory ? "Victory!" : "Defeat!");
-            Debug.Log("Press 'Space' to continue");
-        }
 
-        public IEnumerator ContinueAfterVictory()
+        public IEnumerator RegisterVictory()
         {
             _gameStatsService.RegisterVictory();
             _walletService.Add(CurrencyTypes.Gold, _configsProviderService.GetConfig<GameRewardsConfig>().RewardForWin);
 
             yield return _coroutinesPerformer.StartPerform(_playerDataProvider.Save());
-
-            _coroutinesPerformer.StartPerform(_sceneSwitcherService.ProcessingSwitchTo(Scenes.MainMenu));
         }
 
-        public IEnumerator ContinueAfterLose(GameplayInputArgs inputArgs)
+        public IEnumerator RegisterDefeat()
         {
             _gameStatsService.RegisterDefeat();
 
@@ -61,8 +50,6 @@ namespace Assets._Project.Develop.Runtime.Gameplay.TypeMode
                 _walletService.Spend(CurrencyTypes.Gold, _walletService.GetCurrency(CurrencyTypes.Gold).Value);
 
             yield return _coroutinesPerformer.StartPerform(_playerDataProvider.Save());
-
-            _coroutinesPerformer.StartPerform(_sceneSwitcherService.ProcessingSwitchTo(Scenes.Gameplay, inputArgs));
         }
     }
 }

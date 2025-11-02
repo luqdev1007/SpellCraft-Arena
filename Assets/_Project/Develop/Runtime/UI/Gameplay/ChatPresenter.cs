@@ -1,45 +1,48 @@
 ﻿using Assets._Project.Develop.Runtime.UI.Core;
 using System;
 
-public class ChatPresenter : IPresenter
+namespace Assets._Project.Develop.Runtime.UI.Gameplay
 {
-    private ChatView _chatView;
-
-    public event Action<string> MessageSent;
-
-    public ChatPresenter(ChatView chatView)
+    public class ChatPresenter : IPresenter
     {
-        _chatView = chatView;
-    }
+        private ChatView _chatView;
 
-    public void Initialize()
-    {
-        _chatView.ChatButtonClicked += OnChatButtonClicked;
-        _chatView.SendMessageButtonClicked += OnSendMessageButtonClicked;
-    }
+        public event Action<string> MessageSent;
 
-    public void Dispose()
-    {
-        _chatView.ChatButtonClicked -= OnChatButtonClicked;
-        _chatView.SendMessageButtonClicked -= OnSendMessageButtonClicked;
-    }
+        public ChatPresenter(ChatView chatView)
+        {
+            _chatView = chatView;
+        }
 
-    public void SendMessageInChat(string color, string nickname, string message)
-    {
-        _chatView.AddText(color, nickname, message);
-        MessageSent?.Invoke(message);
-    }
+        public void Initialize()
+        {
+            _chatView.ChatButtonClicked += OnChatButtonClicked;
+            _chatView.SendMessageButtonClicked += OnSendMessageButtonClicked;
+        }
 
-    private void OnSendMessageButtonClicked(string message)
-    {
-        SendMessageInChat("red", "LuQmu5", message);
-    }
+        public void Dispose()
+        {
+            _chatView.ChatButtonClicked -= OnChatButtonClicked;
+            _chatView.SendMessageButtonClicked -= OnSendMessageButtonClicked;
+        }
 
-    private void OnChatButtonClicked()
-    {
-        if (_chatView.IsClosed)
-            _chatView.ShowChat();
-        else
-            _chatView.CloseChat();
+        public void SendMessageInChat(string color, string nickname, string message)
+        {
+            _chatView.AddText(color, nickname, message);
+            MessageSent?.Invoke(message);
+        }
+
+        private void OnSendMessageButtonClicked(string message)
+        {
+            SendMessageInChat("red", "LuQmu5", message);
+        }
+
+        private void OnChatButtonClicked()
+        {
+            if (_chatView.IsClosed)
+                _chatView.ShowChat();
+            else
+                _chatView.CloseChat();
+        }
     }
 }

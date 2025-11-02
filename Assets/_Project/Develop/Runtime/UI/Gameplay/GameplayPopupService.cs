@@ -1,7 +1,4 @@
 ﻿using Assets._Project.Develop.Runtime.UI.Core;
-using Assets._Project.Develop.Runtime.UI.Core.TestPopup;
-using Assets._Project.Develop.Runtime.UI.LevelsMenuPopup;
-using System;
 using UnityEngine;
 
 namespace Assets._Project.Develop.Runtime.UI.Gameplay
