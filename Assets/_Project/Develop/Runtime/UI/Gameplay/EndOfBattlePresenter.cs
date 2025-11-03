@@ -49,8 +49,8 @@ namespace Assets._Project.Develop.Runtime.UI.Gameplay
         public void Show(string headerText)
         {
             _view.SetGoldText(_wallet.GetCurrency(CurrencyTypes.Gold).Value.ToString());
-            _view.SetLosesText(_statsService.Losses.ToString());
-            _view.SetWinsText(_statsService.Wins.ToString());
+            _view.SetLosesText(_statsService.Losses.Value.ToString());
+            _view.SetWinsText(_statsService.Wins.Value.ToString());
             _view.SetHeaderText(headerText);
 
             _view.Show();

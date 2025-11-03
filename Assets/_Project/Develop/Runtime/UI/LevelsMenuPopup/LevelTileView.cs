@@ -12,12 +12,8 @@ namespace Assets._Project.Develop.Runtime.UI.LevelsMenuPopup
         public event Action Clicked;
 
         [SerializeField] private Image _background;
-        [SerializeField] private TMP_Text _levelNumberText;
+        [SerializeField] private TMP_Text _levelNameText;
         [SerializeField] private Button _button;
-
-        [SerializeField] private Color _activeColor;
-        [SerializeField] private Color _blockedColor;
-        [SerializeField] private Color _completedColor;
 
         private void OnEnable()
         {
@@ -27,6 +23,12 @@ namespace Assets._Project.Develop.Runtime.UI.LevelsMenuPopup
         private void OnDisable()
         {
             _button.onClick.RemoveListener(OnButtonClicked);
+        }
+
+        public void Init(string levelName, Sprite levelIcon)
+        {
+            _levelNameText.text = levelName;
+            _background.sprite = levelIcon;
         }
 
         private void OnDestroy()
@@ -51,14 +53,6 @@ namespace Assets._Project.Develop.Runtime.UI.LevelsMenuPopup
                 .SetUpdate(true)
                 .Play();
         }
-
-        public void SetLevel(string level) => _levelNumberText.text = level;
-
-        public void SetActive() => _background.color = _activeColor;
-
-        public void SetBlock() => _background.color = _blockedColor;
-
-        public void SetComplete() => _background.color = _completedColor;
 
         private void OnButtonClicked() => Clicked?.Invoke();
     }

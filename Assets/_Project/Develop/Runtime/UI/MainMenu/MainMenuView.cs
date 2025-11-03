@@ -27,6 +27,16 @@ public class MainMenuView : MonoBehaviour, IView
         _resetStatsButton.onClick.RemoveListener(OnResetStatsButtonClicked);
     }
 
+    public void EnableResetButton()
+    {
+        _resetStatsButton.interactable = true;
+    }
+
+    public void DisableResetButton()
+    {
+        _resetStatsButton.interactable = false;
+    }
+
     public void SetWinsText(string value)
     {
         _winsView.SetText(value);

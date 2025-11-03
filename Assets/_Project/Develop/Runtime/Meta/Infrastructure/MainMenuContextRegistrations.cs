@@ -3,9 +3,6 @@ using Assets._Project.Develop.Runtime.UI;
 using Assets._Project.Develop.Runtime.UI.Core;
 using Assets._Project.Develop.Runtime.UI.MainMenu;
 using Assets._Project.Develop.Runtime.Utilites.AssetsManagment;
-using Assets._Project.Develop.Runtime.Utilites.ConfigsManagment;
-using Assets._Project.Develop.Runtime.Utilites.CoroutinesManagment;
-using Assets._Project.Develop.Runtime.Utilites.SceneManagement;
 using UnityEngine;
 
 namespace Assets._Project.Develop.Runtime.Meta.Infrastructure
@@ -15,9 +12,6 @@ namespace Assets._Project.Develop.Runtime.Meta.Infrastructure
         public static void Process(DIContainer container)
         {
             Debug.Log("Process registrations on main menu scene");
-
-            container.RegisterAsSingle(CreateGameModeSelectionService);
-
 
             container.RegisterAsSingle(CreateMainMenuUIRoot).NonLazy();
             container.RegisterAsSingle(CreateMainMenuPresentersFactory);
@@ -32,15 +26,6 @@ namespace Assets._Project.Develop.Runtime.Meta.Infrastructure
                 container.Resolve<ProjectPresentersFactory>(),
                 container.Resolve<MainMenuUIRoot>()
                 );
-        }
-
-        private static GameModeSelectionService CreateGameModeSelectionService(DIContainer container)
-        {
-            return new GameModeSelectionService(
-                   container.Resolve<SceneSwitcherService>(),
-                   container.Resolve<ICoroutinesPerformer>(),
-                   container.Resolve<ConfigsProviderService>()
-               );
         }
 
         private static MainMenuUIRoot CreateMainMenuUIRoot(DIContainer container)

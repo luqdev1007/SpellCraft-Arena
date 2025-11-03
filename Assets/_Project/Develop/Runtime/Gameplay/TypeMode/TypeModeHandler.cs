@@ -34,6 +34,19 @@ namespace Assets._Project.Develop.Runtime.Gameplay.TypeMode
             _coroutinesPerformer = coroutinesPerformer;
         }
 
+
+        public void Init()
+        {
+            _chatPresenter.MessageSent += OnMessageSent;
+            _endOfBattlePresenter.RestartRequested += StartGame;
+        }
+
+        public void Dispose()
+        {
+            _chatPresenter.MessageSent -= OnMessageSent;
+            _endOfBattlePresenter.RestartRequested -= StartGame;
+        }
+
         public void StartGame()
         {
             _endOfBattlePresenter.Hide();
@@ -66,18 +79,6 @@ namespace Assets._Project.Develop.Runtime.Gameplay.TypeMode
                 _endOfBattlePresenter.Show("Поражение...");
                 _endOfBattlePresenter.ActivateRestartButton();
             }
-        }
-
-        public void Init()
-        {
-            _chatPresenter.MessageSent += OnMessageSent;
-            _endOfBattlePresenter.RestartRequested += StartGame;
-        }
-
-        public void Dispose()
-        {
-            _chatPresenter.MessageSent -= OnMessageSent;
-            _endOfBattlePresenter.RestartRequested -= StartGame;
         }
     }
 }

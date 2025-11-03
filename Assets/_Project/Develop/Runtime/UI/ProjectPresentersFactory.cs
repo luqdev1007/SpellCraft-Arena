@@ -11,6 +11,7 @@ using Assets._Project.Develop.Runtime.Utilites.ConfigsManagment;
 using Assets._Project.Develop.Runtime.Utilites.CoroutinesManagment;
 using Assets._Project.Develop.Runtime.Utilites.Reactive;
 using Assets._Project.Develop.Runtime.Utilites.SceneManagement;
+using System;
 
 namespace Assets._Project.Develop.Runtime.UI
 {
@@ -34,13 +35,12 @@ namespace Assets._Project.Develop.Runtime.UI
                 );
         }
 
-        public LevelTilePresenter CreateLevelTilePresenter(LevelTileView view, int levelNumber)
+        public LevelTilePresenter CreateLevelTilePresenter(LevelTileView view, GameplayInputArgs inputArgs)
         {
             return new LevelTilePresenter(
-                _container.Resolve<LevelsProgressionService>(),
                 _container.Resolve<SceneSwitcherService>(),
                 _container.Resolve<ICoroutinesPerformer>(),
-                levelNumber,
+                inputArgs,
                 view
                 );
         }
@@ -67,9 +67,9 @@ namespace Assets._Project.Develop.Runtime.UI
                 );
         }
 
-        public ConfirmPopupPresenter CreateConfirmPopupPresenter(ConfirmPopupView view)
+        public ConfirmPopupPresenter CreateConfirmPopupPresenter(ConfirmPopupView view, Action onConfirmButtonClicked, string header)
         {
-            return new ConfirmPopupPresenter(view, _container.Resolve<ICoroutinesPerformer>());
+            return new ConfirmPopupPresenter(view, _container.Resolve<ICoroutinesPerformer>(), onConfirmButtonClicked, header);
         }
     }
 }

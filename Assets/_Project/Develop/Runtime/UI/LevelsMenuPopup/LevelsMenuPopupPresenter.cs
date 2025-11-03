@@ -8,7 +8,7 @@ namespace Assets._Project.Develop.Runtime.UI.LevelsMenuPopup
 {
     public class LevelsMenuPopupPresenter : PopupPresenterBase
     {
-        private const string TitleName = "Choose Level";
+        private const string TitleName = "Выберите режим игры";
 
         private readonly ConfigsProviderService _configProviderService;
         private readonly ProjectPresentersFactory _presentersFactory;
@@ -47,7 +47,8 @@ namespace Assets._Project.Develop.Runtime.UI.LevelsMenuPopup
 
                 _view.LevelTilesListView.Add(levelTileView);
 
-                LevelTilePresenter levelTilePresenter = _presentersFactory.CreateLevelTilePresenter(levelTileView, i + 1);
+                LevelTilePresenter levelTilePresenter = _presentersFactory
+                    .CreateLevelTilePresenter(levelTileView, levelsListConfig.Levels[i].InputArgs);
 
                 levelTilePresenter.Initialize();
 

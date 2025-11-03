@@ -39,7 +39,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
         public override void Run()
         {
             _typeModeHandler.StartGame();
-            Debug.Log($"Start gameplay scene. Level: {_inputArgs.LevelNumber}");
+            Debug.Log($"Start gameplay scene. Level: {_inputArgs.LevelName}");
         }
 
         private void OnDestroy()

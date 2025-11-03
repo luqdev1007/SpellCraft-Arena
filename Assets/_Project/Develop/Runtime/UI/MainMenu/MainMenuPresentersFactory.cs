@@ -1,6 +1,7 @@
 ﻿using Assets._Project.Develop.Infrastructure.DI;
 using Assets._Project.Develop.Runtime.Meta.Features.Stats;
 using Assets._Project.Develop.Runtime.Meta.Features.Wallet;
+using Assets._Project.Develop.Runtime.Utilites.ConfigsManagment;
 
 namespace Assets._Project.Develop.Runtime.UI.MainMenu
 {
@@ -17,10 +18,10 @@ namespace Assets._Project.Develop.Runtime.UI.MainMenu
         {
             return new MainMenuScreenPresenter(
                 view,
-                _container.Resolve<ProjectPresentersFactory>(),
                 _container.Resolve<MainMenuPopupService>(),
                 _container.Resolve<WalletService>(),
-                _container.Resolve<GameStatsService>()
+                _container.Resolve<GameStatsService>(),
+                _container.Resolve<ConfigsProviderService>()
                 );
         } 
     }

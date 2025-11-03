@@ -1,14 +1,13 @@
-﻿namespace Assets._Project.Develop.Runtime.Utilites.SceneManagement
+﻿using System;
+using UnityEngine;
+
+namespace Assets._Project.Develop.Runtime.Utilites.SceneManagement
 {
+    [Serializable]
     public class GameplayInputArgs : IInputSceneArgs
     {
-        public GameplayInputArgs(string allowedSymbols = "", int levelNumber = 0)
-        {
-            AllowedSymbols = allowedSymbols;
-            LevelNumber = levelNumber;
-        }
-
-        public string AllowedSymbols { get; }
-        public int LevelNumber { get; }
+        [field:SerializeField] public string AllowedSymbols { get; private set; }
+        [field: SerializeField] public string LevelName { get; private set; }
+        [field: SerializeField] public Sprite LevelIcon { get; private set; }
     }
 }

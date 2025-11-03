@@ -1,5 +1,6 @@
 ﻿using Assets._Project.Develop.Runtime.Utilites.DataProviders;
 using Assets._Project.Develop.Runtime.Utilites.DataManagment;
+using Assets._Project.Develop.Runtime.Utilites.Reactive;
 
 namespace Assets._Project.Develop.Runtime.Meta.Features.Stats
 {
@@ -7,8 +8,8 @@ namespace Assets._Project.Develop.Runtime.Meta.Features.Stats
     {
         private readonly PlayerDataProvider _playerDataProvider;
 
-        public int Wins { get; private set; }
-        public int Losses { get; private set; }
+        public ReactiveVariable<int> Wins { get; private set; } = new();
+        public ReactiveVariable<int> Losses { get; private set; } = new();
 
         public GameStatsService(PlayerDataProvider playerDataProvider)
         {
@@ -20,30 +21,30 @@ namespace Assets._Project.Develop.Runtime.Meta.Features.Stats
 
         public void RegisterVictory()
         {
-            Wins++;
+            Wins.Value++;
         }
 
         public void RegisterDefeat()
         {
-            Losses++;
+            Losses.Value++;
         }
 
         public void ReadFrom(PlayerData data)
         {
-            Wins = data.Wins;
-            Losses = data.Losses;
+            Wins.Value = data.Wins;
+            Losses.Value = data.Losses;
         }
 
         public void WriteTo(PlayerData data)
         {
-            data.Wins = Wins;
-            data.Losses = Losses;
+            data.Wins = Wins.Value;
+            data.Losses = Losses.Value;
         }
 
-        public void Reset()
+        public void ResetStats()
         {
-            Wins = 0;
-            Losses = 0;
+            Wins.Value = 0;
+            Losses.Value = 0;
         }
     }
 }

@@ -4,6 +4,7 @@ using Assets._Project.Develop.Runtime.Utilites.Reactive;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 
 namespace Assets._Project.Develop.Runtime.Meta.Features.Wallet
 {
@@ -51,6 +52,7 @@ namespace Assets._Project.Develop.Runtime.Meta.Features.Wallet
                 throw new ArgumentOutOfRangeException("amount can't be less than zero");
 
             _currencies[type].Value -= amount;
+            Debug.Log($"Spend {amount} of {type}, left: {_currencies[type].Value}");
         }
 
         public void ReadFrom(PlayerData data)
