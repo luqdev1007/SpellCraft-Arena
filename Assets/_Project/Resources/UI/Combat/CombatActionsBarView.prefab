@@ -2990,8 +2990,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6319476949616109836}
+  - component: {fileID: -9043326753864494014}
   m_Layer: 5
-  m_Name: CastBarView
+  m_Name: CombatActionsBarView
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3022,6 +3023,18 @@ RectTransform:
   m_AnchoredPosition: {x: -50, y: 50}
   m_SizeDelta: {x: 400, y: 400}
   m_Pivot: {x: 1, y: 0}
+--- !u!114 &-9043326753864494014
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5215012826288859942}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65cb54f077be30e488d1261c4abff2b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5224251148887776477
 GameObject:
   m_ObjectHideFlags: 0
