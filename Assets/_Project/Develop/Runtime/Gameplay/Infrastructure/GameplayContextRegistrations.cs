@@ -17,6 +17,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
     public class GameplayContextRegistrations
     {
         private static GameplayInputArgs _inputArgs;
+        private static ChatView _chatView;
 
         public static void Process(DIContainer container, GameplayInputArgs inputArgs)
         {
@@ -24,28 +25,28 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
 
             _inputArgs = inputArgs;
 
+            container.RegisterAsSingle(CreateGameplayUIRoot).NonLazy();
+
+            // ?
+            _chatView = container.Resolve<ViewsFactory>()
+                                 .Create<ChatView>(ViewIDs.ChatView, container.Resolve<GameplayUIRoot>().HUDLayer);
+
             container.RegisterAsSingle(CreateTypeModeGeneratorService);
             container.RegisterAsSingle(CreateTypeModeHandler);
             container.RegisterAsSingle(CreateGameResultService);
 
-            container.RegisterAsSingle(CreateGameplayUIRoot).NonLazy();
 
             container.RegisterAsSingle(CreateGameplayPresentersFactory);
 
             container.RegisterAsSingle(CreateChatPresenter).NonLazy();
             container.RegisterAsSingle(CreateEndOfBattlePresenter).NonLazy();
-            // pop ups?
         }
 
         private static ChatPresenter CreateChatPresenter(DIContainer container)
         {
             GameplayUIRoot uiRoot = container.Resolve<GameplayUIRoot>();
 
-            ChatView view = container
-                .Resolve<ViewsFactory>()
-                .Create<ChatView>(ViewIDs.ChatView, uiRoot.HUDLayer);
-
-            ChatPresenter presenter = container.Resolve<GameplayPresentersFactory>().CreateChatView(view);
+            ChatPresenter presenter = container.Resolve<GameplayPresentersFactory>().CreateChatView(_chatView);
 
             return presenter;
         }
@@ -97,10 +98,11 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
         {
             return new TypeModeHandler(_inputArgs,
                 container.Resolve<TypeModeCombinationGeneratorService>(),
-                container.Resolve<ChatPresenter>(),
                 container.Resolve<GameResultService>(),
-                container.Resolve<EndOfBattlePresenter>(),
-                container.Resolve<ICoroutinesPerformer>());
+                container.Resolve<ICoroutinesPerformer>(),
+                container.Resolve<ChatService>(),
+                _chatView
+                );
         }
     }
 }

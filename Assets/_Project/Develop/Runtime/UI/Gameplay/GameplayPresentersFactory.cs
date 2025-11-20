@@ -18,7 +18,9 @@ namespace Assets._Project.Develop.Runtime.UI.Gameplay
 
         public ChatPresenter CreateChatView(ChatView view)
         {
-            return new ChatPresenter(view);
+            return new ChatPresenter(
+                view,
+                _container.Resolve<ChatService>());
         }
 
         public EndOfBattlePresenter CreateEndOfBattleView(EndOfBattleView view)
@@ -28,7 +30,9 @@ namespace Assets._Project.Develop.Runtime.UI.Gameplay
                 _container.Resolve<WalletService>(),
                 _container.Resolve<GameStatsService>(),
                 _container.Resolve<SceneSwitcherService>(),
-                _container.Resolve<ICoroutinesPerformer>()
+                _container.Resolve<ICoroutinesPerformer>(),
+                _container.Resolve<GameResultService>(),
+                _container.Resolve<TypeModeHandler>()
                 );
         }
     }

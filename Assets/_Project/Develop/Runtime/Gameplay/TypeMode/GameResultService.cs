@@ -4,6 +4,7 @@ using Assets._Project.Develop.Runtime.Meta.Features.Wallet;
 using Assets._Project.Develop.Runtime.Utilites.ConfigsManagment;
 using Assets._Project.Develop.Runtime.Utilites.CoroutinesManagment;
 using Assets._Project.Develop.Runtime.Utilites.DataProviders;
+using System;
 using System.Collections;
 
 
@@ -16,6 +17,9 @@ namespace Assets._Project.Develop.Runtime.Gameplay.TypeMode
         private readonly PlayerDataProvider _playerDataProvider;
         private readonly WalletService _walletService;
         private readonly ConfigsProviderService _configsProviderService;
+
+        public event Action VictoryRegistred;
+        public event Action DefeatRegistred;
 
         public GameResultService(
             ICoroutinesPerformer coroutinesPerformer,
@@ -38,6 +42,8 @@ namespace Assets._Project.Develop.Runtime.Gameplay.TypeMode
             _walletService.Add(CurrencyTypes.Gold, _configsProviderService.GetConfig<GameRewardsConfig>().RewardForWin);
 
             yield return _coroutinesPerformer.StartPerform(_playerDataProvider.Save());
+
+            VictoryRegistred?.Invoke();
         }
 
         public IEnumerator RegisterDefeat()
@@ -50,6 +56,8 @@ namespace Assets._Project.Develop.Runtime.Gameplay.TypeMode
                 _walletService.Spend(CurrencyTypes.Gold, _walletService.GetCurrency(CurrencyTypes.Gold).Value);
 
             yield return _coroutinesPerformer.StartPerform(_playerDataProvider.Save());
+
+            DefeatRegistred?.Invoke();
         }
     }
 }

@@ -11,49 +11,47 @@ namespace Assets._Project.Develop.Runtime.Gameplay.TypeMode
     {
         private readonly GameplayInputArgs _inputArgs;
         private readonly TypeModeCombinationGeneratorService _generator;
-        private readonly ChatPresenter _chatPresenter;
         private readonly GameResultService _resultService;
-        private readonly EndOfBattlePresenter _endOfBattlePresenter;
         private readonly ICoroutinesPerformer _coroutinesPerformer;
+
+        private readonly ChatService _chatService;
+        private readonly ChatView _chatView;
 
         private string _combination;
         private bool _isGame = false;
 
         public TypeModeHandler(GameplayInputArgs inputArgs,
             TypeModeCombinationGeneratorService generator,
-            ChatPresenter chatPresenter,
             GameResultService resultService,
-            EndOfBattlePresenter endOfBattlePresenter,
-            ICoroutinesPerformer coroutinesPerformer)
+            ICoroutinesPerformer coroutinesPerformer,
+            ChatService chatService,
+            ChatView chatView)
         {
             _inputArgs = inputArgs;
             _generator = generator;
-            _chatPresenter = chatPresenter;
             _resultService = resultService;
-            _endOfBattlePresenter = endOfBattlePresenter;
             _coroutinesPerformer = coroutinesPerformer;
+            _chatService = chatService;
+            _chatView = chatView;
         }
 
 
         public void Init()
         {
-            _chatPresenter.MessageSent += OnMessageSent;
-            _endOfBattlePresenter.RestartRequested += StartGame;
+            _chatService.MessageSent += OnMessageSent;
         }
 
         public void Dispose()
         {
-            _chatPresenter.MessageSent -= OnMessageSent;
-            _endOfBattlePresenter.RestartRequested -= StartGame;
+            _chatService.MessageSent -= OnMessageSent;
         }
 
         public void StartGame()
         {
-            _endOfBattlePresenter.Hide();
             _combination = _generator.GenerateCombination(_inputArgs.AllowedSymbols);
 
             Debug.Log($"Target combination: {_combination}");
-            _chatPresenter.SendMessageInChat("purple", "Admin", $"Target combination: {_combination}");
+            _chatService.SendMessage(_chatView, $"Target combination: {_combination}", "purple", "Admin");
             _isGame = true;
         }
 
@@ -70,14 +68,10 @@ namespace Assets._Project.Develop.Runtime.Gameplay.TypeMode
             if (isVictory)
             {
                 yield return _resultService.RegisterVictory();
-                _endOfBattlePresenter.Show("Победа!");
-                _endOfBattlePresenter.ActivateNextButton();
             }
             else
             {
                 yield return _resultService.RegisterDefeat();
-                _endOfBattlePresenter.Show("Поражение...");
-                _endOfBattlePresenter.ActivateRestartButton();
             }
         }
     }

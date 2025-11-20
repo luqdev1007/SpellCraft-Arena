@@ -1,17 +1,16 @@
 ﻿using Assets._Project.Develop.Runtime.UI.Core;
-using System;
 
 namespace Assets._Project.Develop.Runtime.UI.Gameplay
 {
     public class ChatPresenter : IPresenter
     {
-        private ChatView _chatView;
+        private readonly ChatView _chatView;
+        private readonly ChatService _chatService;
 
-        public event Action<string> MessageSent;
-
-        public ChatPresenter(ChatView chatView)
+        public ChatPresenter(ChatView chatView, ChatService chatService)
         {
             _chatView = chatView;
+            _chatService = chatService;
         }
 
         public void Initialize()
@@ -26,15 +25,9 @@ namespace Assets._Project.Develop.Runtime.UI.Gameplay
             _chatView.SendMessageButtonClicked -= OnSendMessageButtonClicked;
         }
 
-        public void SendMessageInChat(string color, string nickname, string message)
-        {
-            _chatView.AddText(color, nickname, message);
-            MessageSent?.Invoke(message);
-        }
-
         private void OnSendMessageButtonClicked(string message)
         {
-            SendMessageInChat("red", "LuQmu5", message);
+            _chatService.SendMessage(_chatView, message, "red", "LuQmu5");
         }
 
         private void OnChatButtonClicked()

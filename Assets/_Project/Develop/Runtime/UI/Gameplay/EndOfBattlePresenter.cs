@@ -10,26 +10,30 @@ namespace Assets._Project.Develop.Runtime.UI.Gameplay
 {
     public class EndOfBattlePresenter : IPresenter
     {
-        public event Action RestartRequested;
-
         private readonly EndOfBattleView _view;
         private readonly WalletService _wallet;
         private readonly GameStatsService _statsService;
         private readonly SceneSwitcherService _sceneSwitcher;
         private readonly ICoroutinesPerformer _coroutinesPerformer;
+        private readonly GameResultService _gameResultService;
+        private readonly TypeModeHandler _typeModeHandler;
 
         public EndOfBattlePresenter(
             EndOfBattleView view,
             WalletService wallet,
             GameStatsService statsService,
             SceneSwitcherService sceneSwitcher,
-            ICoroutinesPerformer coroutinesPerformer)
+            ICoroutinesPerformer coroutinesPerformer,
+            GameResultService gameResultService,
+            TypeModeHandler typeModeHandler)
         {
             _view = view;
             _wallet = wallet;
             _statsService = statsService;
             _sceneSwitcher = sceneSwitcher;
             _coroutinesPerformer = coroutinesPerformer;
+            _gameResultService = gameResultService;
+            _typeModeHandler = typeModeHandler;
         }
 
         public void Initialize()
@@ -37,6 +41,11 @@ namespace Assets._Project.Develop.Runtime.UI.Gameplay
             _view.ExitButtonClicked += OnExitButtonClicked;
             _view.NextButtonClicked += OnNextButtonClicked;
             _view.RestartButtonClicked += OnRestartButtonClicked;
+
+            _gameResultService.VictoryRegistred += OnVictory;
+            _gameResultService.DefeatRegistred += OnDefeat;
+
+            Hide();
         }
 
         public void Dispose()
@@ -44,6 +53,21 @@ namespace Assets._Project.Develop.Runtime.UI.Gameplay
             _view.ExitButtonClicked -= OnExitButtonClicked;
             _view.NextButtonClicked -= OnNextButtonClicked;
             _view.RestartButtonClicked -= OnRestartButtonClicked;
+
+            _gameResultService.VictoryRegistred -= OnVictory;
+            _gameResultService.DefeatRegistred -= OnDefeat;
+        }
+
+        private void OnDefeat()
+        {
+            Show("Defeat...");
+            ActivateRestartButton();
+        }
+
+        private void OnVictory()
+        {
+            Show("Victory!");
+            ActivateNextButton();
         }
 
         public void Show(string headerText)
@@ -75,7 +99,8 @@ namespace Assets._Project.Develop.Runtime.UI.Gameplay
 
         private void OnRestartButtonClicked()
         {
-            RestartRequested?.Invoke();
+            Hide();
+            _typeModeHandler.StartGame();
         }
 
         private void OnNextButtonClicked()
