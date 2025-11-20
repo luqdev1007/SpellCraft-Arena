@@ -347,7 +347,7 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 5827413960871652375}
+        - m_Target: {fileID: 0}
           m_TargetAssemblyTypeName: ChatView, Assembly-CSharp
           m_MethodName: CloseChat
           m_Mode: 1
@@ -2697,7 +2697,7 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 5827413960871652375}
+        - m_Target: {fileID: 0}
           m_TargetAssemblyTypeName: ChatView, Assembly-CSharp
           m_MethodName: OnSendMessageButtonClicked
           m_Mode: 1
@@ -2801,7 +2801,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5827413960871652375}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: ChatView, Assembly-CSharp
         m_MethodName: CloseChat
         m_Mode: 1
@@ -2852,7 +2852,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4775654479829663507}
-  - component: {fileID: 5827413960871652375}
+  - component: {fileID: 5968613169833943465}
   m_Layer: 0
   m_Name: ChatView
   m_TagString: Untagged
@@ -2881,7 +2881,7 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &5827413960871652375
+--- !u!114 &5968613169833943465
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2890,7 +2890,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8992042635822689996}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cb3a447ba58d99d409f9717609fca1f3, type: 3}
+  m_Script: {fileID: 11500000, guid: e2217b80fd2db224bb596bb431352ed5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _chatButton: {fileID: 9141954390977012490}

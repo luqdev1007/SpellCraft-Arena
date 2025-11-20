@@ -3,6 +3,7 @@
     public enum TypeModeSymbols
     {
         Digits = 0,
-        Letters = 1
+        Chars = 1,
+        Brackets = 2
     }
 }

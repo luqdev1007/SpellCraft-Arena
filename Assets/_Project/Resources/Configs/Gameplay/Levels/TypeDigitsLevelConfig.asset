@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea55c19b01a54a848aae2bcf831dfbb8, type: 3}
   m_Name: TypeDigitsLevelConfig
   m_EditorClassIdentifier: 
-  <InputArgs>k__BackingField:
-    <AllowedSymbols>k__BackingField: 012345
-    <LevelName>k__BackingField: "\u0427\u0438\u0441\u043B\u0430"
-    <LevelIcon>k__BackingField: {fileID: 21300000, guid: 6b3336592bcf2134abb33fc57225674a, type: 3}
+  <LevelName>k__BackingField: "\u0426\u0438\u0444\u0440\u044B"
+  <LevelIcon>k__BackingField: {fileID: 21300000, guid: 8f6c4004b346a6a41bedc9623425dbd3, type: 3}
+  <TypeMode>k__BackingField: 0

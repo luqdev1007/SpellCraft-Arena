@@ -4,10 +4,10 @@ namespace Assets._Project.Develop.Runtime.UI.Gameplay
 {
     public class ChatPresenter : IPresenter
     {
-        private readonly ChatView _chatView;
+        private readonly ChatPopupView _chatView;
         private readonly ChatService _chatService;
 
-        public ChatPresenter(ChatView chatView, ChatService chatService)
+        public ChatPresenter(ChatPopupView chatView, ChatService chatService)
         {
             _chatView = chatView;
             _chatService = chatService;

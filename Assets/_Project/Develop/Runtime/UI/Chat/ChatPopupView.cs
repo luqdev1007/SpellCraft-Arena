@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ChatView : MonoBehaviour, IView
+public class ChatPopupView : MonoBehaviour, IView
 {
     [SerializeField] private Button _chatButton;
     [SerializeField] private Button _sendMessageButton;

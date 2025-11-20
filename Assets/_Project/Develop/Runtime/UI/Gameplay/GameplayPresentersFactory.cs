@@ -16,7 +16,7 @@ namespace Assets._Project.Develop.Runtime.UI.Gameplay
             _container = container;
         }
 
-        public ChatPresenter CreateChatView(ChatView view)
+        public ChatPresenter CreateChatView(ChatPopupView view)
         {
             return new ChatPresenter(
                 view,

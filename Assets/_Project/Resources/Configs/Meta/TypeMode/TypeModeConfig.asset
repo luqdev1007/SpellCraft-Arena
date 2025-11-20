@@ -17,3 +17,5 @@ MonoBehaviour:
     <AllowedValues>k__BackingField: 012345
   - <Type>k__BackingField: 1
     <AllowedValues>k__BackingField: abcdef
+  - <Type>k__BackingField: 2
+    <AllowedValues>k__BackingField: ()[]<>

@@ -17,7 +17,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
     public class GameplayContextRegistrations
     {
         private static GameplayInputArgs _inputArgs;
-        private static ChatView _chatView;
+        private static ChatPopupView _chatView;
 
         public static void Process(DIContainer container, GameplayInputArgs inputArgs)
         {
@@ -29,7 +29,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
 
             // ?
             _chatView = container.Resolve<ViewsFactory>()
-                                 .Create<ChatView>(ViewIDs.ChatView, container.Resolve<GameplayUIRoot>().HUDLayer);
+                                 .Create<ChatPopupView>(ViewIDs.ChatView, container.Resolve<GameplayUIRoot>().HUDLayer);
 
             container.RegisterAsSingle(CreateTypeModeGeneratorService);
             container.RegisterAsSingle(CreateTypeModeHandler);

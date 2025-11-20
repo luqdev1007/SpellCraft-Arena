@@ -15,7 +15,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.TypeMode
         private readonly ICoroutinesPerformer _coroutinesPerformer;
 
         private readonly ChatService _chatService;
-        private readonly ChatView _chatView;
+        private readonly ChatPopupView _chatView;
 
         private string _combination;
         private bool _isGame = false;
@@ -25,7 +25,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.TypeMode
             GameResultService resultService,
             ICoroutinesPerformer coroutinesPerformer,
             ChatService chatService,
-            ChatView chatView)
+            ChatPopupView chatView)
         {
             _inputArgs = inputArgs;
             _generator = generator;

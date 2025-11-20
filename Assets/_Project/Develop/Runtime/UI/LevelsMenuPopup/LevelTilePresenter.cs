@@ -1,10 +1,7 @@
 ﻿using Assets._Project.Develop.Runtime.Configs.Gameplay.Levels;
-using Assets._Project.Develop.Runtime.Meta.Features.LevelsProgression;
 using Assets._Project.Develop.Runtime.UI.Core;
 using Assets._Project.Develop.Runtime.Utilites.CoroutinesManagment;
 using Assets._Project.Develop.Runtime.Utilites.SceneManagement;
-using System;
-using UnityEngine;
 
 namespace Assets._Project.Develop.Runtime.UI.LevelsMenuPopup
 {
@@ -14,24 +11,27 @@ namespace Assets._Project.Develop.Runtime.UI.LevelsMenuPopup
         private readonly ICoroutinesPerformer _coroutinesPerformer;
         private readonly GameplayInputArgs _inputArgs;
         private readonly LevelTileView _view;
+        private readonly LevelConfig _config;
 
         public LevelTilePresenter(
             SceneSwitcherService sceneSwitcher, 
             ICoroutinesPerformer coroutinesPerformer, 
             GameplayInputArgs inputArgs, 
-            LevelTileView view)
+            LevelTileView view,
+            LevelConfig config)
         {
             _sceneSwitcher = sceneSwitcher;
             _coroutinesPerformer = coroutinesPerformer;
             _inputArgs = inputArgs;
             _view = view;
+            _config = config;
         }
 
         public LevelTileView View => _view;
 
         public void Initialize()
         {
-            _view.Init(_inputArgs.LevelName, _inputArgs.LevelIcon);
+            _view.Init(_config.LevelName, _config.LevelIcon);
         }
 
         public void Dispose()
