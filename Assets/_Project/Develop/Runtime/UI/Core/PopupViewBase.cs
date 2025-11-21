@@ -23,6 +23,7 @@ namespace Assets._Project.Develop.Runtime.UI.Core
         {
             _anticlickerDefaultAlpha = _anticlicker.color.a;
             _mainGroup.alpha = 0;
+            _mainGroup.blocksRaycasts = false;
         }
 
         public Tween Show()

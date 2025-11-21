@@ -1,26 +1,33 @@
 ﻿using Assets._Project.Develop.Runtime.UI.Core;
+using Assets._Project.Develop.Runtime.Utilites.CoroutinesManagment;
 
 namespace Assets._Project.Develop.Runtime.UI.Gameplay
 {
-    public class ChatPresenter : IPresenter
+    public class ChatPresenter : PopupPresenterBase
     {
         private readonly ChatPopupView _chatView;
         private readonly ChatService _chatService;
 
-        public ChatPresenter(ChatPopupView chatView, ChatService chatService)
+        protected override PopupViewBase PopupView => _chatView;
+
+        public ChatPresenter(ChatPopupView chatView, ChatService chatService, ICoroutinesPerformer coroutinesPerformer) : base(coroutinesPerformer)
         {
             _chatView = chatView;
             _chatService = chatService;
         }
 
-        public void Initialize()
+        public override void Initialize()
         {
+            base.Initialize();
+
             _chatView.ChatButtonClicked += OnChatButtonClicked;
             _chatView.SendMessageButtonClicked += OnSendMessageButtonClicked;
         }
 
-        public void Dispose()
+        public override void Dispose()
         {
+            base.Dispose();
+
             _chatView.ChatButtonClicked -= OnChatButtonClicked;
             _chatView.SendMessageButtonClicked -= OnSendMessageButtonClicked;
         }
@@ -32,10 +39,7 @@ namespace Assets._Project.Develop.Runtime.UI.Gameplay
 
         private void OnChatButtonClicked()
         {
-            if (_chatView.IsClosed)
-                _chatView.ShowChat();
-            else
-                _chatView.CloseChat();
+            _chatView.Show();
         }
     }
 }

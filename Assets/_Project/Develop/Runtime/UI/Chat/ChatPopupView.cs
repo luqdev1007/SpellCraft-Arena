@@ -4,19 +4,16 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ChatPopupView : MonoBehaviour, IView
+public class ChatPopupView : PopupViewBase
 {
     [SerializeField] private Button _chatButton;
     [SerializeField] private Button _sendMessageButton;
     [SerializeField] private TMP_InputField _inputField;
-    [SerializeField] private CanvasGroup _chatDisplay;
     [SerializeField] private TMP_Text _chatMessagesContent;
     [SerializeField] private ScrollRect _scrollRect;
 
     public event Action ChatButtonClicked;
     public event Action<string> SendMessageButtonClicked;
-
-    public bool IsClosed => _chatDisplay.alpha == 0;
 
     private void OnEnable()
     {
@@ -30,25 +27,6 @@ public class ChatPopupView : MonoBehaviour, IView
         _sendMessageButton.onClick.RemoveListener(OnSendMessageButtonClicked);
     }
 
-    public void ShowChat()
-    {
-        _chatDisplay.alpha = 1;
-    }
-
-    public void CloseChat()
-    {
-        _chatDisplay.alpha = 0;
-    }
-
-    public void AddText(string userColor, string userName, string value)
-    {
-        _chatMessagesContent.text += "\n" + $"<color=\"{userColor}\">{userName}</color>: " + value;
-    }
-
-    private void OnChatButtonClicked()
-    {
-        ChatButtonClicked?.Invoke();
-    }
 
     public void OnSendMessageButtonClicked()
     {
@@ -62,5 +40,15 @@ public class ChatPopupView : MonoBehaviour, IView
 
         Canvas.ForceUpdateCanvases();
         _scrollRect.verticalNormalizedPosition = 0f;
+    }
+
+    public void AddText(string userColor, string userName, string value)
+    {
+        _chatMessagesContent.text += "\n" + $"<color=\"{userColor}\">{userName}</color>: " + value;
+    }
+
+    private void OnChatButtonClicked()
+    {
+        ChatButtonClicked?.Invoke();
     }
 }
