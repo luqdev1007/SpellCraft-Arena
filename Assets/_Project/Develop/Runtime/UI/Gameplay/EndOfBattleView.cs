@@ -6,9 +6,8 @@ using UnityEngine.UI;
 
 namespace Assets._Project.Develop.Runtime.UI.Gameplay
 {
-    public class EndOfBattleView : MonoBehaviour, IView
+    public class EndOfBattleView : PopupViewBase
     {
-        [SerializeField] private CanvasGroup _mainGroup;
         [SerializeField] private IconTextView _goldView;
         [SerializeField] private IconTextView _winsView;
         [SerializeField] private IconTextView _losesView;
@@ -34,20 +33,6 @@ namespace Assets._Project.Develop.Runtime.UI.Gameplay
             NextButton.onClick.RemoveListener(OnNextButtonClicked);
             RestartButton.onClick.RemoveListener(OnRestartButtonClicked);
             _exitButton.onClick.RemoveListener(OnExitButtonClicked);
-        }
-
-        public void Show()
-        {
-            _mainGroup.alpha = 1;
-            _mainGroup.blocksRaycasts = true;
-            _mainGroup.interactable = true;
-        }
-
-        public void Hide()
-        {
-            _mainGroup.alpha = 0;
-            _mainGroup.blocksRaycasts = false;
-            _mainGroup.interactable = false;
         }
 
         public void SetHeaderText(string value)

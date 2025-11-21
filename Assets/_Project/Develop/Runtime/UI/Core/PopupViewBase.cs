@@ -32,6 +32,7 @@ namespace Assets._Project.Develop.Runtime.UI.Core
             OnPreShow();
 
             _mainGroup.alpha = 1;
+            _mainGroup.blocksRaycasts = true;
 
             Sequence animation = PopupAnimationsCreator
                 .CreateShowAnimation(_body, _anticlicker, _animationType, _anticlickerDefaultAlpha);
@@ -50,6 +51,7 @@ namespace Assets._Project.Develop.Runtime.UI.Core
             OnPreHide();
 
             _mainGroup.alpha = 0;
+            _mainGroup.blocksRaycasts = false;
 
             Sequence animation = PopupAnimationsCreator
                 .CreateHideAnimation(_body, _anticlicker, _animationType, _anticlickerDefaultAlpha);

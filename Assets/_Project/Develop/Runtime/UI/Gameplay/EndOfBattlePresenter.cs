@@ -8,7 +8,7 @@ using System;
 
 namespace Assets._Project.Develop.Runtime.UI.Gameplay
 {
-    public class EndOfBattlePresenter : IPresenter
+    public class EndOfBattlePresenter : PopupPresenterBase
     {
         private readonly EndOfBattleView _view;
         private readonly WalletService _wallet;
@@ -18,6 +18,8 @@ namespace Assets._Project.Develop.Runtime.UI.Gameplay
         private readonly GameResultService _gameResultService;
         private readonly TypeModeHandler _typeModeHandler;
 
+        protected override PopupViewBase PopupView => _view;
+
         public EndOfBattlePresenter(
             EndOfBattleView view,
             WalletService wallet,
@@ -25,7 +27,7 @@ namespace Assets._Project.Develop.Runtime.UI.Gameplay
             SceneSwitcherService sceneSwitcher,
             ICoroutinesPerformer coroutinesPerformer,
             GameResultService gameResultService,
-            TypeModeHandler typeModeHandler)
+            TypeModeHandler typeModeHandler) : base(coroutinesPerformer)
         {
             _view = view;
             _wallet = wallet;
@@ -36,8 +38,10 @@ namespace Assets._Project.Develop.Runtime.UI.Gameplay
             _typeModeHandler = typeModeHandler;
         }
 
-        public void Initialize()
+        public override void Initialize()
         {
+            base.Initialize();
+
             _view.ExitButtonClicked += OnExitButtonClicked;
             _view.NextButtonClicked += OnNextButtonClicked;
             _view.RestartButtonClicked += OnRestartButtonClicked;
@@ -48,8 +52,10 @@ namespace Assets._Project.Develop.Runtime.UI.Gameplay
             Hide();
         }
 
-        public void Dispose()
+        public override void Dispose()
         {
+            base.Dispose();
+
             _view.ExitButtonClicked -= OnExitButtonClicked;
             _view.NextButtonClicked -= OnNextButtonClicked;
             _view.RestartButtonClicked -= OnRestartButtonClicked;
@@ -60,29 +66,24 @@ namespace Assets._Project.Develop.Runtime.UI.Gameplay
 
         private void OnDefeat()
         {
-            Show("Defeat...");
+            UpdateView("Defeat...");
             ActivateRestartButton();
         }
 
         private void OnVictory()
         {
-            Show("Victory!");
+            UpdateView("Victory!");
             ActivateNextButton();
         }
 
-        public void Show(string headerText)
+        private void UpdateView(string header)
         {
+            _view.SetHeaderText(header);
             _view.SetGoldText(_wallet.GetCurrency(CurrencyTypes.Gold).Value.ToString());
             _view.SetLosesText(_statsService.Losses.Value.ToString());
             _view.SetWinsText(_statsService.Wins.Value.ToString());
-            _view.SetHeaderText(headerText);
 
-            _view.Show();
-        }
-
-        public void Hide()
-        {
-            _view.Hide();
+            Show();
         }
 
         public void ActivateNextButton()
