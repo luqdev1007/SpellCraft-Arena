@@ -3,6 +3,7 @@ using Assets._Project.Develop.Runtime.Utilites.CoroutinesManagment;
 using Assets._Project.Develop.Runtime.Utilites.SceneManagement;
 using System;
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Assets._Project.Develop.Runtime.Gameplay.TypeMode
@@ -34,12 +35,12 @@ namespace Assets._Project.Develop.Runtime.Gameplay.TypeMode
 
         public void Init()
         {
-            // _chatService.MessageSent += OnMessageSent;
+            _chatService.MessageAddedInHistory += OnMessageAddedInHistory;
         }
 
         public void Dispose()
         {
-            // _chatService.MessageSent -= OnMessageSent;
+            _chatService.MessageAddedInHistory -= OnMessageAddedInHistory;
         }
 
         public void StartGame()
@@ -47,14 +48,14 @@ namespace Assets._Project.Develop.Runtime.Gameplay.TypeMode
             _combination = _generator.GenerateCombination(_inputArgs.AllowedSymbols);
 
             Debug.Log($"Target combination: {_combination}");
-            // _chatService.SendMessage(_chatView, $"Target combination: {_combination}", "purple", "Admin");
+            _chatService.AddMessage($"Target combination: {_combination}", "Admin");
             _isGame = true;
         }
 
-        private void OnMessageSent(string value)
+        private void OnMessageAddedInHistory(string value)
         {
             if (_isGame)
-                _coroutinesPerformer.StartPerform(HandleEndGame(_combination == value));
+                _coroutinesPerformer.StartPerform(HandleEndGame(_combination == value.PartAfter(':')));
         }
 
         private IEnumerator HandleEndGame(bool isVictory)

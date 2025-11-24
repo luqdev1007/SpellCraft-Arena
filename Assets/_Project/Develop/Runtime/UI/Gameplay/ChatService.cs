@@ -14,8 +14,8 @@ public class ChatService
         if (content.Length == 0)
             return;
 
-        _history.Add($"{userName}: {content}");
+        _history.Add($"{userName}:{content}");
 
-        MessageAddedInHistory?.Invoke($"{userName}: {content}");
+        MessageAddedInHistory?.Invoke($"{userName}:{content}");
     }
 }
