@@ -68,12 +68,14 @@ namespace Assets._Project.Develop.Runtime.Gameplay.TypeMode
             if (isVictory)
             {
                 yield return _resultService.RegisterVictory();
+                _chatService.AddMessage("Ты выиграл!", "Admin");
                 EndOfBattlePresenter endOfBattlePopup = _gameplayPopupService.OpenEndOfBattlePopup();
                 endOfBattlePopup.ShowVictory();
             }
             else
             {
                 yield return _resultService.RegisterDefeat();
+                _chatService.AddMessage("Ты проиграл...", "Admin");
                 EndOfBattlePresenter endOfBattlePopup = _gameplayPopupService.OpenEndOfBattlePopup();
                 endOfBattlePopup.ShowDefeat();
             }
