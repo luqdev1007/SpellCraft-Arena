@@ -103,5 +103,7 @@ namespace Assets._Project.Develop.Runtime.UI.Core
             public PopupViewBase View { get; }
             public Action CloseCallback { get; }
         }
+
+        // метод на открытие ChatPresenter-а 
     }
 }

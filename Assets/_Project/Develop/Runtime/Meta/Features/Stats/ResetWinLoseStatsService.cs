@@ -5,12 +5,12 @@ using UnityEngine;
 
 namespace Assets._Project.Develop.Runtime.Meta.Features.Stats
 {
-    public class ResetDataService
+    public class ResetWinLoseStatsService
     {
         private readonly WalletService _walletService;
         private readonly GameStatsService _gameStatsService;
 
-        public ResetDataService(
+        public ResetWinLoseStatsService(
             WalletService walletService,
             GameStatsService gameStatsService,
             ConfigsProviderService configsProviderService)

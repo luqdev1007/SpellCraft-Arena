@@ -12,7 +12,7 @@ namespace Assets._Project.Develop.Runtime.UI.MainMenu
         private readonly MainMenuPopupService _popupService;
         private readonly WalletService _wallet;
         private readonly GameStatsService _statsService;
-        private readonly ResetDataService _resetDataService;
+        private readonly ResetWinLoseStatsService _resetDataService;
 
         private List<IDisposable> _disposables = new();
 
@@ -21,7 +21,7 @@ namespace Assets._Project.Develop.Runtime.UI.MainMenu
             MainMenuPopupService popupService,
             WalletService wallet,
             GameStatsService statsService,
-            ResetDataService resetDataService)
+            ResetWinLoseStatsService resetDataService)
         {
             _view = view;
             _popupService = popupService;
@@ -66,6 +66,9 @@ namespace Assets._Project.Develop.Runtime.UI.MainMenu
         {
             _view.SetWinsText(newValue.ToString());
         }
+
+        // обработка нажатия на кнопку открытия чата и открытие через поп ап сервис
+
 
         private void OnStartGameButtonClicked()
         {

@@ -27,7 +27,6 @@ public class ChatPopupView : PopupViewBase
         _sendMessageButton.onClick.RemoveListener(OnSendMessageButtonClicked);
     }
 
-
     public void OnSendMessageButtonClicked()
     {
         string messageContent = _inputField.text;

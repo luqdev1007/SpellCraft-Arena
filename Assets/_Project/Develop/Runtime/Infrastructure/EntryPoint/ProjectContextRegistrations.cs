@@ -70,8 +70,8 @@ namespace Assets._Project.Develop.Infrastructure.EntryPoint
         private static GameStatsService CreateGameStatsService(DIContainer container) 
             => new GameStatsService(container.Resolve<PlayerDataProvider>());
 
-        private static ResetDataService CreateResetDataService(DIContainer container)
-            => new ResetDataService(
+        private static ResetWinLoseStatsService CreateResetDataService(DIContainer container)
+            => new ResetWinLoseStatsService(
                 container.Resolve<WalletService>(), 
                 container.Resolve<GameStatsService>(), 
                 container.Resolve<ConfigsProviderService>());

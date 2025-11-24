@@ -5,6 +5,9 @@ namespace Assets._Project.Develop.Runtime.UI.Gameplay
 {
     public class ChatPresenter : PopupPresenterBase
     {
+        // Из вьюхи получаем событие об отправке, обрабатываем здесь посылаем в сервис, из сервиса получаем
+        // обработанное сообщение и отображаем во вьюху
+
         private readonly ChatPopupView _chatView;
         private readonly ChatService _chatService;
 

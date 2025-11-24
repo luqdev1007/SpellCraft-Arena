@@ -60,6 +60,8 @@ namespace Assets._Project.Develop.Runtime.UI.Gameplay
             _view.NextButtonClicked -= OnNextButtonClicked;
             _view.RestartButtonClicked -= OnRestartButtonClicked;
 
+            // не будет, когда открывать буду буду передавать сразу параметром победу или поражение показать
+            // или вытаскивать из gameResultService результат
             _gameResultService.VictoryRegistred -= OnVictory;
             _gameResultService.DefeatRegistred -= OnDefeat;
         }
