@@ -8,7 +8,7 @@ namespace Assets._Project.Develop.Runtime.UI.MainMenu
 {
     public class MainMenuScreenPresenter : IPresenter
     {
-        private readonly MainMenuView _view;
+        private readonly MainMenuScreenView _view;
         private readonly MainMenuPopupService _popupService;
         private readonly WalletService _wallet;
         private readonly GameStatsService _statsService;
@@ -17,7 +17,7 @@ namespace Assets._Project.Develop.Runtime.UI.MainMenu
         private List<IDisposable> _disposables = new();
 
         public MainMenuScreenPresenter(
-            MainMenuView view,
+            MainMenuScreenView view,
             MainMenuPopupService popupService,
             WalletService wallet,
             GameStatsService statsService,

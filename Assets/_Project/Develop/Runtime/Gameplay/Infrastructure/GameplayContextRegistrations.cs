@@ -2,8 +2,10 @@
 using Assets._Project.Develop.Runtime.Gameplay.TypeMode;
 using Assets._Project.Develop.Runtime.Meta.Features.Stats;
 using Assets._Project.Develop.Runtime.Meta.Features.Wallet;
+using Assets._Project.Develop.Runtime.UI;
 using Assets._Project.Develop.Runtime.UI.Core;
 using Assets._Project.Develop.Runtime.UI.Gameplay;
+using Assets._Project.Develop.Runtime.UI.MainMenu;
 using Assets._Project.Develop.Runtime.Utilites.AssetsManagment;
 using Assets._Project.Develop.Runtime.Utilites.ConfigsManagment;
 using Assets._Project.Develop.Runtime.Utilites.CoroutinesManagment;
@@ -24,13 +26,38 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
 
             _inputArgs = inputArgs;
 
-            container.RegisterAsSingle(CreateGameplayUIRoot).NonLazy();
             container.RegisterAsSingle(CreateTypeModeGeneratorService);
             container.RegisterAsSingle(CreateTypeModeHandler);
             container.RegisterAsSingle(CreateGameResultService);
+
+            container.RegisterAsSingle(CreateGameplayUIRoot).NonLazy();
+            container.RegisterAsSingle(CreateGameplayPopupService);
             container.RegisterAsSingle(CreateGameplayPresentersFactory);
+            container.RegisterAsSingle(CreateGameplayScreenPresenter).NonLazy();
 
             container.RegisterAsSingle(CreateEndOfBattlePresenter).NonLazy(); // в фабрику
+        }
+
+        private static GameplayPopupService CreateGameplayPopupService(DIContainer container)
+        {
+            return new GameplayPopupService(
+                container.Resolve<ViewsFactory>(),
+                container.Resolve<ProjectPresentersFactory>(),
+                container.Resolve<GameplayUIRoot>()
+                );
+        }
+
+        private static GameplayScreenPresenter CreateGameplayScreenPresenter(DIContainer container)
+        {
+            GameplayUIRoot uiRoot = container.Resolve<GameplayUIRoot>();
+
+            GameplayScreenView view = container
+                .Resolve<ViewsFactory>()
+                .Create<GameplayScreenView>(ViewIDs.GameplayScreenView, uiRoot.HUDLayer);
+
+            GameplayScreenPresenter presenter = container.Resolve<GameplayPresentersFactory>().CreateGameplayScreen(view);
+
+            return presenter;
         }
 
 

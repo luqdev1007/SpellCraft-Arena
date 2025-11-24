@@ -4,6 +4,7 @@ using Assets._Project.Develop.Runtime.Meta.Features.Stats;
 using Assets._Project.Develop.Runtime.Meta.Features.Wallet;
 using Assets._Project.Develop.Runtime.Utilites.CoroutinesManagment;
 using Assets._Project.Develop.Runtime.Utilites.SceneManagement;
+using System;
 
 namespace Assets._Project.Develop.Runtime.UI.Gameplay
 {
@@ -26,6 +27,14 @@ namespace Assets._Project.Develop.Runtime.UI.Gameplay
                 _container.Resolve<ICoroutinesPerformer>(),
                 _container.Resolve<GameResultService>(),
                 _container.Resolve<TypeModeHandler>()
+                );
+        }
+
+        public GameplayScreenPresenter CreateGameplayScreen(GameplayScreenView view)
+        {
+            return new GameplayScreenPresenter(
+                view, 
+                _container.Resolve<GameplayPopupService>()
                 );
         }
     }

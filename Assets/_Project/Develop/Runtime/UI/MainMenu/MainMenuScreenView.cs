@@ -3,7 +3,7 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class MainMenuView : MonoBehaviour, IView
+public class MainMenuScreenView : MonoBehaviour, IView
 {
     public event Action StartGameButtonClicked;
     public event Action ResetStatsButtonClicked;
