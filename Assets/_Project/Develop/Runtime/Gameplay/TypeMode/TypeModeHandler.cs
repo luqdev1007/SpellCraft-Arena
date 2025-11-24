@@ -15,6 +15,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.TypeMode
         private readonly GameResultService _resultService;
         private readonly ICoroutinesPerformer _coroutinesPerformer;
         private readonly ChatService _chatService;
+        private readonly GameplayPopupService _gameplayPopupService;
 
         private string _combination;
         private bool _isGame = false;
@@ -23,13 +24,15 @@ namespace Assets._Project.Develop.Runtime.Gameplay.TypeMode
             TypeModeCombinationGeneratorService generator,
             GameResultService resultService,
             ICoroutinesPerformer coroutinesPerformer,
-            ChatService chatService)
+            ChatService chatService,
+            GameplayPopupService gameplayPopupService)
         {
             _inputArgs = inputArgs;
             _generator = generator;
             _resultService = resultService;
             _coroutinesPerformer = coroutinesPerformer;
             _chatService = chatService;
+            _gameplayPopupService = gameplayPopupService;
         }
 
 
@@ -65,10 +68,14 @@ namespace Assets._Project.Develop.Runtime.Gameplay.TypeMode
             if (isVictory)
             {
                 yield return _resultService.RegisterVictory();
+                EndOfBattlePresenter endOfBattlePopup = _gameplayPopupService.OpenEndOfBattlePopup();
+                endOfBattlePopup.ShowVictory();
             }
             else
             {
                 yield return _resultService.RegisterDefeat();
+                EndOfBattlePresenter endOfBattlePopup = _gameplayPopupService.OpenEndOfBattlePopup();
+                endOfBattlePopup.ShowDefeat();
             }
         }
     }

@@ -15,7 +15,6 @@ namespace Assets._Project.Develop.Runtime.UI.Gameplay
         private readonly GameStatsService _statsService;
         private readonly SceneSwitcherService _sceneSwitcher;
         private readonly ICoroutinesPerformer _coroutinesPerformer;
-        private readonly GameResultService _gameResultService;
         private readonly TypeModeHandler _typeModeHandler;
 
         protected override PopupViewBase PopupView => _view;
@@ -26,7 +25,6 @@ namespace Assets._Project.Develop.Runtime.UI.Gameplay
             GameStatsService statsService,
             SceneSwitcherService sceneSwitcher,
             ICoroutinesPerformer coroutinesPerformer,
-            GameResultService gameResultService,
             TypeModeHandler typeModeHandler) : base(coroutinesPerformer)
         {
             _view = view;
@@ -34,7 +32,6 @@ namespace Assets._Project.Develop.Runtime.UI.Gameplay
             _statsService = statsService;
             _sceneSwitcher = sceneSwitcher;
             _coroutinesPerformer = coroutinesPerformer;
-            _gameResultService = gameResultService;
             _typeModeHandler = typeModeHandler;
         }
 
@@ -46,9 +43,6 @@ namespace Assets._Project.Develop.Runtime.UI.Gameplay
             _view.NextButtonClicked += OnNextButtonClicked;
             _view.RestartButtonClicked += OnRestartButtonClicked;
 
-            _gameResultService.VictoryRegistred += OnVictory;
-            _gameResultService.DefeatRegistred += OnDefeat;
-
             Hide();
         }
 
@@ -59,33 +53,18 @@ namespace Assets._Project.Develop.Runtime.UI.Gameplay
             _view.ExitButtonClicked -= OnExitButtonClicked;
             _view.NextButtonClicked -= OnNextButtonClicked;
             _view.RestartButtonClicked -= OnRestartButtonClicked;
-
-            // не будет, когда открывать буду буду передавать сразу параметром победу или поражение показать
-            // или вытаскивать из gameResultService результат
-            _gameResultService.VictoryRegistred -= OnVictory;
-            _gameResultService.DefeatRegistred -= OnDefeat;
         }
 
-        private void OnDefeat()
+        public void ShowDefeat()
         {
             UpdateView("Defeat...");
             ActivateRestartButton();
         }
 
-        private void OnVictory()
+        public void ShowVictory()
         {
             UpdateView("Victory!");
             ActivateNextButton();
-        }
-
-        private void UpdateView(string header)
-        {
-            _view.SetHeaderText(header);
-            _view.SetGoldText(_wallet.GetCurrency(CurrencyTypes.Gold).Value.ToString());
-            _view.SetLosesText(_statsService.Losses.Value.ToString());
-            _view.SetWinsText(_statsService.Wins.Value.ToString());
-
-            Show();
         }
 
         public void ActivateNextButton()
@@ -98,6 +77,16 @@ namespace Assets._Project.Develop.Runtime.UI.Gameplay
         {
             _view.RestartButton.gameObject.SetActive(true);
             _view.NextButton.gameObject.SetActive(false);
+        }
+
+        private void UpdateView(string header)
+        {
+            _view.SetHeaderText(header);
+            _view.SetGoldText(_wallet.GetCurrency(CurrencyTypes.Gold).Value.ToString());
+            _view.SetLosesText(_statsService.Losses.Value.ToString());
+            _view.SetWinsText(_statsService.Wins.Value.ToString());
+
+            Show();
         }
 
         private void OnRestartButtonClicked()

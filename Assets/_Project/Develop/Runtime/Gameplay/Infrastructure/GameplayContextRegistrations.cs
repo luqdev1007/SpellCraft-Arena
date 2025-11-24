@@ -43,7 +43,8 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
             return new GameplayPopupService(
                 container.Resolve<ViewsFactory>(),
                 container.Resolve<ProjectPresentersFactory>(),
-                container.Resolve<GameplayUIRoot>()
+                container.Resolve<GameplayUIRoot>(),
+                container.Resolve<GameplayPresentersFactory>()
                 );
         }
 
@@ -110,7 +111,8 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
                 container.Resolve<TypeModeCombinationGeneratorService>(),
                 container.Resolve<GameResultService>(),
                 container.Resolve<ICoroutinesPerformer>(),
-                container.Resolve<ChatService>()
+                container.Resolve<ChatService>(),
+                container.Resolve<GameplayPopupService>()
                 );
         }
     }

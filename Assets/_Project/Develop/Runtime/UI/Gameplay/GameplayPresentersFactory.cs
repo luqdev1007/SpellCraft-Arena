@@ -25,7 +25,6 @@ namespace Assets._Project.Develop.Runtime.UI.Gameplay
                 _container.Resolve<GameStatsService>(),
                 _container.Resolve<SceneSwitcherService>(),
                 _container.Resolve<ICoroutinesPerformer>(),
-                _container.Resolve<GameResultService>(),
                 _container.Resolve<TypeModeHandler>()
                 );
         }
