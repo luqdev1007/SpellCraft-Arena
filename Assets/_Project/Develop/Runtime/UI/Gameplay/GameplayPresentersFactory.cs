@@ -16,14 +16,6 @@ namespace Assets._Project.Develop.Runtime.UI.Gameplay
             _container = container;
         }
 
-        public ChatPresenter CreateChatView(ChatPopupView view)
-        {
-            return new ChatPresenter(
-                view,
-                _container.Resolve<ChatService>(),
-                _container.Resolve<ICoroutinesPerformer>());
-        }
-
         public EndOfBattlePresenter CreateEndOfBattleView(EndOfBattleView view)
         {
             return new EndOfBattlePresenter(

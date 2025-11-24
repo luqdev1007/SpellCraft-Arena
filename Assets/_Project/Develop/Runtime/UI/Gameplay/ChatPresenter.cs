@@ -13,7 +13,10 @@ namespace Assets._Project.Develop.Runtime.UI.Gameplay
 
         protected override PopupViewBase PopupView => _chatView;
 
-        public ChatPresenter(ChatPopupView chatView, ChatService chatService, ICoroutinesPerformer coroutinesPerformer) : base(coroutinesPerformer)
+        public ChatPresenter(
+            ChatPopupView chatView, 
+            ChatService chatService, 
+            ICoroutinesPerformer coroutinesPerformer) : base(coroutinesPerformer)
         {
             _chatView = chatView;
             _chatService = chatService;
@@ -23,7 +26,6 @@ namespace Assets._Project.Develop.Runtime.UI.Gameplay
         {
             base.Initialize();
 
-            _chatView.ChatButtonClicked += OnChatButtonClicked;
             _chatView.SendMessageButtonClicked += OnSendMessageButtonClicked;
         }
 
@@ -31,18 +33,12 @@ namespace Assets._Project.Develop.Runtime.UI.Gameplay
         {
             base.Dispose();
 
-            _chatView.ChatButtonClicked -= OnChatButtonClicked;
             _chatView.SendMessageButtonClicked -= OnSendMessageButtonClicked;
         }
 
         private void OnSendMessageButtonClicked(string message)
         {
-            _chatService.SendMessage(_chatView, message, "red", "LuQmu5");
-        }
-
-        private void OnChatButtonClicked()
-        {
-            _chatView.Show();
+            _chatService.AddMessage(message, "LuQmu5");
         }
     }
 }

@@ -1,17 +1,21 @@
 ﻿using System;
+using System.Collections.Generic;
 
 public class ChatService
 {
-    // история сообщений
-    // реактивный список, а чат презентер подписан на список этот
-    // очистка чата
+    private List<string> _history = new();
 
-    public event Action<string> MessageSent;
+    public IReadOnlyCollection<string> History => _history;
 
-    public void SendMessage(ChatPopupView view, string message, string color, string userName)
+    public event Action<string> MessageAdded;
+
+    public void AddMessage(string content, string userName)
     {
-        view.AddText(color, userName, message);
+        if (content.Length == 0)
+            return;
 
-        MessageSent?.Invoke(message);
+        _history.Add($"{userName}: {content}");
+
+        MessageAdded?.Invoke(content);
     }
 }

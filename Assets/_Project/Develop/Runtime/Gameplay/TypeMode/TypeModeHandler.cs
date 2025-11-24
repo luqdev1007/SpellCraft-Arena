@@ -34,12 +34,12 @@ namespace Assets._Project.Develop.Runtime.Gameplay.TypeMode
 
         public void Init()
         {
-            _chatService.MessageSent += OnMessageSent;
+            // _chatService.MessageSent += OnMessageSent;
         }
 
         public void Dispose()
         {
-            _chatService.MessageSent -= OnMessageSent;
+            // _chatService.MessageSent -= OnMessageSent;
         }
 
         public void StartGame()
