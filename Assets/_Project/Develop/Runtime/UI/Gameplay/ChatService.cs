@@ -7,7 +7,7 @@ public class ChatService
 
     public IReadOnlyCollection<string> History => _history;
 
-    public event Action<string> MessageAdded;
+    public event Action<string> MessageAddedInHistory;
 
     public void AddMessage(string content, string userName)
     {
@@ -16,6 +16,6 @@ public class ChatService
 
         _history.Add($"{userName}: {content}");
 
-        MessageAdded?.Invoke(content);
+        MessageAddedInHistory?.Invoke($"{userName}: {content}");
     }
 }

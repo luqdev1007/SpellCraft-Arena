@@ -32,13 +32,13 @@ public class ChatPopupView : PopupViewBase
 
         SendMessageButtonClicked?.Invoke(messageContent);
         _inputField.text = "";
+    }
+
+    public void AddText(string userColor, string userName, string content)
+    {
+        _chatMessagesContent.text += "\n" + $"<color=\"{userColor}\">{userName}</color>: " + content;
 
         Canvas.ForceUpdateCanvases();
         _scrollRect.verticalNormalizedPosition = 0f;
-    }
-
-    public void AddText(string userColor, string userName, string value)
-    {
-        _chatMessagesContent.text += "\n" + $"<color=\"{userColor}\">{userName}</color>: " + value;
     }
 }

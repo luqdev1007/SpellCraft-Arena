@@ -1,13 +1,13 @@
 ﻿using Assets._Project.Develop.Runtime.UI.Core;
 using Assets._Project.Develop.Runtime.Utilites.CoroutinesManagment;
+using System;
+using Unity.VisualScripting;
+using UnityEngine;
 
 namespace Assets._Project.Develop.Runtime.UI.Gameplay
 {
     public class ChatPresenter : PopupPresenterBase
     {
-        // Из вьюхи получаем событие об отправке, обрабатываем здесь посылаем в сервис, из сервиса получаем
-        // обработанное сообщение и отображаем во вьюху
-
         private readonly ChatPopupView _chatView;
         private readonly ChatService _chatService;
 
@@ -27,6 +27,10 @@ namespace Assets._Project.Develop.Runtime.UI.Gameplay
             base.Initialize();
 
             _chatView.SendMessageButtonClicked += OnSendMessageButtonClicked;
+            _chatService.MessageAddedInHistory += OnMessageAddedInHistory;
+
+            foreach (string message in _chatService.History)
+                AddMessageToChatView(message);
         }
 
         public override void Dispose()
@@ -34,11 +38,25 @@ namespace Assets._Project.Develop.Runtime.UI.Gameplay
             base.Dispose();
 
             _chatView.SendMessageButtonClicked -= OnSendMessageButtonClicked;
+            _chatService.MessageAddedInHistory -= OnMessageAddedInHistory;
         }
 
         private void OnSendMessageButtonClicked(string message)
         {
             _chatService.AddMessage(message, "LuQmu5");
+        }
+
+        private void OnMessageAddedInHistory(string message)
+        {
+            AddMessageToChatView(message);
+        }
+
+        private void AddMessageToChatView(string message)
+        {
+            string userName = message.PartBefore(':');
+            string content = message.PartAfter(':');
+
+            _chatView.AddText("red", userName, content);
         }
     }
 }
