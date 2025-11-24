@@ -4,7 +4,6 @@ using Assets._Project.Develop.Runtime.Meta.Features.Stats;
 using Assets._Project.Develop.Runtime.Meta.Features.Wallet;
 using Assets._Project.Develop.Runtime.UI;
 using Assets._Project.Develop.Runtime.UI.Core;
-using Assets._Project.Develop.Runtime.UI.MainMenu;
 using Assets._Project.Develop.Runtime.Utilites.AssetsManagment;
 using Assets._Project.Develop.Runtime.Utilites.ConfigsManagment;
 using Assets._Project.Develop.Runtime.Utilites.CoroutinesManagment;
@@ -49,7 +48,7 @@ namespace Assets._Project.Develop.Infrastructure.EntryPoint
 
             container.RegisterAsSingle(CreateGameStatsService).NonLazy();
 
-            container.RegisterAsSingle(CreateResetDataService); // non lazy?
+            container.RegisterAsSingle(CreateResetDataService);
 
             container.RegisterAsSingle(CreateProjectPresentersFactory);
 

@@ -42,6 +42,7 @@ namespace Assets._Project.Develop.Runtime.UI.MainMenu
 
             _view.StartGameButtonClicked += OnStartGameButtonClicked;
             _view.ResetStatsButtonClicked += OnResetStatsButtonClicked;
+            _view.OpenChatButtonClicked += OnOpenChatButtonClicked;
 
             CheckResetPossibility();
         }
@@ -50,6 +51,7 @@ namespace Assets._Project.Develop.Runtime.UI.MainMenu
         {
             _view.StartGameButtonClicked -= OnStartGameButtonClicked;
             _view.ResetStatsButtonClicked -= OnResetStatsButtonClicked;
+            _view.OpenChatButtonClicked -= OnOpenChatButtonClicked;
 
             foreach (var disposable in _disposables)
                 disposable.Dispose();
@@ -67,8 +69,10 @@ namespace Assets._Project.Develop.Runtime.UI.MainMenu
             _view.SetWinsText(newValue.ToString());
         }
 
-        // обработка нажатия на кнопку открытия чата и открытие через поп ап сервис
-
+        private void OnOpenChatButtonClicked()
+        {
+            _popupService.OpenChatPopup();
+        }
 
         private void OnStartGameButtonClicked()
         {

@@ -1,4 +1,5 @@
 ﻿using Assets._Project.Develop.Runtime.UI.Core.TestPopup;
+using Assets._Project.Develop.Runtime.UI.Gameplay;
 using Assets._Project.Develop.Runtime.UI.LevelsMenuPopup;
 using System;
 using System.Collections.Generic;
@@ -53,6 +54,17 @@ namespace Assets._Project.Develop.Runtime.UI.Core
         {
             popup.Dispose();
             ViewsFactory.Release(_presenterToInfo[popup].View);
+        }
+
+        public ChatPresenter OpenChatPopup()
+        {
+            ChatPopupView view = ViewsFactory.Create<ChatPopupView>(ViewIDs.ChatView, PopupLayer);
+
+            ChatPresenter popup = _presentersFactory.CreateChatPresenter(view);
+
+            OnPopupCreated(popup, view);
+
+            return popup;
         }
 
         public LevelsMenuPopupPresenter OpenLevelsMenuPopup()

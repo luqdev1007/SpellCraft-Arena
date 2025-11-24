@@ -17,7 +17,6 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
     public class GameplayContextRegistrations
     {
         private static GameplayInputArgs _inputArgs;
-        private static ChatPopupView _chatView;
 
         public static void Process(DIContainer container, GameplayInputArgs inputArgs)
         {
@@ -25,31 +24,15 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
 
             _inputArgs = inputArgs;
 
-            container.RegisterAsSingle(CreateGameplayUIRoot).NonLazy(); // ui root
-
-            // ?
-            _chatView = container.Resolve<ViewsFactory>()
-                                 .Create<ChatPopupView>(ViewIDs.ChatView, container.Resolve<GameplayUIRoot>().HUDLayer);
-
+            container.RegisterAsSingle(CreateGameplayUIRoot).NonLazy();
             container.RegisterAsSingle(CreateTypeModeGeneratorService);
             container.RegisterAsSingle(CreateTypeModeHandler);
             container.RegisterAsSingle(CreateGameResultService);
+            container.RegisterAsSingle(CreateGameplayPresentersFactory);
 
-
-            container.RegisterAsSingle(CreateGameplayPresentersFactory); // presenters
-
-            container.RegisterAsSingle(CreateChatPresenter).NonLazy(); // в фабрику
             container.RegisterAsSingle(CreateEndOfBattlePresenter).NonLazy(); // в фабрику
         }
 
-        private static ChatPresenter CreateChatPresenter(DIContainer container)
-        {
-            GameplayUIRoot uiRoot = container.Resolve<GameplayUIRoot>();
-
-            ChatPresenter presenter = container.Resolve<GameplayPresentersFactory>().CreateChatView(_chatView);
-
-            return presenter;
-        }
 
         private static EndOfBattlePresenter CreateEndOfBattlePresenter(DIContainer container)
         {
@@ -100,8 +83,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
                 container.Resolve<TypeModeCombinationGeneratorService>(),
                 container.Resolve<GameResultService>(),
                 container.Resolve<ICoroutinesPerformer>(),
-                container.Resolve<ChatService>(),
-                _chatView
+                container.Resolve<ChatService>()
                 );
         }
     }

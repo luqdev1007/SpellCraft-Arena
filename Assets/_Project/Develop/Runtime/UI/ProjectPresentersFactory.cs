@@ -5,6 +5,7 @@ using Assets._Project.Develop.Runtime.Meta.Features.Wallet;
 using Assets._Project.Develop.Runtime.UI.CommonViews;
 using Assets._Project.Develop.Runtime.UI.Core;
 using Assets._Project.Develop.Runtime.UI.Core.TestPopup;
+using Assets._Project.Develop.Runtime.UI.Gameplay;
 using Assets._Project.Develop.Runtime.UI.LevelsMenuPopup;
 using Assets._Project.Develop.Runtime.UI.Wallet;
 using Assets._Project.Develop.Runtime.Utilites.ConfigsManagment;
@@ -22,6 +23,15 @@ namespace Assets._Project.Develop.Runtime.UI
         public ProjectPresentersFactory(DIContainer container)
         {
             _container = container;
+        }
+
+        public ChatPresenter CreateChatPresenter(ChatPopupView view)
+        {
+            return new ChatPresenter(
+                view,
+                _container.Resolve<ChatService>(),
+                _container.Resolve<ICoroutinesPerformer>()
+                );
         }
 
         public LevelsMenuPopupPresenter CreateLevelsMenuPopupPresenter(LevelsMenuPopupView view)

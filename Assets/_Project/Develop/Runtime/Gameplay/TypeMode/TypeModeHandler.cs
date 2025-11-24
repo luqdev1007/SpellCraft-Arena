@@ -13,9 +13,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.TypeMode
         private readonly TypeModeCombinationGeneratorService _generator;
         private readonly GameResultService _resultService;
         private readonly ICoroutinesPerformer _coroutinesPerformer;
-
         private readonly ChatService _chatService;
-        private readonly ChatPopupView _chatView;
 
         private string _combination;
         private bool _isGame = false;
@@ -24,15 +22,13 @@ namespace Assets._Project.Develop.Runtime.Gameplay.TypeMode
             TypeModeCombinationGeneratorService generator,
             GameResultService resultService,
             ICoroutinesPerformer coroutinesPerformer,
-            ChatService chatService,
-            ChatPopupView chatView)
+            ChatService chatService)
         {
             _inputArgs = inputArgs;
             _generator = generator;
             _resultService = resultService;
             _coroutinesPerformer = coroutinesPerformer;
             _chatService = chatService;
-            _chatView = chatView;
         }
 
 
@@ -51,7 +47,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.TypeMode
             _combination = _generator.GenerateCombination(_inputArgs.AllowedSymbols);
 
             Debug.Log($"Target combination: {_combination}");
-            _chatService.SendMessage(_chatView, $"Target combination: {_combination}", "purple", "Admin");
+            // _chatService.SendMessage(_chatView, $"Target combination: {_combination}", "purple", "Admin");
             _isGame = true;
         }
 
