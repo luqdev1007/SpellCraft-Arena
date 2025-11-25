@@ -61,7 +61,7 @@ namespace Assets._Project.Develop.Infrastructure.EntryPoint
 
             loadingScreen.Hide();
 
-            yield return sceneSwitcherService.ProcessingSwitchTo(Scenes.MainMenu);
+            yield return sceneSwitcherService.ProcessingSwitchTo(Scenes.Gameplay, new GameplayInputArgs("abcdef"));
         }
     }
 }

@@ -1,11 +1,12 @@
 ﻿using Assets._Project.Develop.Infrastructure.DI;
+using Assets._Project.Develop.Runtime.Gameplay.EntitiesCore;
+using Assets._Project.Develop.Runtime.Gameplay.EntitiesCore.Mono;
 using Assets._Project.Develop.Runtime.Gameplay.TypeMode;
 using Assets._Project.Develop.Runtime.Meta.Features.Stats;
 using Assets._Project.Develop.Runtime.Meta.Features.Wallet;
 using Assets._Project.Develop.Runtime.UI;
 using Assets._Project.Develop.Runtime.UI.Core;
 using Assets._Project.Develop.Runtime.UI.Gameplay;
-using Assets._Project.Develop.Runtime.UI.MainMenu;
 using Assets._Project.Develop.Runtime.Utilites.AssetsManagment;
 using Assets._Project.Develop.Runtime.Utilites.ConfigsManagment;
 using Assets._Project.Develop.Runtime.Utilites.CoroutinesManagment;
@@ -35,7 +36,26 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
             container.RegisterAsSingle(CreateGameplayPresentersFactory);
             container.RegisterAsSingle(CreateGameplayScreenPresenter).NonLazy();
 
-            container.RegisterAsSingle(CreateEndOfBattlePresenter).NonLazy(); // в фабрику
+            container.RegisterAsSingle(CreateEntitiesFactory);
+            container.RegisterAsSingle(CreateEntitiesLifeContext);
+            container.RegisterAsSingle(CreateMonoEntitiesFactory).NonLazy();
+        }
+
+        private static MonoEntitiesFactory CreateMonoEntitiesFactory(DIContainer container)
+        {
+            return new MonoEntitiesFactory(
+                container.Resolve<ResourcesAssetsLoader>(),
+                container.Resolve<EntitiesLifeContext>());
+        }
+
+        private static EntitiesLifeContext CreateEntitiesLifeContext(DIContainer container)
+        {
+            return new EntitiesLifeContext();
+        }
+
+        private static EntitiesFactory CreateEntitiesFactory(DIContainer container)
+        {
+            return new EntitiesFactory(container);
         }
 
         private static GameplayPopupService CreateGameplayPopupService(DIContainer container)
@@ -57,20 +77,6 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
                 .Create<GameplayScreenView>(ViewIDs.GameplayScreenView, uiRoot.HUDLayer);
 
             GameplayScreenPresenter presenter = container.Resolve<GameplayPresentersFactory>().CreateGameplayScreen(view);
-
-            return presenter;
-        }
-
-
-        private static EndOfBattlePresenter CreateEndOfBattlePresenter(DIContainer container)
-        {
-            GameplayUIRoot uiRoot = container.Resolve<GameplayUIRoot>();
-
-            EndOfBattleView view = container
-                .Resolve<ViewsFactory>()
-                .Create<EndOfBattleView>(ViewIDs.EndOfBattleView, uiRoot.HUDLayer);
-
-            EndOfBattlePresenter presenter = container.Resolve<GameplayPresentersFactory>().CreateEndOfBattleView(view);
 
             return presenter;
         }

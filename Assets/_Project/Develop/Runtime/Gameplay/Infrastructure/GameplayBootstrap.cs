@@ -1,5 +1,7 @@
 ﻿using Assets._Project.Develop.Infrastructure;
 using Assets._Project.Develop.Infrastructure.DI;
+using Assets._Project.Develop.Runtime.Gameplay.EntitiesCore;
+using Assets._Project.Develop.Runtime.Gameplay.Tests;
 using Assets._Project.Develop.Runtime.Gameplay.TypeMode;
 using Assets._Project.Develop.Runtime.Utilites.SceneManagement;
 using System;
@@ -13,6 +15,10 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
         private DIContainer _container;
         private GameplayInputArgs _inputArgs;
         private TypeModeHandler _typeModeHandler;
+
+        [SerializeField] private TestGameplay _testGameplay; // delete later
+
+        private EntitiesLifeContext _entitiesLifeContext;
 
         public override void ProcessRegistrations(DIContainer container, IInputSceneArgs sceneArgs = null)
         {
@@ -33,6 +39,9 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
             _typeModeHandler = _container.Resolve<TypeModeHandler>();
             _typeModeHandler.Init();
 
+            _entitiesLifeContext = _container.Resolve<EntitiesLifeContext>();
+            _testGameplay.Initialize(_container);
+
             yield break;
         }
 
@@ -40,6 +49,13 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
         {
             _typeModeHandler.StartGame();
             Debug.Log($"Start gameplay scene");
+
+            _testGameplay.Run();
+        }
+
+        private void Update()
+        {
+            _entitiesLifeContext?.Update(Time.deltaTime);
         }
 
         private void OnDestroy()
