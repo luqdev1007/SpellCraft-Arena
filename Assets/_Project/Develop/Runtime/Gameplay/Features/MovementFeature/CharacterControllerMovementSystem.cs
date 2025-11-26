@@ -5,33 +5,30 @@ using UnityEngine;
 
 namespace Assets._Project.Develop.Runtime.Gameplay.Features.MovementFeature
 {
-
-    public class RigidbodyMovementSystem : IInitializableSystem, IUpdatableSystem
+    public class CharacterControllerMovementSystem : IInitializableSystem, IUpdatableSystem
     {
         private ReactiveVariable<Vector3> _moveDirection;
         private ReactiveVariable<float> _moveSpeed;
-        private Rigidbody _rigidbody;
+        private CharacterController _characterController;
 
         public void OnInit(Entity entity)
         {
             _moveDirection = entity.MoveDirection;
             _moveSpeed = entity.MoveSpeed;
-            _rigidbody = entity.Rigidbody;
+            _characterController = entity.CharacterController;
         }
 
         public void OnUpdate(float deltaTime)
         {
             Vector3 velocity = _moveDirection.Value.normalized * _moveSpeed.Value;
 
-            _rigidbody.linearVelocity = velocity;
+            _characterController.Move(velocity * deltaTime);
 
             if (velocity.sqrMagnitude > 0)
             {
                 Quaternion targetRotation = Quaternion.LookRotation(velocity);
-                _rigidbody.MoveRotation(targetRotation);
+                _characterController.transform.rotation = targetRotation;
             }
-
-            Debug.Log("Velocity: " + _rigidbody.linearVelocity.ToString());
         }
     }
 }
