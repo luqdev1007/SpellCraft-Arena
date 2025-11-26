@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
 {
-    public class Entity : IDisposable
+    public partial class Entity : IDisposable
     {
         private readonly Dictionary<Type, IEntityComponent> _components = new();
 
@@ -15,7 +15,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
         private readonly List<IDisposableSystem> _disposables = new();
 
         private bool _isInit;
-
+    
         public void Initialize()
         {
             foreach (IInitializableSystem initializable in _initializables)

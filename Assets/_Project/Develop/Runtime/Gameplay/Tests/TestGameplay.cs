@@ -28,7 +28,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Tests
         {
             _entity = _entitiesFactory.CreateTestEntity(Vector3.zero);
 
-            _camera.Target.TrackingTarget = _entity.GetComponent<RigidbodyComponent>().Value.transform;
+            _camera.Target.TrackingTarget = _entity.Rigidbody.transform;
 
             _isRunning = true;
         }
@@ -40,7 +40,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Tests
 
             Vector3 input = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxis("Vertical"));
 
-            _entity.GetComponent<MoveDirection>().Value.Value = input;
+            _entity.MoveDirection.Value = input;
         }
     }
 }
