@@ -24,15 +24,18 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
         {
             Entity entity = CreateEmpty();
 
-            //_monoEntitiesFactory.Create(entity, position, "Entities/PlayerRB");
-            _monoEntitiesFactory.Create(entity, position, "Entities/PlayerCC");
+            _monoEntitiesFactory.Create(entity, position, "Entities/PlayerRB");
+            //_monoEntitiesFactory.Create(entity, position, "Entities/PlayerCC");
 
             entity
                 .AddMoveDirection()
                 .AddMoveSpeed(new ReactiveVariable<float>(10));
 
-            // entity.AddSystem(new RigidbodyMovementSystem());
-            entity.AddSystem(new CharacterControllerMovementSystem());
+            entity.AddSystem(new RigidbodyMovementSystem());
+            entity.AddSystem(new RigidbodyDirectionalRotatorSystem());
+
+            // entity.AddSystem(new CharacterControllerMovementSystem());
+            // entity.AddSystem(new TransformDirectionalRotatorSystem());
 
             _entitiesLifeContext.Add(entity);
 

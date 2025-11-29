@@ -5,7 +5,6 @@ using UnityEngine;
 
 namespace Assets._Project.Develop.Runtime.Gameplay.Features.MovementFeature
 {
-
     public class RigidbodyMovementSystem : IInitializableSystem, IUpdatableSystem
     {
         private ReactiveVariable<Vector3> _moveDirection;
@@ -24,14 +23,6 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.MovementFeature
             Vector3 velocity = _moveDirection.Value.normalized * _moveSpeed.Value;
 
             _rigidbody.linearVelocity = velocity;
-
-            if (velocity.sqrMagnitude > 0)
-            {
-                Quaternion targetRotation = Quaternion.LookRotation(velocity);
-                _rigidbody.MoveRotation(targetRotation);
-            }
-
-            Debug.Log("Velocity: " + _rigidbody.linearVelocity.ToString());
         }
     }
 }

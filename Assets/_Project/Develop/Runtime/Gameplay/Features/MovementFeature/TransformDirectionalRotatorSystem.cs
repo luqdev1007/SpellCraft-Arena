@@ -5,24 +5,24 @@ using UnityEngine;
 
 namespace Assets._Project.Develop.Runtime.Gameplay.Features.MovementFeature
 {
-    public class CharacterControllerMovementSystem : IInitializableSystem, IUpdatableSystem
+    public class TransformDirectionalRotatorSystem : IInitializableSystem, IUpdatableSystem
     {
         private ReactiveVariable<Vector3> _moveDirection;
-        private ReactiveVariable<float> _moveSpeed;
-        private CharacterController _characterController;
+        private Transform _transform;
 
         public void OnInit(Entity entity)
         {
             _moveDirection = entity.MoveDirection;
-            _moveSpeed = entity.MoveSpeed;
-            _characterController = entity.CharacterController;
+            _transform = entity.Transform;
         }
 
         public void OnUpdate(float deltaTime)
         {
-            Vector3 velocity = _moveDirection.Value.normalized * _moveSpeed.Value;
-
-            _characterController.Move(velocity * deltaTime);
+            if (_moveDirection.Value.sqrMagnitude > 0)
+            {
+                Quaternion targetRotation = Quaternion.LookRotation(_moveDirection.Value);
+                _transform.rotation = targetRotation;
+            }
         }
     }
 }

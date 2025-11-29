@@ -726,6 +726,7 @@ GameObject:
   - component: {fileID: 2943100130815025573}
   - component: {fileID: 3070678757427269415}
   - component: {fileID: -5910010093149204924}
+  - component: {fileID: -4993101138294603091}
   m_Layer: 0
   m_Name: PlayerRB
   m_TagString: Untagged
@@ -801,6 +802,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 116
   m_CollisionDetection: 0
+--- !u!114 &-4993101138294603091
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2156292508746418057}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1ca2dd0aa1637e48abea4b738e80510, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2252131903149146152
 GameObject:
   m_ObjectHideFlags: 0

@@ -28,7 +28,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Tests
         {
             _entity = _entitiesFactory.CreateTestEntity(Vector3.zero);
 
-            _camera.Target.TrackingTarget = _entity.CharacterController.transform;
+            _camera.Target.TrackingTarget = _entity.Transform;
 
             _isRunning = true;
         }
