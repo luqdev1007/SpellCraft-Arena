@@ -37,10 +37,6 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.TeleportFeature
 
         private void OnTeleport()
         {
-            for (int i = _processedEntities.Count - 1; i >= 0; i--)
-                // if (ContainInContacts(_processedEntities[i]) == false)
-                _processedEntities.RemoveAt(i);
-
             Debug.Log("Deal damage to " + _contacts.Count + " entities");
 
             for (int i = 0; i < _contacts.Count; i++)
@@ -55,6 +51,10 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.TeleportFeature
                         contactEntity.TakeDamageRequest.Invoke(_damage.Value);
                 }
             }
+
+            for (int i = _processedEntities.Count - 1; i >= 0; i--)
+                if (ContainInContacts(_processedEntities[i]) == false)
+                    _processedEntities.RemoveAt(i);
         }
 
         public bool ContainInContacts(Entity entity)

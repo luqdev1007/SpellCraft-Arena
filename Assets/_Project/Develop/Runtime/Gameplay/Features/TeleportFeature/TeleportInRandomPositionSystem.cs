@@ -36,8 +36,6 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.TeleportFeature
                 return;
 
             TeleportToRandomPoint(5);
-            _currentEnergy.Value -= _amountOfEnergyForTeleport.Value;
-            _teleportEvent.Invoke();
 
             // Debug.Log(_currentEnergy.Value);
         }
@@ -49,6 +47,9 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.TeleportFeature
             Vector3 newPosition = centerPoint + new Vector3(randomCircle.x, _transform.position.y, randomCircle.y);
 
             _transform.position = newPosition;
+
+            _currentEnergy.Value -= _amountOfEnergyForTeleport.Value;
+            _teleportEvent.Invoke();
 
             // Debug.Log($"Объект телепортирован в случайную точку: {newPosition} в радиусе {teleportRadius} от центра сцены.");
         }
