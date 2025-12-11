@@ -1,7 +1,5 @@
 ﻿using Assets._Project.Develop.Infrastructure.DI;
-using Assets._Project.Develop.Runtime.Gameplay.Common;
 using Assets._Project.Develop.Runtime.Gameplay.EntitiesCore;
-using Assets._Project.Develop.Runtime.Gameplay.Features.MovementFeature;
 using Unity.Cinemachine;
 using UnityEngine;
 
@@ -10,11 +8,12 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Tests
     public class TestGameplay : MonoBehaviour
     {
         [SerializeField] private CinemachineCamera _camera;
+        [SerializeField] private Transform _portalSpawnPoint;
 
         private DIContainer _container;
-        private EntitiesFactory _entitiesFactory;
 
-        private Entity _entity;
+        private EntitiesFactory _entitiesFactory;
+        private Entity _heroEntity;
 
         private bool _isRunning;
 
@@ -26,9 +25,10 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Tests
 
         public void Run()
         {
-            _entity = _entitiesFactory.CreateTestEntity(Vector3.zero);
+            _entitiesFactory.CreateGhost(Vector3.zero + Vector3.up + Vector3.forward * 5);
 
-            _camera.Target.TrackingTarget = _entity.Transform;
+            _heroEntity = _entitiesFactory.CreateHero(Vector3.zero + Vector3.up);
+            _camera.Target.TrackingTarget = _heroEntity.Rigidbody.transform;
 
             _isRunning = true;
         }
@@ -38,9 +38,15 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Tests
             if (_isRunning == false)
                 return;
 
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                _heroEntity.StartAttackRequest.Invoke();
+            }
+
             Vector3 input = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxis("Vertical"));
 
-            _entity.MoveDirection.Value = input;
+            _heroEntity.MoveDirection.Value = input;
+            _heroEntity.RotationDirection.Value = input;
         }
     }
 }
