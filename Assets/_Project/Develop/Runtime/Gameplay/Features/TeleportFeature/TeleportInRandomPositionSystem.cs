@@ -39,7 +39,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.TeleportFeature
             _currentEnergy.Value -= _amountOfEnergyForTeleport.Value;
             _teleportEvent.Invoke();
 
-            Debug.Log(_currentEnergy.Value);
+            // Debug.Log(_currentEnergy.Value);
         }
 
         private void TeleportToRandomPoint(float teleportRadius)
@@ -50,7 +50,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.TeleportFeature
 
             _transform.position = newPosition;
 
-            Debug.Log($"Объект телепортирован в случайную точку: {newPosition} в радиусе {teleportRadius} от центра сцены.");
+            // Debug.Log($"Объект телепортирован в случайную точку: {newPosition} в радиусе {teleportRadius} от центра сцены.");
         }
     }
 }

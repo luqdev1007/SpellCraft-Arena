@@ -54,7 +54,12 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
                 .AddIsTeleportCooldownReady(new ReactiveVariable<bool>(false))
                 .AddTeleportRequest()
                 .AddAmountOfRestoreEnergy(new ReactiveVariable<float>(entity.EnergyMaxValue.Value * 0.1f))
-                .AddTimeToRestoreEnergy(new ReactiveVariable<float>(1));
+                .AddTimeToRestoreEnergy(new ReactiveVariable<float>(1))
+                .AddAttackDamage(new ReactiveVariable<float>(25))
+                .AddAttackRange(new ReactiveVariable<float>(1))
+                .AddContactsDetectingMask(1 << LayerMask.NameToLayer("Characters"))
+                .AddContactCollidersBuffer(new Buffer<Collider>(64))
+                .AddContactEntitiesBuffer(new Buffer<Entity>(64));
 
             ICompositeCondition mustDie = new CompositeCondition()
                 .Add(new FuncCondition(() => entity.CurrentHealth.Value <= 0));
@@ -85,7 +90,11 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
                   .AddSystem(new SelfReleaseSystem(_entitiesLifeContext))
                   .AddSystem(new TeleportCooldownSystem())
                   .AddSystem(new TeleportInRandomPositionSystem())
-                  .AddSystem(new RestoreEnergySystem());
+                  .AddSystem(new RestoreEnergySystem())
+                  .AddSystem(new DealDamageInRangeAfterTeleportSystem())
+                  .AddSystem(new DisableCollidersOnDeathSystem())
+                  .AddSystem(new BodyContactDetectingSystem())
+                  .AddSystem(new BodyContactsEntitiesFilterSystem(_collidersRegistryService));
 
             _entitiesLifeContext.Add(entity);
 

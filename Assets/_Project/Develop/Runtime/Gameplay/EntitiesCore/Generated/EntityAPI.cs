@@ -516,6 +516,34 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
 			return AddComponent(new Assets._Project.Develop.Runtime.Gameplay.Features.Attack.InAttackProcess() {Value = value}); 
 		}
 
+		public Assets._Project.Develop.Runtime.Gameplay.Features.Attack.AttackRange AttackRangeC => GetComponent<Assets._Project.Develop.Runtime.Gameplay.Features.Attack.AttackRange>();
+
+		public Assets._Project.Develop.Runtime.Utilites.Reactive.ReactiveVariable<System.Single> AttackRange => AttackRangeC.Value;
+
+		public Assets._Project.Develop.Runtime.Gameplay.EntitiesCore.Entity AddAttackRange()
+		{
+			return AddComponent(new Assets._Project.Develop.Runtime.Gameplay.Features.Attack.AttackRange() { Value = new Assets._Project.Develop.Runtime.Utilites.Reactive.ReactiveVariable<System.Single>() }); 
+		}
+
+		public Assets._Project.Develop.Runtime.Gameplay.EntitiesCore.Entity AddAttackRange(Assets._Project.Develop.Runtime.Utilites.Reactive.ReactiveVariable<System.Single> value)
+		{
+			return AddComponent(new Assets._Project.Develop.Runtime.Gameplay.Features.Attack.AttackRange() {Value = value}); 
+		}
+
+		public Assets._Project.Develop.Runtime.Gameplay.Features.Attack.AttackDamage AttackDamageC => GetComponent<Assets._Project.Develop.Runtime.Gameplay.Features.Attack.AttackDamage>();
+
+		public Assets._Project.Develop.Runtime.Utilites.Reactive.ReactiveVariable<System.Single> AttackDamage => AttackDamageC.Value;
+
+		public Assets._Project.Develop.Runtime.Gameplay.EntitiesCore.Entity AddAttackDamage()
+		{
+			return AddComponent(new Assets._Project.Develop.Runtime.Gameplay.Features.Attack.AttackDamage() { Value = new Assets._Project.Develop.Runtime.Utilites.Reactive.ReactiveVariable<System.Single>() }); 
+		}
+
+		public Assets._Project.Develop.Runtime.Gameplay.EntitiesCore.Entity AddAttackDamage(Assets._Project.Develop.Runtime.Utilites.Reactive.ReactiveVariable<System.Single> value)
+		{
+			return AddComponent(new Assets._Project.Develop.Runtime.Gameplay.Features.Attack.AttackDamage() {Value = value}); 
+		}
+
 		public Assets._Project.Develop.Runtime.Gameplay.Features.Attack.AttackDelayTime AttackDelayTimeC => GetComponent<Assets._Project.Develop.Runtime.Gameplay.Features.Attack.AttackDelayTime>();
 
 		public Assets._Project.Develop.Runtime.Utilites.Reactive.ReactiveVariable<System.Single> AttackDelayTime => AttackDelayTimeC.Value;

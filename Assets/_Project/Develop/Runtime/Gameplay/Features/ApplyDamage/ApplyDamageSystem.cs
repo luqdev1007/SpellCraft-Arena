@@ -18,8 +18,12 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.ApplyDamage
 
         private IDisposable _requestDisposable;
 
+        private string _entityName;
+
         public void OnInit(Entity entity)
         {
+            _entityName = entity.Rigidbody.gameObject.name;
+
             _damageRequest = entity.TakeDamageRequest;
             _damageEvent = entity.TakeDamageEvent;
 
@@ -46,7 +50,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.ApplyDamage
             _health.Value = MathF.Max(_health.Value - damage, 0);
             _damageEvent.Invoke(damage);
 
-            Debug.Log("Я получил урон");
+            Debug.Log($"{_entityName} получил урон, у него осталось {_health.Value} ед. здоровья");
         }
     }
 }

@@ -50,7 +50,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.Energy
         private void RestoreEnergy()
         {
             _currentEnergy.Value = Mathf.Min(_currentEnergy.Value + _amountOfRestoreEnergy.Value, _maxEnergy.Value);
-            Debug.Log("Energy restored: " + _currentEnergy.Value);
+            // Debug.Log("Energy restored: " + _currentEnergy.Value);
         }
     }
 }
