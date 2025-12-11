@@ -25,7 +25,8 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Tests
 
         public void Run()
         {
-            _entitiesFactory.CreateGhost(Vector3.zero + Vector3.up + Vector3.forward * 5);
+            // _entitiesFactory.CreateGhost(Vector3.up + Vector3.forward * 5);
+            _entitiesFactory.CreateMagicOrb(Vector3.up + Vector3.forward * 5);
 
             _heroEntity = _entitiesFactory.CreateHero(Vector3.zero + Vector3.up);
             _camera.Target.TrackingTarget = _heroEntity.Rigidbody.transform;
