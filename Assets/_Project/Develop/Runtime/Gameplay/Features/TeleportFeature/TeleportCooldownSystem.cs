@@ -26,7 +26,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.TeleportFeature
                 return;
             }
 
-            Debug.Log("Teleport cooldown: " + _currentCooldown.Value);
+            // Debug.Log("Teleport cooldown: " + _currentCooldown.Value);
 
             if (_currentCooldown.Value > 0)
             {

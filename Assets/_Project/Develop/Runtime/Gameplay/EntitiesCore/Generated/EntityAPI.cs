@@ -372,6 +372,43 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
 			return AddComponent(new Assets._Project.Develop.Runtime.Gameplay.Features.Energy.EnergyCurrentValue() {Value = value}); 
 		}
 
+		public Assets._Project.Develop.Runtime.Gameplay.Features.Energy.TimeToRestoreEnergy TimeToRestoreEnergyC => GetComponent<Assets._Project.Develop.Runtime.Gameplay.Features.Energy.TimeToRestoreEnergy>();
+
+		public Assets._Project.Develop.Runtime.Utilites.Reactive.ReactiveVariable<System.Single> TimeToRestoreEnergy => TimeToRestoreEnergyC.Value;
+
+		public Assets._Project.Develop.Runtime.Gameplay.EntitiesCore.Entity AddTimeToRestoreEnergy()
+		{
+			return AddComponent(new Assets._Project.Develop.Runtime.Gameplay.Features.Energy.TimeToRestoreEnergy() { Value = new Assets._Project.Develop.Runtime.Utilites.Reactive.ReactiveVariable<System.Single>() }); 
+		}
+
+		public Assets._Project.Develop.Runtime.Gameplay.EntitiesCore.Entity AddTimeToRestoreEnergy(Assets._Project.Develop.Runtime.Utilites.Reactive.ReactiveVariable<System.Single> value)
+		{
+			return AddComponent(new Assets._Project.Develop.Runtime.Gameplay.Features.Energy.TimeToRestoreEnergy() {Value = value}); 
+		}
+
+		public Assets._Project.Develop.Runtime.Gameplay.Features.Energy.AmountOfRestoreEnergy AmountOfRestoreEnergyC => GetComponent<Assets._Project.Develop.Runtime.Gameplay.Features.Energy.AmountOfRestoreEnergy>();
+
+		public Assets._Project.Develop.Runtime.Utilites.Reactive.ReactiveVariable<System.Single> AmountOfRestoreEnergy => AmountOfRestoreEnergyC.Value;
+
+		public Assets._Project.Develop.Runtime.Gameplay.EntitiesCore.Entity AddAmountOfRestoreEnergy()
+		{
+			return AddComponent(new Assets._Project.Develop.Runtime.Gameplay.Features.Energy.AmountOfRestoreEnergy() { Value = new Assets._Project.Develop.Runtime.Utilites.Reactive.ReactiveVariable<System.Single>() }); 
+		}
+
+		public Assets._Project.Develop.Runtime.Gameplay.EntitiesCore.Entity AddAmountOfRestoreEnergy(Assets._Project.Develop.Runtime.Utilites.Reactive.ReactiveVariable<System.Single> value)
+		{
+			return AddComponent(new Assets._Project.Develop.Runtime.Gameplay.Features.Energy.AmountOfRestoreEnergy() {Value = value}); 
+		}
+
+		public Assets._Project.Develop.Runtime.Gameplay.Features.Energy.CanRestoreEnergy CanRestoreEnergyC => GetComponent<Assets._Project.Develop.Runtime.Gameplay.Features.Energy.CanRestoreEnergy>();
+
+		public Assets._Project.Develop.Runtime.Utilites.Conditions.ICompositeCondition CanRestoreEnergy => CanRestoreEnergyC.Value;
+
+		public Assets._Project.Develop.Runtime.Gameplay.EntitiesCore.Entity AddCanRestoreEnergy(Assets._Project.Develop.Runtime.Utilites.Conditions.ICompositeCondition value)
+		{
+			return AddComponent(new Assets._Project.Develop.Runtime.Gameplay.Features.Energy.CanRestoreEnergy() {Value = value}); 
+		}
+
 		public Assets._Project.Develop.Runtime.Gameplay.Features.ContactTakeDamage.BodyContactDamage BodyContactDamageC => GetComponent<Assets._Project.Develop.Runtime.Gameplay.Features.ContactTakeDamage.BodyContactDamage>();
 
 		public Assets._Project.Develop.Runtime.Utilites.Reactive.ReactiveVariable<System.Single> BodyContactDamage => BodyContactDamageC.Value;

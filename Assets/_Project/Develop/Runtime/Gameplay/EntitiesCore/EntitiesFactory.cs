@@ -4,6 +4,7 @@ using Assets._Project.Develop.Runtime.Gameplay.Features.ApplyDamage;
 using Assets._Project.Develop.Runtime.Gameplay.Features.Attack;
 using Assets._Project.Develop.Runtime.Gameplay.Features.Attack.Shoot;
 using Assets._Project.Develop.Runtime.Gameplay.Features.ContactTakeDamage;
+using Assets._Project.Develop.Runtime.Gameplay.Features.Energy;
 using Assets._Project.Develop.Runtime.Gameplay.Features.LifeCycle;
 using Assets._Project.Develop.Runtime.Gameplay.Features.MovementFeature;
 using Assets._Project.Develop.Runtime.Gameplay.Features.Sensors;
@@ -50,7 +51,9 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
                 .AddTeleportInitialCooldown(new ReactiveVariable<float>(2))
                 .AddTeleportCurrentCooldown(new ReactiveVariable<float>(2))
                 .AddAmountOfEnergyForTeleport(new ReactiveVariable<float>(30))
-                .AddIsTeleportCooldownReady(new ReactiveVariable<bool>(false));
+                .AddIsTeleportCooldownReady(new ReactiveVariable<bool>(false))
+                .AddAmountOfRestoreEnergy(new ReactiveVariable<float>(entity.EnergyMaxValue.Value * 0.1f))
+                .AddTimeToRestoreEnergy(new ReactiveVariable<float>(1));
 
             ICompositeCondition mustDie = new CompositeCondition()
                 .Add(new FuncCondition(() => entity.CurrentHealth.Value <= 0));
@@ -65,17 +68,23 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
                 .Add(new FuncCondition(() => entity.IsDead.Value == true))
                 .Add(new FuncCondition(() => entity.InDeathProcess.Value == false));
 
+            ICompositeCondition canRestoreEnergy = new CompositeCondition()
+                .Add(new FuncCondition(() => entity.IsDead.Value == false))
+                .Add(new FuncCondition(() => entity.InDeathProcess.Value == false));
+
             entity
                 .AddMustDie(mustDie)
                 .AddMustSelfRelease(mustSelfRelease)
-                .AddCanTeleport(canTeleport);
+                .AddCanTeleport(canTeleport)
+                .AddCanRestoreEnergy(canRestoreEnergy);
 
             entity
                   .AddSystem(new DeathSystem())
                   .AddSystem(new DeathProcessTimerSystem())
                   .AddSystem(new SelfReleaseSystem(_entitiesLifeContext))
                   .AddSystem(new TeleportCooldownSystem())
-                  .AddSystem(new TeleportInRandomPositionSystem());
+                  .AddSystem(new TeleportInRandomPositionSystem())
+                  .AddSystem(new RestoreEnergySystem());
 
             _entitiesLifeContext.Add(entity);
 
