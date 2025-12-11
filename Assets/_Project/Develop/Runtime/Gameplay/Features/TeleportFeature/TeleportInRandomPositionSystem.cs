@@ -14,6 +14,9 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.TeleportFeature
         private ReactiveVariable<float> _amountOfEnergyForTeleport;
         private ReactiveVariable<float> _teleportCurrentCooldown;
         private ReactiveVariable<float> _teleportInitialCooldown;
+
+        private ReactiveEvent _teleportEvent;
+
         private Transform _transform;
 
         public void OnInit(Entity entity)
@@ -24,6 +27,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.TeleportFeature
             _teleportCurrentCooldown = entity.TeleportCurrentCooldown;
             _teleportInitialCooldown = entity.TeleportInitialCooldown;
             _transform = entity.Transform;
+            _teleportEvent = entity.TeleportRequest;
         }
 
         public void OnUpdate(float deltaTime)
@@ -33,7 +37,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.TeleportFeature
 
             TeleportToRandomPoint(5);
             _currentEnergy.Value -= _amountOfEnergyForTeleport.Value;
-            _teleportCurrentCooldown.Value = _teleportInitialCooldown.Value;
+            _teleportEvent.Invoke();
 
             Debug.Log(_currentEnergy.Value);
         }

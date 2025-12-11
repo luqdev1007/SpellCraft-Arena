@@ -52,6 +52,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
                 .AddTeleportCurrentCooldown(new ReactiveVariable<float>(2))
                 .AddAmountOfEnergyForTeleport(new ReactiveVariable<float>(30))
                 .AddIsTeleportCooldownReady(new ReactiveVariable<bool>(false))
+                .AddTeleportRequest()
                 .AddAmountOfRestoreEnergy(new ReactiveVariable<float>(entity.EnergyMaxValue.Value * 0.1f))
                 .AddTimeToRestoreEnergy(new ReactiveVariable<float>(1));
 

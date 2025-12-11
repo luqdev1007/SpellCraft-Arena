@@ -32,8 +32,6 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.Energy
 
         public void OnUpdate(float deltaTime)
         {
-            Debug.Log("Restore energy system");
-
             if (_canRestoreEnergy.Evaluate() == false)
                 return;
 
