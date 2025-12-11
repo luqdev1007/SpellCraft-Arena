@@ -7,6 +7,7 @@ using Assets._Project.Develop.Runtime.Gameplay.Features.ContactTakeDamage;
 using Assets._Project.Develop.Runtime.Gameplay.Features.LifeCycle;
 using Assets._Project.Develop.Runtime.Gameplay.Features.MovementFeature;
 using Assets._Project.Develop.Runtime.Gameplay.Features.Sensors;
+using Assets._Project.Develop.Runtime.Gameplay.Features.TeleportFeature;
 using Assets._Project.Develop.Runtime.Utilites;
 using Assets._Project.Develop.Runtime.Utilites.Conditions;
 using Assets._Project.Develop.Runtime.Utilites.Reactive;
@@ -43,10 +44,22 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
                 .AddIsDead()
                 .AddInDeathProcess()
                 .AddDeathProcessInitialTime(new ReactiveVariable<float>(3))
-                .AddDeathProcessCurrentTime();
+                .AddDeathProcessCurrentTime()
+                .AddEnergyCurrentValue(new ReactiveVariable<float>(100))
+                .AddEnergyMaxValue(new ReactiveVariable<float>(100))
+                .AddTeleportInitialCooldown(new ReactiveVariable<float>(2))
+                .AddTeleportCurrentCooldown(new ReactiveVariable<float>(2))
+                .AddAmountOfEnergyForTeleport(new ReactiveVariable<float>(30))
+                .AddIsTeleportCooldownReady(new ReactiveVariable<bool>(false));
 
             ICompositeCondition mustDie = new CompositeCondition()
                 .Add(new FuncCondition(() => entity.CurrentHealth.Value <= 0));
+
+            ICompositeCondition canTeleport = new CompositeCondition()
+                .Add(new FuncCondition(() => entity.EnergyCurrentValue.Value >= entity.AmountOfEnergyForTeleport.Value))
+                .Add(new FuncCondition(() => entity.IsDead.Value == false))
+                .Add(new FuncCondition(() => entity.InDeathProcess.Value == false))
+                .Add(new FuncCondition(() => entity.IsTeleportCooldownReady.Value == true));
 
             ICompositeCondition mustSelfRelease = new CompositeCondition()
                 .Add(new FuncCondition(() => entity.IsDead.Value == true))
@@ -54,12 +67,15 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
 
             entity
                 .AddMustDie(mustDie)
-                .AddMustSelfRelease(mustSelfRelease);
+                .AddMustSelfRelease(mustSelfRelease)
+                .AddCanTeleport(canTeleport);
 
             entity
                   .AddSystem(new DeathSystem())
                   .AddSystem(new DeathProcessTimerSystem())
-                  .AddSystem(new SelfReleaseSystem(_entitiesLifeContext));
+                  .AddSystem(new SelfReleaseSystem(_entitiesLifeContext))
+                  .AddSystem(new TeleportCooldownSystem())
+                  .AddSystem(new TeleportInRandomPositionSystem());
 
             _entitiesLifeContext.Add(entity);
 
@@ -197,11 +213,11 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
                 .Add(new FuncCondition(() => entity.IsDead.Value == false));
 
             entity
-                .AddCanMove(canMove).
-                AddCanRotate(canRotate).
-                AddMustDie(mustDie).
-                AddMustSelfRelease(mustSelfRelease).
-                AddCanApplyDamage(canApplyDamage);
+                .AddCanMove(canMove)
+                .AddCanRotate(canRotate)
+                .AddMustDie(mustDie)
+                .AddMustSelfRelease(mustSelfRelease)
+                .AddCanApplyDamage(canApplyDamage);
 
             entity.AddSystem(new RigidbodyMovementSystem())
                   .AddSystem(new RigidbodyRotationSystem())
