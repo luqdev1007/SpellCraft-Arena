@@ -1,10 +1,8 @@
 ﻿using Assets._Project.Develop.Runtime.Gameplay.EntitiesCore;
 using Assets._Project.Develop.Runtime.Gameplay.EntitiesCore.Systems;
 using Assets._Project.Develop.Runtime.Gameplay.Features.ApplyDamage;
-using Assets._Project.Develop.Runtime.Utilites;
 using Assets._Project.Develop.Runtime.Utilites.Reactive;
 using System;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Assets._Project.Develop.Runtime.Gameplay.Features.TeleportFeature
@@ -13,9 +11,14 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.TeleportFeature
     {
         private ReactiveEvent _teleportEvent;
         private ReactiveVariable<float> _damage;
+        private CapsuleCollider _body;
 
-        private Buffer<Entity> _contacts;
-        private List<Entity> _processedEntities;
+        private readonly CollidersRegistryService _colllidersRegistryService;
+
+        public DealDamageInRangeAfterTeleportSystem(CollidersRegistryService colllidersRegistryService)
+        {
+            _colllidersRegistryService = colllidersRegistryService;
+        }
 
         private IDisposable _teleportEventDisposable;
 
@@ -23,9 +26,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.TeleportFeature
         {
             _teleportEvent = entity.TeleportRequest;
             _damage = entity.AttackDamage;
-
-            _contacts = entity.ContactEntitiesBuffer;
-            _processedEntities = new List<Entity>(_contacts.Items.Length);
+            _body = entity.BodyCollider;
 
             _teleportEventDisposable = _teleportEvent.Subscribe(OnTeleport);
         }
@@ -37,33 +38,31 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.TeleportFeature
 
         private void OnTeleport()
         {
-            Debug.Log("Deal damage to " + _contacts.Count + " entities");
+            Transform bodyTransform = _body.transform; 
+            Vector3 center = _body.center;
+            float height = _body.height;
+            float radius = _body.radius;
 
-            for (int i = 0; i < _contacts.Count; i++)
+            Vector3 point1 = bodyTransform.position + center + bodyTransform.up * (height / 2f - radius);
+            Vector3 point2 = bodyTransform.position + center - bodyTransform.up * (height / 2f - radius);
+
+
+            Collider[] colliders = Physics.OverlapCapsule(point1,
+                point2,
+                radius);
+
+            Debug.Log("Colliders around: " + colliders.Length);
+
+            foreach (Collider collider in colliders)
             {
-                Entity contactEntity = _contacts.Items[i];
+                Entity contactEntity = _colllidersRegistryService.GetBy(collider);
 
-                if (_processedEntities.Contains(contactEntity) == false)
+                if (contactEntity != null && collider != _body)
                 {
-                    _processedEntities.Add(contactEntity);
-
                     if (contactEntity.HasComponent<TakeDamageRequest>())
                         contactEntity.TakeDamageRequest.Invoke(_damage.Value);
                 }
             }
-
-            for (int i = _processedEntities.Count - 1; i >= 0; i--)
-                if (ContainInContacts(_processedEntities[i]) == false)
-                    _processedEntities.RemoveAt(i);
-        }
-
-        public bool ContainInContacts(Entity entity)
-        {
-            for (int i = 0; i < _contacts.Count; i++)
-                if (_contacts.Items[i] == entity)
-                    return true;
-
-            return false;
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Assets._Project.Develop.Runtime.Gameplay.Common;
 using Assets._Project.Develop.Runtime.Gameplay.EntitiesCore;
 using Assets._Project.Develop.Runtime.Gameplay.EntitiesCore.Systems;
+using Assets._Project.Develop.Runtime.Utilites;
 using Assets._Project.Develop.Runtime.Utilites.Conditions;
 using Assets._Project.Develop.Runtime.Utilites.Reactive;
 using UnityEngine;
@@ -12,8 +13,6 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.TeleportFeature
         private ICompositeCondition _canTeleport;
         private ReactiveVariable<float> _currentEnergy;
         private ReactiveVariable<float> _amountOfEnergyForTeleport;
-        private ReactiveVariable<float> _teleportCurrentCooldown;
-        private ReactiveVariable<float> _teleportInitialCooldown;
 
         private ReactiveEvent _teleportEvent;
 
@@ -24,8 +23,6 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.TeleportFeature
             _canTeleport = entity.CanTeleport;
             _currentEnergy = entity.EnergyCurrentValue;
             _amountOfEnergyForTeleport = entity.AmountOfEnergyForTeleport;
-            _teleportCurrentCooldown = entity.TeleportCurrentCooldown;
-            _teleportInitialCooldown = entity.TeleportInitialCooldown;
             _transform = entity.Transform;
             _teleportEvent = entity.TeleportRequest;
         }
@@ -35,7 +32,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.TeleportFeature
             if (_canTeleport.Evaluate() == false)
                 return;
 
-            TeleportToRandomPoint(5);
+            TeleportToRandomPoint(teleportRadius: 5);
 
             // Debug.Log(_currentEnergy.Value);
         }
