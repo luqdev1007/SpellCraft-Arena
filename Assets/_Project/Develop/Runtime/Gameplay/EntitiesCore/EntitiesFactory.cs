@@ -55,7 +55,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
                 .AddTeleportRequest()
                 .AddAmountOfRestoreEnergy(new ReactiveVariable<float>(entity.EnergyMaxValue.Value * 0.1f))
                 .AddTimeToRestoreEnergy(new ReactiveVariable<float>(1))
-                .AddAttackDamage(new ReactiveVariable<float>(10))
+                .AddAttackDamage(new ReactiveVariable<float>(1))
                 .AddAttackRange(new ReactiveVariable<float>(1));
 
             ICompositeCondition mustDie = new CompositeCondition()
