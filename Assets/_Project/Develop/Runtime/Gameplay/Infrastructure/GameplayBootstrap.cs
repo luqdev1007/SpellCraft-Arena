@@ -1,6 +1,7 @@
 ﻿using Assets._Project.Develop.Infrastructure;
 using Assets._Project.Develop.Infrastructure.DI;
 using Assets._Project.Develop.Runtime.Gameplay.EntitiesCore;
+using Assets._Project.Develop.Runtime.Gameplay.Features.AI;
 using Assets._Project.Develop.Runtime.Gameplay.Tests;
 using Assets._Project.Develop.Runtime.Gameplay.TypeMode;
 using Assets._Project.Develop.Runtime.Utilites.SceneManagement;
@@ -19,6 +20,8 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
         [SerializeField] private TestGameplay _testGameplay; // delete later
 
         private EntitiesLifeContext _entitiesLifeContext;
+
+        private AIBrainsContext _brainsContext;
 
         public override void ProcessRegistrations(DIContainer container, IInputSceneArgs sceneArgs = null)
         {
@@ -40,6 +43,9 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
             _typeModeHandler.Init();
 
             _entitiesLifeContext = _container.Resolve<EntitiesLifeContext>();
+
+            _brainsContext = _container.Resolve<AIBrainsContext>();
+
             _testGameplay.Initialize(_container);
 
             yield break;
@@ -55,6 +61,8 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
 
         private void Update()
         {
+            _brainsContext?.Update(Time.deltaTime);
+
             _entitiesLifeContext?.Update(Time.deltaTime);
         }
 

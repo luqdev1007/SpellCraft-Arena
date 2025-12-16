@@ -5,13 +5,20 @@ using System.Linq;
 
 namespace Assets._Project.Develop.Runtime.Utilites.StateMachineCore
 {
-    public abstract class StateMachine<TState> : IDisposable where TState : class, IState
+    public abstract class StateMachine<TState> : State, IDisposable, IUpdatableState where TState : class, IState
     {
         private List<StateNode<TState>> _states = new();
 
         private StateNode<TState> _currentState;
 
         private bool _isRunning;
+
+        private List<IDisposable> _disposables;
+
+        protected StateMachine(List<IDisposable> disposables)
+        {
+            _disposables = new List<IDisposable>(disposables);
+        }
 
         protected TState CurrentState => _currentState.State;
 
@@ -38,7 +45,11 @@ namespace Assets._Project.Develop.Runtime.Utilites.StateMachineCore
                     break;
                 }
             }
+
+            UpdateLogic(deltaTime);
         }
+
+        protected virtual void UpdateLogic(float deltaTime) { }
 
         public void Dispose()
         {
@@ -49,18 +60,27 @@ namespace Assets._Project.Develop.Runtime.Utilites.StateMachineCore
                     disposableState.Dispose();
 
             _states.Clear();
+
+            foreach (IDisposable disposable in _disposables)
+                disposable.Dispose();
+
+            _disposables.Clear();
         }
 
-        public void Enter()
+        public override void Enter()
         {
+            base.Enter();
+
             if (_currentState == null)
                 SwitchState(_states[0]);
 
             _isRunning = true;
         }
 
-        public void Exit()
+        public override void Exit()
         {
+            base.Exit();
+
             _currentState?.State.Exit();
 
             _isRunning = false;

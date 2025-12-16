@@ -1,6 +1,8 @@
 ﻿using Assets._Project.Develop.Infrastructure.DI;
 using Assets._Project.Develop.Runtime.Gameplay.EntitiesCore;
 using Assets._Project.Develop.Runtime.Gameplay.EntitiesCore.Mono;
+using Assets._Project.Develop.Runtime.Gameplay.Features.AI;
+using Assets._Project.Develop.Runtime.Gameplay.Features.InputFeature;
 using Assets._Project.Develop.Runtime.Gameplay.TypeMode;
 using Assets._Project.Develop.Runtime.Meta.Features.Stats;
 using Assets._Project.Develop.Runtime.Meta.Features.Wallet;
@@ -41,6 +43,27 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
             container.RegisterAsSingle(CreateMonoEntitiesFactory).NonLazy();
 
             container.RegisterAsSingle(CreateCollidersRegistryService);
+
+            container.RegisterAsSingle(CreateBrainsFactory);
+
+            container.RegisterAsSingle(CreateAIBrainContext);
+
+            container.RegisterAsSingle<IInputService>(CreateDesktopInput);
+        }
+
+        private static DesktopInput CreateDesktopInput(DIContainer container)
+        {
+            return new DesktopInput();
+        }
+
+        private static AIBrainsContext CreateAIBrainContext(DIContainer container)
+        {
+            return new AIBrainsContext();
+        }
+
+        private static BrainsFactory CreateBrainsFactory(DIContainer container)
+        {
+            return new BrainsFactory(container);
         }
 
         private static CollidersRegistryService CreateCollidersRegistryService(DIContainer container)

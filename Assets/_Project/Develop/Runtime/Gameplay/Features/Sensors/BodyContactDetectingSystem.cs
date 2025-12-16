@@ -32,7 +32,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.Sensors
 
             RemoveSelfFromContacts();
 
-            Debug.Log("Contacts count " + _contacts.Count);
+            // Debug.Log("Contacts count " + _contacts.Count);
         }
 
         private void RemoveSelfFromContacts()
