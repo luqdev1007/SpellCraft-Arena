@@ -1,6 +1,7 @@
 ﻿using Assets._Project.Develop.Runtime.Gameplay.EntitiesCore;
 using Assets._Project.Develop.Runtime.Gameplay.EntitiesCore.Systems;
 using Assets._Project.Develop.Runtime.Gameplay.Features.ApplyDamage;
+using Assets._Project.Develop.Runtime.Utilites;
 using Assets._Project.Develop.Runtime.Utilites.Reactive;
 using System;
 using UnityEngine;
@@ -11,7 +12,9 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.TeleportFeature
     {
         private ReactiveEvent _teleportEvent;
         private ReactiveVariable<float> _damage;
-        private CapsuleCollider _body;
+        private ReactiveVariable<float> _range;
+        private Transform _transform;
+        private Collider _body;
 
         private readonly CollidersRegistryService _colllidersRegistryService;
 
@@ -26,6 +29,8 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.TeleportFeature
         {
             _teleportEvent = entity.TeleportRequest;
             _damage = entity.AttackDamage;
+            _range = entity.AttackRange;
+            _transform = entity.Transform;
             _body = entity.BodyCollider;
 
             _teleportEventDisposable = _teleportEvent.Subscribe(OnTeleport);
@@ -38,23 +43,15 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.TeleportFeature
 
         private void OnTeleport()
         {
-            Transform bodyTransform = _body.transform; 
-            Vector3 center = _body.center;
-            float height = _body.height;
-            float radius = _body.radius;
 
-            Vector3 point1 = bodyTransform.position + center + bodyTransform.up * (height / 2f - radius);
-            Vector3 point2 = bodyTransform.position + center - bodyTransform.up * (height / 2f - radius);
-
-
-            Collider[] colliders = Physics.OverlapCapsule(point1,
-                point2,
-                radius);
+            Collider[] colliders = Physics.OverlapSphere(_transform.position, _range.Value);
 
             Debug.Log("Colliders around: " + colliders.Length);
 
             foreach (Collider collider in colliders)
             {
+                Debug.Log(collider.gameObject.name);
+
                 Entity contactEntity = _colllidersRegistryService.GetBy(collider);
 
                 if (contactEntity != null && collider != _body)

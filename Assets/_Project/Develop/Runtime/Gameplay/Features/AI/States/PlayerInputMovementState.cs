@@ -30,8 +30,6 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.AI.States
         {
             _movementDirection.Value = _inputService.Direction;
             _rotationDirection.Value = _inputService.Direction;
-
-            Debug.Log("Movement direction: " + _movementDirection.Value);
         }
 
         public override void Exit()

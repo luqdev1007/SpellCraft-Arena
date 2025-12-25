@@ -31,11 +31,12 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Tests
 
         public void Run()
         {
-            _ghostEntity = _entitiesFactory.CreateGhost(Vector3.up + Vector3.forward * 5);
+            // _ghostEntity = _entitiesFactory.CreateGhost(Vector3.up + Vector3.forward * 5);
 
-            // _entitiesFactory.CreateMagicOrb(Vector3.up + Vector3.forward * 5);
+            Entity magicOrb = _entitiesFactory.CreateMagicOrb(Vector3.up + Vector3.forward * 5);
+            _brainsFactory.CreateMagicOrbBrain(magicOrb);
 
-            _heroEntity = _entitiesFactory.CreateHero(Vector3.zero + Vector3.up);
+            _heroEntity = _entitiesFactory.CreateHero(Vector3.zero);
             _heroEntity.AddCurrentTarget();
             _brainsFactory.CreateMainHeroBrain(_heroEntity, new NearestDamagableTargetSelector(_heroEntity));
 
@@ -48,16 +49,6 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Tests
         {
             if (_isRunning == false)
                 return;
-
-            if (Input.GetKeyDown(KeyCode.G))
-            {
-                _brainsFactory.CreateGhostBrain(_ghostEntity);
-            }
-
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                _heroEntity.StartAttackRequest.Invoke();
-            }
         }
     }
 }

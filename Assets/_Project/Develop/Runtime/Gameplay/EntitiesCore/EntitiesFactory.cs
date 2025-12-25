@@ -56,7 +56,8 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
                 .AddAmountOfRestoreEnergy(new ReactiveVariable<float>(entity.EnergyMaxValue.Value * 0.1f))
                 .AddTimeToRestoreEnergy(new ReactiveVariable<float>(1))
                 .AddAttackDamage(new ReactiveVariable<float>(1))
-                .AddAttackRange(new ReactiveVariable<float>(1));
+                .AddAttackRange(new ReactiveVariable<float>(5))
+                .AddMaxTeleportRange(new ReactiveVariable<float>(5));
 
             ICompositeCondition mustDie = new CompositeCondition()
                 .Add(new FuncCondition(() => entity.CurrentHealth.Value <= 0));
@@ -86,7 +87,6 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
                   .AddSystem(new DeathProcessTimerSystem())
                   .AddSystem(new SelfReleaseSystem(_entitiesLifeContext))
                   .AddSystem(new TeleportCooldownSystem())
-                  .AddSystem(new TeleportInRandomPositionSystem())
                   .AddSystem(new RestoreEnergySystem())
                   .AddSystem(new DealDamageInRangeAfterTeleportSystem(_collidersRegistryService))
                   .AddSystem(new DisableCollidersOnDeathSystem());

@@ -33,4 +33,9 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.TeleportFeature
     {
         public ReactiveEvent Value;
     }
+
+    public class MaxTeleportRange : IEntityComponent
+    {
+        public ReactiveVariable<float> Value;
+    }
 }
