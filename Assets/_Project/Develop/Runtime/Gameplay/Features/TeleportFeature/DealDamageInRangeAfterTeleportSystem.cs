@@ -32,6 +32,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.TeleportFeature
             _range = entity.AttackRange;
             _transform = entity.Transform;
             _body = entity.BodyCollider;
+            Debug.Log(_body.gameObject.name);
 
             _teleportEventDisposable = _teleportEvent.Subscribe(OnTeleport);
         }
@@ -46,16 +47,14 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.TeleportFeature
 
             Collider[] colliders = Physics.OverlapSphere(_transform.position, _range.Value);
 
-            Debug.Log("Colliders around: " + colliders.Length);
-
             foreach (Collider collider in colliders)
             {
-                Debug.Log(collider.gameObject.name);
-
                 Entity contactEntity = _colllidersRegistryService.GetBy(collider);
 
                 if (contactEntity != null && collider != _body)
                 {
+                    Debug.Log(collider.gameObject.name);
+
                     if (contactEntity.HasComponent<TakeDamageRequest>())
                         contactEntity.TakeDamageRequest.Invoke(_damage.Value);
                 }

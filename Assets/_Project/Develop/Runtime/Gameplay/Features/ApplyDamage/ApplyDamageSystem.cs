@@ -22,7 +22,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.ApplyDamage
 
         public void OnInit(Entity entity)
         {
-            _entityName = entity.Rigidbody.gameObject.name;
+            _entityName = entity.Transform.gameObject.name;
 
             _damageRequest = entity.TakeDamageRequest;
             _damageEvent = entity.TakeDamageEvent;

@@ -53,7 +53,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.AI.States
             if (entity == null)
                 return;
 
-            if (Vector3.Distance(entity.Transform.position, _transform.position) > _maxTeleportRange.Value)
+            if (Vector3.Distance(entity.Transform.position, _transform.position) > _maxTeleportRange.Value * 3)
                 return;
 
             _teleportSystem.TeleportTo(entity.Transform.position + entity.Transform.forward * -2);

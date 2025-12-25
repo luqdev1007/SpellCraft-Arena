@@ -19,6 +19,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Tests
 
         private Entity _heroEntity;
         private Entity _ghostEntity;
+        private Entity _orbEntity;
 
         private bool _isRunning;
 
@@ -33,8 +34,8 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Tests
         {
             // _ghostEntity = _entitiesFactory.CreateGhost(Vector3.up + Vector3.forward * 5);
 
-            Entity magicOrb = _entitiesFactory.CreateMagicOrb(Vector3.up + Vector3.forward * 5);
-            _brainsFactory.CreateMagicOrbBrain(magicOrb);
+            _orbEntity = _entitiesFactory.CreateMagicOrb(Vector3.up + Vector3.forward * 5);
+            _brainsFactory.CreateMagicOrbBrain(_orbEntity);
 
             _heroEntity = _entitiesFactory.CreateHero(Vector3.zero);
             _heroEntity.AddCurrentTarget();
@@ -49,6 +50,11 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Tests
         {
             if (_isRunning == false)
                 return;
+
+            if (Input.GetKeyDown(KeyCode.H))
+            {
+                _orbEntity.CurrentHealth.Value = _orbEntity.MaxHealth.Value;
+            }
         }
     }
 }

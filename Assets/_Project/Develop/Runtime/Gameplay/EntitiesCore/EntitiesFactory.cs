@@ -40,27 +40,32 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
             _monoEntitiesFactory.Create(entity, position, "Entities/MagicOrb");
 
             entity
-                .AddMaxHealth(new ReactiveVariable<float>(100))
-                .AddCurrentHealth(new ReactiveVariable<float>(100))
+                .AddMaxHealth(new ReactiveVariable<float>(7))
+                .AddCurrentHealth(new ReactiveVariable<float>(7))
                 .AddIsDead()
                 .AddInDeathProcess()
                 .AddDeathProcessInitialTime(new ReactiveVariable<float>(3))
                 .AddDeathProcessCurrentTime()
+                .AddTakeDamageRequest()
+                .AddTakeDamageEvent()
                 .AddEnergyCurrentValue(new ReactiveVariable<float>(100))
                 .AddEnergyMaxValue(new ReactiveVariable<float>(100))
-                .AddTeleportInitialCooldown(new ReactiveVariable<float>(1))
-                .AddTeleportCurrentCooldown(new ReactiveVariable<float>(1))
-                .AddAmountOfEnergyForTeleport(new ReactiveVariable<float>(10))
+                .AddTeleportInitialCooldown(new ReactiveVariable<float>(3))
+                .AddTeleportCurrentCooldown(new ReactiveVariable<float>(3))
+                .AddAmountOfEnergyForTeleport(new ReactiveVariable<float>(25))
                 .AddIsTeleportCooldownReady(new ReactiveVariable<bool>(false))
                 .AddTeleportRequest()
-                .AddAmountOfRestoreEnergy(new ReactiveVariable<float>(entity.EnergyMaxValue.Value * 0.1f))
+                .AddAmountOfRestoreEnergy(new ReactiveVariable<float>(entity.EnergyMaxValue.Value * 0.02f))
                 .AddTimeToRestoreEnergy(new ReactiveVariable<float>(1))
                 .AddAttackDamage(new ReactiveVariable<float>(1))
                 .AddAttackRange(new ReactiveVariable<float>(5))
-                .AddMaxTeleportRange(new ReactiveVariable<float>(5));
+                .AddMaxTeleportRange(new ReactiveVariable<float>(4));
 
             ICompositeCondition mustDie = new CompositeCondition()
                 .Add(new FuncCondition(() => entity.CurrentHealth.Value <= 0));
+
+            ICompositeCondition canApplyDamage = new CompositeCondition()
+                .Add(new FuncCondition(() => entity.IsDead.Value == false));
 
             ICompositeCondition canTeleport = new CompositeCondition()
                 .Add(new FuncCondition(() => entity.EnergyCurrentValue.Value >= entity.AmountOfEnergyForTeleport.Value))
@@ -80,7 +85,8 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
                 .AddMustDie(mustDie)
                 .AddMustSelfRelease(mustSelfRelease)
                 .AddCanTeleport(canTeleport)
-                .AddCanRestoreEnergy(canRestoreEnergy);
+                .AddCanRestoreEnergy(canRestoreEnergy)
+                .AddCanApplyDamage(canApplyDamage);
 
             entity
                   .AddSystem(new DeathSystem())
@@ -89,7 +95,8 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
                   .AddSystem(new TeleportCooldownSystem())
                   .AddSystem(new RestoreEnergySystem())
                   .AddSystem(new DealDamageInRangeAfterTeleportSystem(_collidersRegistryService))
-                  .AddSystem(new DisableCollidersOnDeathSystem());
+                  .AddSystem(new DisableCollidersOnDeathSystem())
+                  .AddSystem(new ApplyDamageSystem());
 
             _entitiesLifeContext.Add(entity);
 
@@ -124,7 +131,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
                 .AddEndAttackEvent()
                 .AddAttackDelayTime(new ReactiveVariable<float>(1))
                 .AddAttackDelayEndEvent()
-                .AddInstantAttackDamage(new ReactiveVariable<float>(50))
+                .AddInstantAttackDamage(new ReactiveVariable<float>(1))
                 .AddAttackCanceledEvent()
                 .AddAttackCooldownInitialTime(new ReactiveVariable<float>(2))
                 .AddAttackCooldownCurrentTime()
@@ -237,9 +244,9 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
                   .AddSystem(new RigidbodyRotationSystem())
                   .AddSystem(new ApplyDamageSystem())
                   .AddSystem(new DeathSystem())
-                  .AddSystem(new DisableCollidersOnDeathSystem())
                   .AddSystem(new DeathProcessTimerSystem())
                   .AddSystem(new SelfReleaseSystem(_entitiesLifeContext))
+                  .AddSystem(new DisableCollidersOnDeathSystem())
                   .AddSystem(new BodyContactDetectingSystem())
                   .AddSystem(new BodyContactsEntitiesFilterSystem(_collidersRegistryService))
                   .AddSystem(new DealDamageOnContactSystem());
