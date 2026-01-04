@@ -44,7 +44,7 @@ namespace Assets._Project.Develop.Runtime.Meta.Infrastructure
         {
             if (Input.GetKeyDown(KeyCode.F2))
             {
-                _coroutinesPerformer.StartPerform(_playerDataProvider.Save());
+                _coroutinesPerformer.StartPerform(_playerDataProvider.SaveAsync());
                 Debug.Log("Data is saved");
             }
         }

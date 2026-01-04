@@ -25,6 +25,8 @@ public class LowestHealthTargetSelector : ITargetSelector
                 result = result && canApplyDamage.Evaluate();
             }
 
+            result = result && EntitiesHelper.IsSameTeam(_source, target) == false;
+
             result = result && (target != _source);
 
             return result;

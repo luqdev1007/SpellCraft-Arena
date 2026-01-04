@@ -48,10 +48,10 @@ namespace Assets._Project.Develop.Infrastructure.EntryPoint
 
             bool isPlayerDataSaveExists = false;
 
-            yield return playerDataProvider.Exists(result => isPlayerDataSaveExists = result);
+            yield return playerDataProvider.ExistsAsync(result => isPlayerDataSaveExists = result);
 
             if (isPlayerDataSaveExists)
-                yield return playerDataProvider.Load();
+                yield return playerDataProvider.LoadAsync();
             else
                 playerDataProvider.Reset();
 
@@ -61,7 +61,7 @@ namespace Assets._Project.Develop.Infrastructure.EntryPoint
 
             loadingScreen.Hide();
 
-            yield return sceneSwitcherService.ProcessingSwitchTo(Scenes.Gameplay, new GameplayInputArgs("abcdef"));
+            yield return sceneSwitcherService.ProcessingSwitchTo(Scenes.MainMenu);
         }
     }
 }

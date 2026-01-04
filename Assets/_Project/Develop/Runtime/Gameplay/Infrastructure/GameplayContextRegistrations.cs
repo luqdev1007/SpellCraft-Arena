@@ -1,8 +1,13 @@
 ﻿using Assets._Project.Develop.Infrastructure.DI;
+using Assets._Project.Develop.Runtime.Configs.Gameplay.Levels;
 using Assets._Project.Develop.Runtime.Gameplay.EntitiesCore;
 using Assets._Project.Develop.Runtime.Gameplay.EntitiesCore.Mono;
 using Assets._Project.Develop.Runtime.Gameplay.Features.AI;
+using Assets._Project.Develop.Runtime.Gameplay.Features.Enemies;
 using Assets._Project.Develop.Runtime.Gameplay.Features.InputFeature;
+using Assets._Project.Develop.Runtime.Gameplay.Features.MainHero;
+using Assets._Project.Develop.Runtime.Gameplay.Features.StageFeature;
+using Assets._Project.Develop.Runtime.Gameplay.States;
 using Assets._Project.Develop.Runtime.Gameplay.TypeMode;
 using Assets._Project.Develop.Runtime.Meta.Features.Stats;
 using Assets._Project.Develop.Runtime.Meta.Features.Wallet;
@@ -42,6 +47,8 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
             container.RegisterAsSingle(CreateEntitiesLifeContext);
             container.RegisterAsSingle(CreateMonoEntitiesFactory).NonLazy();
 
+            container.RegisterAsSingle(CreateMainHeroHolderService).NonLazy();
+
             container.RegisterAsSingle(CreateCollidersRegistryService);
 
             container.RegisterAsSingle(CreateBrainsFactory);
@@ -49,6 +56,63 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
             container.RegisterAsSingle(CreateAIBrainContext);
 
             container.RegisterAsSingle<IInputService>(CreateDesktopInput);
+
+            container.RegisterAsSingle(CreateMainHeroFactory);
+            container.RegisterAsSingle(CreateEnemiesFactory);
+            container.RegisterAsSingle(CreateStagesFactory);
+
+            container.RegisterAsSingle(CreateStageProviderService);
+            container.RegisterAsSingle(CreatePreperationTriggerService);
+
+            container.RegisterAsSingle(CreateGameplayStatesFactory);
+            container.RegisterAsSingle(CreateGameplayStatesContext);
+        }
+
+        private static GameplayStatesContext CreateGameplayStatesContext(DIContainer container)
+        {
+            return new GameplayStatesContext(
+                container.Resolve<GameplayStatesFactory>()
+                .CreateGameplayStateMachine(_inputArgs));
+        }
+
+        private static GameplayStatesFactory CreateGameplayStatesFactory(DIContainer container)
+        {
+            return new GameplayStatesFactory(container);
+        }
+
+        private static MainHeroHolderService CreateMainHeroHolderService(DIContainer container)
+        {
+            return new MainHeroHolderService(container.Resolve<EntitiesLifeContext>());
+        }
+
+        private static PreperationTriggerService CreatePreperationTriggerService(DIContainer container)
+        {
+            return new PreperationTriggerService(
+                container.Resolve<EntitiesFactory>(),
+                container.Resolve<EntitiesLifeContext>());
+        }
+
+        private static StageProviderService CreateStageProviderService(DIContainer container)
+        {
+            return new StageProviderService(
+                container.Resolve<ConfigsProviderService>().GetConfig<LevelsListConfig>().GetBy(_inputArgs.LevelNumber),
+                container.Resolve<StagesFactory>()
+                );
+        }
+
+        private static StagesFactory CreateStagesFactory(DIContainer container)
+        {
+            return new StagesFactory(container);
+        }
+
+        private static MainHeroFactory CreateMainHeroFactory(DIContainer container)
+        {
+            return new MainHeroFactory(container);
+        }
+
+        private static EnemiesFactory CreateEnemiesFactory(DIContainer container)
+        {
+            return new EnemiesFactory(container);
         }
 
         private static DesktopInput CreateDesktopInput(DIContainer container)

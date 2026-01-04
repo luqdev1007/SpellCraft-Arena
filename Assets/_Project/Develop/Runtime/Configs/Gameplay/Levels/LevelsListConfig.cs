@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Assets._Project.Develop.Runtime.Configs.Gameplay.Levels
@@ -10,7 +11,7 @@ namespace Assets._Project.Develop.Runtime.Configs.Gameplay.Levels
 
         public IReadOnlyList<LevelConfig> Levels => _levels;
 
-        public LevelConfig Get(int levelNumber)
+        public LevelConfig GetBy(int levelNumber)
         {
             int levelIndex = levelNumber - 1;
 

@@ -1,3 +1,4 @@
+using Assets._Project.Develop.Runtime.Configs.Gameplay.Entities;
 using Assets._Project.Develop.Runtime.Configs.Gameplay.Levels;
 using Assets._Project.Develop.Runtime.Configs.Meta.Stats;
 using Assets._Project.Develop.Runtime.Configs.Meta.Wallet;
@@ -20,7 +21,8 @@ namespace Assets._Project.Develop.Runtime.Utilites.ConfigsManagment
             { typeof(TypeModeConfig), "Configs/Meta/TypeMode/TypeModeConfig" },
             { typeof(GameRewardsConfig), "Configs/Meta/Stats/GameRewardsConfig" },
             { typeof(CurrencyIconsConfig), "Configs/Meta/Wallet/CurrencyIconsConfig" },
-            { typeof(LevelsListConfig), "Configs/Gameplay/Levels/LevelsListConfig" }
+            { typeof(LevelsListConfig), "Configs/Gameplay/Levels/LevelsListConfig" },
+            { typeof(HeroConfig), "Configs/Entities/Characters/HeroConfig" }
 
         };
 

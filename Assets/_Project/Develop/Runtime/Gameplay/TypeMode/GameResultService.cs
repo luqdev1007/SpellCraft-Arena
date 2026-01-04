@@ -38,7 +38,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.TypeMode
             _gameStatsService.RegisterVictory();
             _walletService.Add(CurrencyTypes.Gold, _configsProviderService.GetConfig<GameRewardsConfig>().RewardForWin);
 
-            yield return _coroutinesPerformer.StartPerform(_playerDataProvider.Save());
+            yield return _coroutinesPerformer.StartPerform(_playerDataProvider.SaveAsync());
         }
 
         public IEnumerator RegisterDefeat()
@@ -50,7 +50,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.TypeMode
             else
                 _walletService.Spend(CurrencyTypes.Gold, _walletService.GetCurrency(CurrencyTypes.Gold).Value);
 
-            yield return _coroutinesPerformer.StartPerform(_playerDataProvider.Save());
+            yield return _coroutinesPerformer.StartPerform(_playerDataProvider.SaveAsync());
         }
     }
 }

@@ -2,7 +2,8 @@
 using Assets._Project.Develop.Infrastructure.DI;
 using Assets._Project.Develop.Runtime.Gameplay.EntitiesCore;
 using Assets._Project.Develop.Runtime.Gameplay.Features.AI;
-using Assets._Project.Develop.Runtime.Gameplay.Tests;
+using Assets._Project.Develop.Runtime.Gameplay.Features.MainHero;
+using Assets._Project.Develop.Runtime.Gameplay.States;
 using Assets._Project.Develop.Runtime.Gameplay.TypeMode;
 using Assets._Project.Develop.Runtime.Utilites.SceneManagement;
 using System;
@@ -17,7 +18,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
         private GameplayInputArgs _inputArgs;
         private TypeModeHandler _typeModeHandler;
 
-        [SerializeField] private TestGameplay _testGameplay; // delete later
+        private GameplayStatesContext _gameplayStatesContext;
 
         private EntitiesLifeContext _entitiesLifeContext;
 
@@ -46,7 +47,9 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
 
             _brainsContext = _container.Resolve<AIBrainsContext>();
 
-            _testGameplay.Initialize(_container);
+            _gameplayStatesContext = _container.Resolve<GameplayStatesContext>();
+
+            _container.Resolve<MainHeroFactory>().Create(Vector3.zero);
 
             yield break;
         }
@@ -56,7 +59,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
             _typeModeHandler.StartGame();
             Debug.Log($"Start gameplay scene");
 
-            _testGameplay.Run();
+            _gameplayStatesContext.Run();
         }
 
         private void Update()
@@ -64,6 +67,8 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
             _brainsContext?.Update(Time.deltaTime);
 
             _entitiesLifeContext?.Update(Time.deltaTime);
+
+            _gameplayStatesContext?.Update(Time.deltaTime);
         }
 
         private void OnDestroy()

@@ -1,6 +1,8 @@
 ﻿using Assets._Project.Develop.Runtime.Gameplay.EntitiesCore;
 using Assets._Project.Develop.Runtime.Gameplay.Features.ApplyDamage;
+using Assets._Project.Develop.Runtime.Gameplay.Features.TeamsFeature;
 using Assets._Project.Develop.Runtime.Utilites.Conditions;
+using Assets._Project.Develop.Runtime.Utilites.Reactive;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -28,6 +30,16 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.AI.States
                 {
                     result = result && canApplyDamage.Evaluate();
                 }
+
+                /*
+                if (_source.TryGetTeam(out ReactiveVariable<Teams> sourceTeam)
+                && target.TryGetTeam(out ReactiveVariable<Teams> targetTeam))
+                {
+                    result = result && (sourceTeam.Value != targetTeam.Value);
+                }
+                */
+
+                result = result && EntitiesHelper.IsSameTeam(_source, target) == false;
 
                 result = result && (target != _source);
 

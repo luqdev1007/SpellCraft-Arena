@@ -1,6 +1,7 @@
 ﻿using Assets._Project.Develop.Runtime.Gameplay.EntitiesCore;
 using Assets._Project.Develop.Runtime.Gameplay.EntitiesCore.Systems;
 using Assets._Project.Develop.Runtime.Gameplay.Features.ApplyDamage;
+using Assets._Project.Develop.Runtime.Gameplay.Features.TeamsFeature;
 using Assets._Project.Develop.Runtime.Utilites;
 using Assets._Project.Develop.Runtime.Utilites.Reactive;
 using System;
@@ -10,6 +11,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.TeleportFeature
 {
     public class DealDamageInRangeAfterTeleportSystem : IInitializableSystem, IDisposableSystem
     {
+        private Entity _entity;
         private ReactiveEvent _teleportEvent;
         private ReactiveVariable<float> _damage;
         private ReactiveVariable<float> _range;
@@ -27,6 +29,8 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.TeleportFeature
 
         public void OnInit(Entity entity)
         {
+            _entity = entity;
+
             _teleportEvent = entity.TeleportRequest;
             _damage = entity.AttackDamage;
             _range = entity.AttackRange;
@@ -55,8 +59,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.TeleportFeature
                 {
                     Debug.Log(collider.gameObject.name);
 
-                    if (contactEntity.HasComponent<TakeDamageRequest>())
-                        contactEntity.TakeDamageRequest.Invoke(_damage.Value);
+                    EntitiesHelper.TryTakeDamageFrom(_entity, contactEntity, _damage.Value);
                 }
             }
         }
