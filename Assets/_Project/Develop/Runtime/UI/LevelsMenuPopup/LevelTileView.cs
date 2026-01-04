@@ -27,7 +27,7 @@ namespace Assets._Project.Develop.Runtime.UI.LevelsMenuPopup
 
         public void Init(string levelName, Sprite levelIcon)
         {
-            _levelNameText.text = levelName;
+            // _levelNameText.text = levelName;
             _background.sprite = levelIcon;
         }
 
@@ -55,5 +55,23 @@ namespace Assets._Project.Develop.Runtime.UI.LevelsMenuPopup
         }
 
         private void OnButtonClicked() => Clicked?.Invoke();
+
+        public void SetComplete()
+        {
+            _button.interactable = false;
+            _background.color = Color.green;
+        }
+
+        public void SetActive()
+        {
+            _button.interactable = true;
+            _background.color = Color.white;
+        }
+
+        public void SetBlock()
+        {
+            _button.interactable = false;
+            _background.color = Color.red;
+        }
     }
 }
