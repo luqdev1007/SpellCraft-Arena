@@ -41,6 +41,20 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore.Mono
             return viewInstance;
         }
 
+        public MonoEntity Create(Entity entity, Transform parent, string path)
+        {
+            MonoEntity prefab = _resources.Load<MonoEntity>(path);
+
+            MonoEntity viewInstance = Object.Instantiate(prefab, parent);
+
+            viewInstance.Initialize(_collidersRegistryService);
+            viewInstance.Link(entity);
+
+            _entityToMono.Add(entity, viewInstance);
+
+            return viewInstance;
+        }
+
         public void Initialize()
         {
             _entitiesLifeContext.Released += OnEntityReleased;

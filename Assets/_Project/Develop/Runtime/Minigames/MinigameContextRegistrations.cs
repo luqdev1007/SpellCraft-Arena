@@ -41,7 +41,7 @@ namespace Assets._Project.Develop.Runtime.Minigames
 
         private static MinigamesFactory CreateMinigamesFactory(DIContainer container)
         {
-            return new MinigamesFactory();
+            return new MinigamesFactory(container);
         }
 
         private static MinigameStatesFactory CreateMinigameStatesFactory(DIContainer container)

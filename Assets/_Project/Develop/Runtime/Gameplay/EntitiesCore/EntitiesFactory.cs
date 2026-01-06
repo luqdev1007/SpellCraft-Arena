@@ -332,6 +332,26 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
             return entity;
         }
 
+        public Entity CreateTower(Transform parent)
+        {
+            Entity entity = CreateEmpty();
+
+            _monoEntitiesFactory.Create(entity, parent, "Entities/Tower");
+
+            entity
+                .AddContactsDetectingMask(LayersAPI.LayerMaskCharacters)
+                .AddContactCollidersBuffer(new Buffer<Collider>(64))
+                .AddContactEntitiesBuffer(new Buffer<Entity>(64));
+
+            entity
+                  .AddSystem(new BodyContactDetectingSystem())
+                  .AddSystem(new BodyContactsEntitiesFilterSystem(_collidersRegistryService));
+
+            _entitiesLifeContext.Add(entity);
+
+            return entity;
+        }
+
         private Entity CreateEmpty() => new Entity();
     }
 }
