@@ -1,8 +1,13 @@
 ﻿using Assets._Project.Develop.Runtime.Meta.Features.Stats;
 using Assets._Project.Develop.Runtime.Meta.Features.Wallet;
+using Assets._Project.Develop.Runtime.Minigames;
 using Assets._Project.Develop.Runtime.UI.Core;
+using Assets._Project.Develop.Runtime.Utilites.CoroutinesManagment;
+using Assets._Project.Develop.Runtime.Utilites.SceneManagement;
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace Assets._Project.Develop.Runtime.UI.MainMenu
 {
@@ -14,6 +19,9 @@ namespace Assets._Project.Develop.Runtime.UI.MainMenu
         private readonly GameStatsService _statsService;
         private readonly ResetWinLoseStatsService _resetDataService;
 
+        private readonly SceneSwitcherService _sceneSwitcherService;
+        private readonly ICoroutinesPerformer _coroutinesPerformer;
+
         private List<IDisposable> _disposables = new();
 
         public MainMenuScreenPresenter(
@@ -21,13 +29,17 @@ namespace Assets._Project.Develop.Runtime.UI.MainMenu
             MainMenuPopupService popupService,
             WalletService wallet,
             GameStatsService statsService,
-            ResetWinLoseStatsService resetDataService)
+            ResetWinLoseStatsService resetDataService,
+            SceneSwitcherService sceneSwitcherService,
+            ICoroutinesPerformer coroutinesPerformer)
         {
             _view = view;
             _popupService = popupService;
             _wallet = wallet;
             _statsService = statsService;
             _resetDataService = resetDataService;
+            _sceneSwitcherService = sceneSwitcherService;
+            _coroutinesPerformer = coroutinesPerformer;
         }
 
         public void Initialize()
@@ -45,6 +57,16 @@ namespace Assets._Project.Develop.Runtime.UI.MainMenu
             _view.OpenChatButtonClicked += OnOpenChatButtonClicked;
 
             CheckResetPossibility();
+
+            _view.TESTMINIGAMEBTNCLICKED += _view_TESTMINIGAMEBTNCLICKED;
+        }
+
+        private void _view_TESTMINIGAMEBTNCLICKED()
+        {
+            _coroutinesPerformer
+                .StartPerform(_sceneSwitcherService
+                .ProcessingSwitchTo(Scenes.Minigame, 
+                new MinigameInputArgs(MinigameModes.TowerDefence)));
         }
 
         public void Dispose()
@@ -57,6 +79,8 @@ namespace Assets._Project.Develop.Runtime.UI.MainMenu
                 disposable.Dispose();
 
             _disposables.Clear();
+
+            _view.TESTMINIGAMEBTNCLICKED -= _view_TESTMINIGAMEBTNCLICKED;
         }
 
         private void OnLossesChanged(int oldValue, int newValue)

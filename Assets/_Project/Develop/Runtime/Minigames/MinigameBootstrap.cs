@@ -44,8 +44,6 @@ namespace Assets._Project.Develop.Runtime.Minigames
 
         public override void Run()
         {
-            Debug.Log($"Start minigame");
-
             _minigameStatesContext.Run();
         }
 
