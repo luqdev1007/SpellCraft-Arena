@@ -1,16 +1,17 @@
-﻿using Assets._Project.Develop.Runtime.Gameplay.EntitiesCore.Mono;
-using Assets._Project.Develop.Runtime.Gameplay.EntitiesCore;
-using Assets._Project.Develop.Runtime.Gameplay.Features.Sensors;
-using Assets._Project.Develop.Runtime.Utilites;
-using System;
-using UnityEngine;
+﻿using System;
 
 namespace Assets._Project.Develop.Runtime.Minigames
 {
     public abstract class Minigame
     {
-        public string Name;
+        public abstract bool IsMinigameCompleted { get; protected set; }
+        public abstract bool PreperationOver { get; protected set; }
+        public abstract bool ReturnToPreperation { get; protected set; }
 
-        public abstract void Start();
+        public abstract void Init();
+
+        public abstract void Update(float deltaTime);
+
+        public abstract void StartPreperation();
     }
 }

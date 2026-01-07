@@ -1,7 +1,5 @@
 ﻿using Assets._Project.Develop.Infrastructure;
 using Assets._Project.Develop.Infrastructure.DI;
-using Assets._Project.Develop.Runtime.Gameplay.EntitiesCore;
-using Assets._Project.Develop.Runtime.Gameplay.Features.AI;
 using Assets._Project.Develop.Runtime.Utilites.SceneManagement;
 using System;
 using System.Collections;
@@ -12,10 +10,8 @@ namespace Assets._Project.Develop.Runtime.Minigames
     public class MinigameBootstrap : SceneBootstrap
     {
         private DIContainer _container;
-        private MinigameInputArgs _inputArgs;
 
-        private EntitiesLifeContext _entitiesLifeContext;
-        private AIBrainsContext _brainsContext;
+        private MinigameInputArgs _inputArgs;
 
         private MinigameStatesContext _minigameStatesContext;
 
@@ -33,10 +29,6 @@ namespace Assets._Project.Develop.Runtime.Minigames
 
         public override IEnumerator Initialize()
         {
-            _entitiesLifeContext = _container.Resolve<EntitiesLifeContext>();
-
-            _brainsContext = _container.Resolve<AIBrainsContext>();
-
             _minigameStatesContext = _container.Resolve<MinigameStatesContext>();
 
             yield break;
@@ -49,10 +41,6 @@ namespace Assets._Project.Develop.Runtime.Minigames
 
         private void Update()
         {
-            _brainsContext?.Update(Time.deltaTime);
-
-            _entitiesLifeContext?.Update(Time.deltaTime);
-
             _minigameStatesContext?.Update(Time.deltaTime);
         }
 

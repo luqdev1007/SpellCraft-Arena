@@ -27,7 +27,7 @@ namespace Assets._Project.Develop.Runtime.Utilites.StateMachineCore
         public void AddTransition(TState fromState, TState toState, ICondition condition)
         {
             StateNode<TState> from = _states.First(stateNode => stateNode.State == fromState);
-            StateNode<TState> to = _states.First(stateNode => stateNode.State == toState);
+            StateNode<TState> to = _states.First(stateNode => stateNode.State == toState);  
 
             from.AddTransition(new StateTransition<TState>(to, condition));
         }
