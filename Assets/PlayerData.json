@@ -7,6 +7,11 @@
   "Losses": 0,
   "CompletedLevels": [
     1,
+<<<<<<< Updated upstream
     2
+=======
+    2,
+    3
+>>>>>>> Stashed changes
   ]
 }

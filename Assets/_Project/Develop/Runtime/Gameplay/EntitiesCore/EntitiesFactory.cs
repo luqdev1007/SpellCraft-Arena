@@ -44,24 +44,31 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
             entity
                 .AddMaxHealth(new ReactiveVariable<float>(7))
                 .AddCurrentHealth(new ReactiveVariable<float>(7))
+
                 .AddIsDead()
                 .AddInDeathProcess()
                 .AddDeathProcessInitialTime(new ReactiveVariable<float>(3))
                 .AddDeathProcessCurrentTime()
+
                 .AddTakeDamageRequest()
                 .AddTakeDamageEvent()
+
                 .AddEnergyCurrentValue(new ReactiveVariable<float>(100))
                 .AddEnergyMaxValue(new ReactiveVariable<float>(100))
+
                 .AddTeleportInitialCooldown(new ReactiveVariable<float>(3))
                 .AddTeleportCurrentCooldown(new ReactiveVariable<float>(3))
                 .AddAmountOfEnergyForTeleport(new ReactiveVariable<float>(25))
                 .AddIsTeleportCooldownReady(new ReactiveVariable<bool>(false))
                 .AddTeleportRequest()
+                .AddMaxTeleportRange(new ReactiveVariable<float>(4))
+
                 .AddAmountOfRestoreEnergy(new ReactiveVariable<float>(entity.EnergyMaxValue.Value * 0.02f))
                 .AddTimeToRestoreEnergy(new ReactiveVariable<float>(1))
+
                 .AddAttackDamage(new ReactiveVariable<float>(1))
                 .AddAttackRange(new ReactiveVariable<float>(5))
-                .AddMaxTeleportRange(new ReactiveVariable<float>(4));
+                ;
 
             ICompositeCondition mustDie = new CompositeCondition()
                 .Add(new FuncCondition(() => entity.CurrentHealth.Value <= 0));
@@ -213,6 +220,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
                 .AddDeathProcessCurrentTime()
                 .AddTakeDamageRequest()
                 .AddTakeDamageEvent()
+
                 .AddContactsDetectingMask(LayersAPI.LayerMaskCharacters)
                 .AddContactCollidersBuffer(new Buffer<Collider>(64))
                 .AddContactEntitiesBuffer(new Buffer<Entity>(64))
@@ -247,6 +255,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
                   .AddSystem(new DeathSystem())
                   .AddSystem(new DeathProcessTimerSystem())
                   .AddSystem(new SelfReleaseSystem(_entitiesLifeContext))
+
                   .AddSystem(new DisableCollidersOnDeathSystem())
                   .AddSystem(new BodyContactDetectingSystem())
                   .AddSystem(new BodyContactsEntitiesFilterSystem(_collidersRegistryService))
