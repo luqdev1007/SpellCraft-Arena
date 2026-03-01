@@ -55,13 +55,13 @@ namespace Assets._Project.Develop.Infrastructure.EntryPoint
             else
                 playerDataProvider.Reset();
 
-            yield return new WaitForSeconds(1); // simulation of long inits
+            yield return new WaitForSeconds(0.3f); // simulation of long inits
 
             Debug.Log("Servises init is finished");
 
             loadingScreen.Hide();
 
-            yield return sceneSwitcherService.ProcessingSwitchTo(Scenes.Gameplay, new GameplayInputArgs("abcdef"));
+            yield return sceneSwitcherService.ProcessingSwitchTo(Scenes.MainMenu);
         }
     }
 }
