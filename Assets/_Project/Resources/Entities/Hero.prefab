@@ -469,6 +469,7 @@ GameObject:
   - component: {fileID: 8988305483655723568}
   - component: {fileID: 5391122438515149102}
   - component: {fileID: 1643336810972295028}
+  - component: {fileID: 2175326897428117954}
   m_Layer: 0
   m_Name: HeroView
   m_TagString: Untagged
@@ -605,6 +606,19 @@ MonoBehaviour:
   _spawnEffectPrefab: {fileID: 1601506141239540749, guid: 8be82ba048887ce4d983986bac2f57bd, type: 3}
   _effectSpawnPoint: {fileID: 2428323412003445446}
   _vfxStopAction: 2
+--- !u!114 &2175326897428117954
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1521096026066847836}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8b1733fad1cc8e448ff4fb9b43e5af8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _backlightPrefab: {fileID: 5726018809045565519, guid: c6640b64391b74e4db687a54c2518384, type: 3}
 --- !u!1 &1527990921519031720
 GameObject:
   m_ObjectHideFlags: 0
