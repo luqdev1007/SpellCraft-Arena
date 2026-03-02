@@ -15,6 +15,6 @@ MonoBehaviour:
   <PrefabPath>k__BackingField: Entities/Characters/Ghost
   <MoveSpeed>k__BackingField: 10
   <RotationSpeed>k__BackingField: 900
-  <MaxHealth>k__BackingField: 100
-  <BodyContactDamage>k__BackingField: 45
+  <MaxHealth>k__BackingField: 75
+  <BodyContactDamage>k__BackingField: 15
   <DeathProcessTime>k__BackingField: 2

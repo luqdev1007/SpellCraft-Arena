@@ -467,6 +467,7 @@ GameObject:
   - component: {fileID: 9039264706349194899}
   - component: {fileID: 3045610155613296642}
   - component: {fileID: 8988305483655723568}
+  - component: {fileID: 5391122438515149102}
   m_Layer: 0
   m_Name: HeroView
   m_TagString: Untagged
@@ -493,6 +494,7 @@ Transform:
   - {fileID: 5453867691768230735}
   - {fileID: 5910634553834755592}
   - {fileID: 4779766577720317554}
+  - {fileID: 3366335273890887948}
   m_Father: {fileID: 5149040113408065364}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &508756629486973984
@@ -570,6 +572,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _animationClip: {fileID: 7400000, guid: ac96d6202b4c53840936ea89dc1f34df, type: 2}
   _animator: {fileID: 508756629486973984}
+--- !u!114 &5391122438515149102
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1521096026066847836}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 708cb269588edeb48818c8732e6fbef6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _applyDamageEffectPrefab: {fileID: 4033287822461114141, guid: bfbd23f7851c72048926c93d93e5b584, type: 3}
+  _effectSpawnPoint: {fileID: 3366335273890887948}
 --- !u!1 &1527990921519031720
 GameObject:
   m_ObjectHideFlags: 0
@@ -1724,6 +1740,37 @@ Transform:
   m_Children:
   - {fileID: 3536451921474631133}
   m_Father: {fileID: 4388037377668748491}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &5268993782009758329
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3366335273890887948}
+  m_Layer: 0
+  m_Name: HitEffectPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3366335273890887948
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5268993782009758329}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.31, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2962181432069355487}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5394322818892163785
 GameObject:
