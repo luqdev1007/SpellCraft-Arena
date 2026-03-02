@@ -14,15 +14,17 @@ namespace Assets._Project.Develop.Runtime.Gameplay.States
     public class GameplayStatesFactory
     {
         private readonly DIContainer _container;
+        private GameplayInputArgs _inputArgs;
 
-        public GameplayStatesFactory(DIContainer container)
+        public GameplayStatesFactory(DIContainer container, GameplayInputArgs inputArgs)
         {
             _container = container;
+            _inputArgs = inputArgs;
         }
 
         public PreperationState CreatePreperationState()
         {
-            return new PreperationState(_container.Resolve<PreperationTriggerService>());
+            return new PreperationState(_container.Resolve<PreperationTriggerService>(), _inputArgs);
         }
 
         public StageProcessState CreateStageProcessState()

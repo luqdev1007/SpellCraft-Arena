@@ -15,7 +15,9 @@ namespace Assets._Project.Develop.Runtime.Configs.Gameplay.Levels
         [field: SerializeField] public int LevelNumber { get; private set; }
         [field: SerializeField] public Sprite LevelIcon { get; private set; }
         [field: SerializeField] public TypeModeSymbols TypeMode { get; private set; }
+        [field: SerializeField] public Vector3 ContactTriggerSpawnPointPosition { get; private set; }
 
         public IReadOnlyList<StageConfig> StageConfigs => _stageConfigs;
+
     }
 }

@@ -51,7 +51,7 @@ namespace Assets._Project.Develop.Runtime.UI.LevelsMenuPopup
                 _view.LevelTilesListView.Add(levelTileView);
 
                 TypeModeSymbols typeMode = levelsListConfig.Levels[i].TypeMode;
-                GameplayInputArgs inputArgs = new GameplayInputArgs(typeModeConfig.GetValueFor(typeMode), levelsListConfig.Levels[i].LevelNumber);
+                GameplayInputArgs inputArgs = new GameplayInputArgs(typeModeConfig.GetValueFor(typeMode), levelsListConfig.Levels[i].LevelNumber, levelsListConfig.Levels[i].ContactTriggerSpawnPointPosition);
 
                 LevelTilePresenter levelTilePresenter = _presentersFactory
                     .CreateLevelTilePresenter(levelTileView, inputArgs, levelsListConfig.Levels[i]);

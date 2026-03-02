@@ -77,7 +77,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
 
         private static GameplayStatesFactory CreateGameplayStatesFactory(DIContainer container)
         {
-            return new GameplayStatesFactory(container);
+            return new GameplayStatesFactory(container, _inputArgs);
         }
 
         private static MainHeroHolderService CreateMainHeroHolderService(DIContainer container)
