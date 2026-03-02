@@ -17,6 +17,7 @@ namespace Assets._Project.Develop.Runtime.Configs.Gameplay.Entities
         [field: SerializeField, Min(0)] public float InstantAttackDamage { get; private set; } = 50;
         [field: SerializeField, Min(0)] public float MaxHealth { get; private set; } = 100;
         [field: SerializeField, Min(0)] public float DeathProcessTime { get; private set; } = 2;
+        [field: SerializeField, Min(0)] public float SpawnProcessTime { get; private set; } = 2;
 
         [SerializeField, HideInInspector] private float _lastAttackProcessTime;
         [SerializeField, HideInInspector] private float _lastAttackDelayTime;

@@ -18,3 +18,4 @@ MonoBehaviour:
   <MaxHealth>k__BackingField: 75
   <BodyContactDamage>k__BackingField: 15
   <DeathProcessTime>k__BackingField: 2
+  <SpawnProcessTime>k__BackingField: 1
