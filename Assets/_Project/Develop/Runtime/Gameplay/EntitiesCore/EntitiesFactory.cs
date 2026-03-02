@@ -299,7 +299,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
 
             entity
                 .AddMoveDirection(new ReactiveVariable<Vector3>(direction))
-                .AddMoveSpeed(new ReactiveVariable<float>(10))
+                .AddMoveSpeed(new ReactiveVariable<float>(25))
                 .AddIsMoving()
                 .AddRotationSpeed(new ReactiveVariable<float>(9999))
                 .AddRotationDirection(new ReactiveVariable<Vector3>(direction))
