@@ -9,24 +9,20 @@ public class MainMenuScreenView : MonoBehaviour, IView
     public event Action ResetStatsButtonClicked;
     public event Action OpenChatButtonClicked;
 
-    public event Action TESTMINIGAMEBTNCLICKED;
-
     [SerializeField] private IconTextView _goldView;
+    [SerializeField] private IconTextView _diamondView;
     [SerializeField] private IconTextView _winsView;
     [SerializeField] private IconTextView _losesView;
 
     [SerializeField] private Button _startGameButton;
     [SerializeField] private Button _resetStatsButton;
     [SerializeField] private Button _openChatButton;
-    [SerializeField] private Button TESTMINIGAMEBTN;
 
     private void OnEnable()
     {
         _startGameButton.onClick.AddListener(OnStartGameButtonClicked);
         _resetStatsButton.onClick.AddListener(OnResetStatsButtonClicked);
         _openChatButton.onClick.AddListener(OnOpenChatButtonClicked);
-
-        TESTMINIGAMEBTN.onClick.AddListener(MINIGAMEBUTTONPRESSED);
     }
 
     private void OnDisable()
@@ -34,14 +30,8 @@ public class MainMenuScreenView : MonoBehaviour, IView
         _startGameButton.onClick.RemoveListener(OnStartGameButtonClicked);
         _resetStatsButton.onClick.RemoveListener(OnResetStatsButtonClicked);
         _openChatButton.onClick.RemoveListener(OnOpenChatButtonClicked);
-
-        TESTMINIGAMEBTN.onClick.RemoveListener(MINIGAMEBUTTONPRESSED);
     }
 
-    private void MINIGAMEBUTTONPRESSED()
-    {
-        TESTMINIGAMEBTNCLICKED?.Invoke();
-    }
 
     public void EnableResetButton()
     {

@@ -57,16 +57,6 @@ namespace Assets._Project.Develop.Runtime.UI.MainMenu
             _view.OpenChatButtonClicked += OnOpenChatButtonClicked;
 
             CheckResetPossibility();
-
-            _view.TESTMINIGAMEBTNCLICKED += _view_TESTMINIGAMEBTNCLICKED;
-        }
-
-        private void _view_TESTMINIGAMEBTNCLICKED()
-        {
-            _coroutinesPerformer
-                .StartPerform(_sceneSwitcherService
-                .ProcessingSwitchTo(Scenes.Minigame, 
-                new MinigameInputArgs(MinigameModes.TowerDefence)));
         }
 
         public void Dispose()
@@ -79,8 +69,6 @@ namespace Assets._Project.Develop.Runtime.UI.MainMenu
                 disposable.Dispose();
 
             _disposables.Clear();
-
-            _view.TESTMINIGAMEBTNCLICKED -= _view_TESTMINIGAMEBTNCLICKED;
         }
 
         private void OnLossesChanged(int oldValue, int newValue)
