@@ -44,16 +44,5 @@ namespace Assets._Project.Develop.Runtime.UI.Gameplay
 
             return popup;
         }
-
-        public EndOfBattlePresenter OpenEndOfBattlePopup(Action closeCallback = null)
-        {
-            EndOfBattleView view = ViewsFactory.Create<EndOfBattleView>(ViewIDs.EndOfBattleView, PopupLayer);
-
-            EndOfBattlePresenter popup = _gameplayPresentersFactory.CreateEndOfBattleView(view);
-
-            OnPopupCreated(popup, view, closeCallback);
-
-            return popup;
-        }
     }
 }

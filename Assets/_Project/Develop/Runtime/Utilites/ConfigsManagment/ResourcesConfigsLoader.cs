@@ -2,7 +2,6 @@ using Assets._Project.Develop.Runtime.Configs.Gameplay.Entities;
 using Assets._Project.Develop.Runtime.Configs.Gameplay.Levels;
 using Assets._Project.Develop.Runtime.Configs.Meta.Stats;
 using Assets._Project.Develop.Runtime.Configs.Meta.Wallet;
-using Assets._Project.Develop.Runtime.Gameplay.TypeMode;
 using Assets._Project.Develop.Runtime.Utilites.AssetsManagment;
 using System;
 using System.Collections;
@@ -18,12 +17,13 @@ namespace Assets._Project.Develop.Runtime.Utilites.ConfigsManagment
         private readonly Dictionary<Type, string> _configsResourcesPath = new()
         {
             { typeof(StartWalletConfig), "Configs/Meta/Wallet/StartWalletConfig" },
-            { typeof(TypeModeConfig), "Configs/Meta/TypeMode/TypeModeConfig" },
-            { typeof(GameRewardsConfig), "Configs/Meta/Stats/GameRewardsConfig" },
             { typeof(CurrencyIconsConfig), "Configs/Meta/Wallet/CurrencyIconsConfig" },
-            { typeof(LevelsListConfig), "Configs/Gameplay/Levels/LevelsListConfig" },
-            { typeof(HeroConfig), "Configs/Entities/Characters/HeroConfig" }
 
+            { typeof(GameRewardsConfig), "Configs/Meta/Stats/GameRewardsConfig" },
+
+            { typeof(LevelsListConfig), "Configs/Gameplay/Levels/LevelsListConfig" },
+
+            { typeof(HeroConfig), "Configs/Entities/Characters/HeroConfig" }
         };
 
         public ResourcesConfigsLoader(ResourcesAssetsLoader resources)

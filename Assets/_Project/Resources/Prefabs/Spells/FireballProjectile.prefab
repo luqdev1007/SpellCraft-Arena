@@ -9626,10 +9626,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4867509176172407089}
-  - component: {fileID: 2420982832848850266}
-  - component: {fileID: 7123395666157799486}
-  - component: {fileID: 1903896994117427888}
-  - component: {fileID: 242788713673582069}
   - component: {fileID: 5747244342229063712}
   - component: {fileID: 3367554863789063647}
   m_Layer: 6
@@ -9655,57 +9651,6 @@ Transform:
   - {fileID: 311642727433023666}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2420982832848850266
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7104900048615623905}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6d897167fbf1ed246b454abeaeb666f5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &7123395666157799486
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7104900048615623905}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2c36bf89d394c0249860f0f1687d6338, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1903896994117427888
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7104900048615623905}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 67724dfb90076e747b00b0871cf52777, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _body: {fileID: 3367554863789063647}
---- !u!114 &242788713673582069
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7104900048615623905}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cb669c786e0b3444987394de19f9f8d8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _colliders:
-  - {fileID: 3367554863789063647}
 --- !u!54 &5747244342229063712
 Rigidbody:
   m_ObjectHideFlags: 0

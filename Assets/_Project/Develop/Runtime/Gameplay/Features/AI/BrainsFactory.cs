@@ -2,7 +2,6 @@
 using Assets._Project.Develop.Runtime.Gameplay.EntitiesCore;
 using Assets._Project.Develop.Runtime.Gameplay.Features.AI.States;
 using Assets._Project.Develop.Runtime.Gameplay.Features.InputFeature;
-using Assets._Project.Develop.Runtime.Gameplay.Features.TeleportFeature;
 using Assets._Project.Develop.Runtime.Utilites.Conditions;
 using Assets._Project.Develop.Runtime.Utilites.Reactive;
 using Assets._Project.Develop.Runtime.Utilites.Timer;
@@ -70,36 +69,6 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.AI
             AIStateMachine stateMachine = CreateRandomMovementStateMachine(entity);
             StateMachineBrain brain = new StateMachineBrain(stateMachine);
 
-            _brainsContext.SetFor(entity, brain);
-
-            return brain;
-        }
-
-        public StateMachineBrain CreateMagicOrbBrain(Entity entity)
-        {
-            TeleportSystem teleportSystem = new TeleportSystem(entity);
-
-            ChooseRandomPointTeleportState randomTeleportState = new ChooseRandomPointTeleportState(entity, teleportSystem);
-            ChooseLowestHealthTargetTeleportState chooseLowestHealthTargetTeleportState = new ChooseLowestHealthTargetTeleportState(
-                entity,
-                teleportSystem,
-                new LowestHealthTargetSelector(entity),
-                0.4f,
-                _entitiesLifeContext
-                );
-
-            AIStateMachine stateMachine = new AIStateMachine();
-
-            stateMachine.AddState(randomTeleportState);
-            stateMachine.AddState(chooseLowestHealthTargetTeleportState);
-
-            FuncCondition firstPhaseCondition = new FuncCondition(() => entity.CurrentHealth.Value > entity.MaxHealth.Value * 0.5f);
-            FuncCondition secondPhaseCondition = new FuncCondition(() => entity.CurrentHealth.Value <= entity.MaxHealth.Value * 0.5f);
-
-            stateMachine.AddTransition(randomTeleportState, chooseLowestHealthTargetTeleportState, secondPhaseCondition);
-            stateMachine.AddTransition(chooseLowestHealthTargetTeleportState, randomTeleportState, firstPhaseCondition);
-
-            StateMachineBrain brain = new StateMachineBrain(stateMachine);
             _brainsContext.SetFor(entity, brain);
 
             return brain;

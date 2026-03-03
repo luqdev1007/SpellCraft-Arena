@@ -1,13 +1,8 @@
 ﻿using Assets._Project.Develop.Runtime.Meta.Features.Stats;
 using Assets._Project.Develop.Runtime.Meta.Features.Wallet;
-using Assets._Project.Develop.Runtime.Minigames;
 using Assets._Project.Develop.Runtime.UI.Core;
-using Assets._Project.Develop.Runtime.Utilites.CoroutinesManagment;
-using Assets._Project.Develop.Runtime.Utilites.SceneManagement;
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 
 namespace Assets._Project.Develop.Runtime.UI.MainMenu
 {
@@ -19,9 +14,6 @@ namespace Assets._Project.Develop.Runtime.UI.MainMenu
         private readonly GameStatsService _statsService;
         private readonly ResetWinLoseStatsService _resetDataService;
 
-        private readonly SceneSwitcherService _sceneSwitcherService;
-        private readonly ICoroutinesPerformer _coroutinesPerformer;
-
         private List<IDisposable> _disposables = new();
 
         public MainMenuScreenPresenter(
@@ -29,17 +21,13 @@ namespace Assets._Project.Develop.Runtime.UI.MainMenu
             MainMenuPopupService popupService,
             WalletService wallet,
             GameStatsService statsService,
-            ResetWinLoseStatsService resetDataService,
-            SceneSwitcherService sceneSwitcherService,
-            ICoroutinesPerformer coroutinesPerformer)
+            ResetWinLoseStatsService resetDataService)
         {
             _view = view;
             _popupService = popupService;
             _wallet = wallet;
             _statsService = statsService;
             _resetDataService = resetDataService;
-            _sceneSwitcherService = sceneSwitcherService;
-            _coroutinesPerformer = coroutinesPerformer;
         }
 
         public void Initialize()
@@ -54,7 +42,6 @@ namespace Assets._Project.Develop.Runtime.UI.MainMenu
 
             _view.StartGameButtonClicked += OnStartGameButtonClicked;
             _view.ResetStatsButtonClicked += OnResetStatsButtonClicked;
-            _view.OpenChatButtonClicked += OnOpenChatButtonClicked;
 
             CheckResetPossibility();
         }
@@ -63,7 +50,6 @@ namespace Assets._Project.Develop.Runtime.UI.MainMenu
         {
             _view.StartGameButtonClicked -= OnStartGameButtonClicked;
             _view.ResetStatsButtonClicked -= OnResetStatsButtonClicked;
-            _view.OpenChatButtonClicked -= OnOpenChatButtonClicked;
 
             foreach (var disposable in _disposables)
                 disposable.Dispose();
@@ -79,11 +65,6 @@ namespace Assets._Project.Develop.Runtime.UI.MainMenu
         private void OnWinsChanged(int oldValue, int newValue)
         {
             _view.SetWinsText(newValue.ToString());
-        }
-
-        private void OnOpenChatButtonClicked()
-        {
-            _popupService.OpenChatPopup();
         }
 
         private void OnStartGameButtonClicked()

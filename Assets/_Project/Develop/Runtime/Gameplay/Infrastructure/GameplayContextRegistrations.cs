@@ -8,7 +8,6 @@ using Assets._Project.Develop.Runtime.Gameplay.Features.InputFeature;
 using Assets._Project.Develop.Runtime.Gameplay.Features.MainHero;
 using Assets._Project.Develop.Runtime.Gameplay.Features.StageFeature;
 using Assets._Project.Develop.Runtime.Gameplay.States;
-using Assets._Project.Develop.Runtime.Gameplay.TypeMode;
 using Assets._Project.Develop.Runtime.Meta.Features.Stats;
 using Assets._Project.Develop.Runtime.Meta.Features.Wallet;
 using Assets._Project.Develop.Runtime.UI;
@@ -33,10 +32,6 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
             Debug.Log("Process registrations on gameplay scene");
 
             _inputArgs = inputArgs;
-
-            container.RegisterAsSingle(CreateTypeModeGeneratorService);
-            container.RegisterAsSingle(CreateTypeModeHandler);
-            container.RegisterAsSingle(CreateGameResultService);
 
             container.RegisterAsSingle(CreateGameplayUIRoot).NonLazy();
             container.RegisterAsSingle(CreateGameplayScreenPresenter).NonLazy();
@@ -189,32 +184,6 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
                 .Load<GameplayUIRoot>("UI/Gameplay/GameplayUIRoot");
 
             return Object.Instantiate(gameplayUIRoot);
-        }
-
-        private static GameResultService CreateGameResultService(DIContainer container)
-        {
-            return new GameResultService(
-                container.Resolve<ICoroutinesPerformer>(),
-                container.Resolve<GameStatsService>(),
-                container.Resolve<PlayerDataProvider>(),
-                container.Resolve<WalletService>(),
-                container.Resolve<ConfigsProviderService>());
-        }
-
-        private static TypeModeCombinationGeneratorService CreateTypeModeGeneratorService(DIContainer container)
-        {
-            return new TypeModeCombinationGeneratorService();
-        }
-
-        private static TypeModeHandler CreateTypeModeHandler(DIContainer container)
-        {
-            return new TypeModeHandler(_inputArgs,
-                container.Resolve<TypeModeCombinationGeneratorService>(),
-                container.Resolve<GameResultService>(),
-                container.Resolve<ICoroutinesPerformer>(),
-                container.Resolve<ChatService>(),
-                container.Resolve<GameplayPopupService>()
-                );
         }
     }
 }

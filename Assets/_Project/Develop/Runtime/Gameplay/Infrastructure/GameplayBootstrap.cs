@@ -4,7 +4,6 @@ using Assets._Project.Develop.Runtime.Gameplay.EntitiesCore;
 using Assets._Project.Develop.Runtime.Gameplay.Features.AI;
 using Assets._Project.Develop.Runtime.Gameplay.Features.MainHero;
 using Assets._Project.Develop.Runtime.Gameplay.States;
-using Assets._Project.Develop.Runtime.Gameplay.TypeMode;
 using Assets._Project.Develop.Runtime.UI.Gameplay;
 using Assets._Project.Develop.Runtime.Utilites.SceneManagement;
 using System;
@@ -17,8 +16,8 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
     public class GameplayBootstrap : SceneBootstrap
     {
         private DIContainer _container;
+
         private GameplayInputArgs _inputArgs;
-        private TypeModeHandler _typeModeHandler;
 
         private GameplayStatesContext _gameplayStatesContext;
 
@@ -44,9 +43,6 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
         {
             Debug.Log("Gameplay scene init");
 
-            _typeModeHandler = _container.Resolve<TypeModeHandler>();
-            _typeModeHandler.Init();
-
             _screenPresenter = _container.Resolve<GameplayScreenPresenter>();
 
             _entitiesLifeContext = _container.Resolve<EntitiesLifeContext>();
@@ -62,7 +58,6 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
 
         public override void Run()
         {
-            _typeModeHandler.StartGame();
             Debug.Log($"Start gameplay scene");
 
             _gameplayStatesContext.Run();
@@ -80,11 +75,6 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
         private void LateUpdate()
         {
             _screenPresenter?.LateUpdate();
-        }
-
-        private void OnDestroy()
-        {
-            _typeModeHandler.Dispose();
         }
     }
 }

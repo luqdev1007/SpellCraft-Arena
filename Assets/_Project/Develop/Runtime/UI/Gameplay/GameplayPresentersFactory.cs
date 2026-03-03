@@ -1,9 +1,6 @@
 ﻿using Assets._Project.Develop.Infrastructure.DI;
 using Assets._Project.Develop.Runtime.Gameplay.EntitiesCore;
 using Assets._Project.Develop.Runtime.Gameplay.Features.StageFeature;
-using Assets._Project.Develop.Runtime.Gameplay.TypeMode;
-using Assets._Project.Develop.Runtime.Meta.Features.Stats;
-using Assets._Project.Develop.Runtime.Meta.Features.Wallet;
 using Assets._Project.Develop.Runtime.UI.CommonViews;
 using Assets._Project.Develop.Runtime.UI.Core;
 using Assets._Project.Develop.Runtime.UI.Gameplay.HealthDisplay;
@@ -11,7 +8,6 @@ using Assets._Project.Develop.Runtime.UI.Gameplay.ResultPopups;
 using Assets._Project.Develop.Runtime.UI.Gameplay.Stages;
 using Assets._Project.Develop.Runtime.Utilites.CoroutinesManagment;
 using Assets._Project.Develop.Runtime.Utilites.SceneManagement;
-using System;
 
 namespace Assets._Project.Develop.Runtime.UI.Gameplay
 {
@@ -57,18 +53,6 @@ namespace Assets._Project.Develop.Runtime.UI.Gameplay
                 view,
                 _container.Resolve<SceneSwitcherService>(),
                 _inputArgs
-                );
-        }
-
-        public EndOfBattlePresenter CreateEndOfBattleView(EndOfBattleView view)
-        {
-            return new EndOfBattlePresenter(
-                view,
-                _container.Resolve<WalletService>(),
-                _container.Resolve<GameStatsService>(),
-                _container.Resolve<SceneSwitcherService>(),
-                _container.Resolve<ICoroutinesPerformer>(),
-                _container.Resolve<TypeModeHandler>()
                 );
         }
 

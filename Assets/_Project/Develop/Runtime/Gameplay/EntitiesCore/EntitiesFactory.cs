@@ -5,13 +5,11 @@ using Assets._Project.Develop.Runtime.Gameplay.Features.ApplyDamage;
 using Assets._Project.Develop.Runtime.Gameplay.Features.Attack;
 using Assets._Project.Develop.Runtime.Gameplay.Features.Attack.Shoot;
 using Assets._Project.Develop.Runtime.Gameplay.Features.ContactTakeDamage;
-using Assets._Project.Develop.Runtime.Gameplay.Features.Energy;
 using Assets._Project.Develop.Runtime.Gameplay.Features.LifeCycle;
 using Assets._Project.Develop.Runtime.Gameplay.Features.MovementFeature;
 using Assets._Project.Develop.Runtime.Gameplay.Features.Sensors;
 using Assets._Project.Develop.Runtime.Gameplay.Features.SpawnFeature;
 using Assets._Project.Develop.Runtime.Gameplay.Features.TeamsFeature;
-using Assets._Project.Develop.Runtime.Gameplay.Features.TeleportFeature;
 using Assets._Project.Develop.Runtime.Utilites;
 using Assets._Project.Develop.Runtime.Utilites.Conditions;
 using Assets._Project.Develop.Runtime.Utilites.Reactive;
@@ -36,88 +34,11 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
             _collidersRegistryService = container.Resolve<CollidersRegistryService>();
         }
 
-        public Entity CreateMagicOrb(Vector3 position)
-        {
-            Entity entity = CreateEmpty();
-
-            _monoEntitiesFactory.Create(entity, position, "Entities/MagicOrb");
-
-            entity
-                .AddMaxHealth(new ReactiveVariable<float>(7))
-                .AddCurrentHealth(new ReactiveVariable<float>(7))
-
-                .AddIsDead()
-                .AddInDeathProcess()
-                .AddDeathProcessInitialTime(new ReactiveVariable<float>(3))
-                .AddDeathProcessCurrentTime()
-
-                .AddTakeDamageRequest()
-                .AddTakeDamageEvent()
-
-                .AddEnergyCurrentValue(new ReactiveVariable<float>(100))
-                .AddEnergyMaxValue(new ReactiveVariable<float>(100))
-
-                .AddTeleportInitialCooldown(new ReactiveVariable<float>(3))
-                .AddTeleportCurrentCooldown(new ReactiveVariable<float>(3))
-                .AddAmountOfEnergyForTeleport(new ReactiveVariable<float>(25))
-                .AddIsTeleportCooldownReady(new ReactiveVariable<bool>(false))
-                .AddTeleportRequest()
-                .AddMaxTeleportRange(new ReactiveVariable<float>(4))
-
-                .AddAmountOfRestoreEnergy(new ReactiveVariable<float>(entity.EnergyMaxValue.Value * 0.02f))
-                .AddTimeToRestoreEnergy(new ReactiveVariable<float>(1))
-
-                .AddAttackDamage(new ReactiveVariable<float>(1))
-                .AddAttackRange(new ReactiveVariable<float>(5))
-                ;
-
-            ICompositeCondition mustDie = new CompositeCondition()
-                .Add(new FuncCondition(() => entity.CurrentHealth.Value <= 0));
-
-            ICompositeCondition canApplyDamage = new CompositeCondition()
-                .Add(new FuncCondition(() => entity.IsDead.Value == false));
-
-            ICompositeCondition canTeleport = new CompositeCondition()
-                .Add(new FuncCondition(() => entity.EnergyCurrentValue.Value >= entity.AmountOfEnergyForTeleport.Value))
-                .Add(new FuncCondition(() => entity.IsDead.Value == false))
-                .Add(new FuncCondition(() => entity.InDeathProcess.Value == false))
-                .Add(new FuncCondition(() => entity.IsTeleportCooldownReady.Value == true));
-
-            ICompositeCondition mustSelfRelease = new CompositeCondition()
-                .Add(new FuncCondition(() => entity.IsDead.Value == true))
-                .Add(new FuncCondition(() => entity.InDeathProcess.Value == false));
-
-            ICompositeCondition canRestoreEnergy = new CompositeCondition()
-                .Add(new FuncCondition(() => entity.IsDead.Value == false))
-                .Add(new FuncCondition(() => entity.InDeathProcess.Value == false));
-
-            entity
-                .AddMustDie(mustDie)
-                .AddMustSelfRelease(mustSelfRelease)
-                .AddCanTeleport(canTeleport)
-                .AddCanRestoreEnergy(canRestoreEnergy)
-                .AddCanApplyDamage(canApplyDamage);
-
-            entity
-                  .AddSystem(new DeathSystem())
-                  .AddSystem(new DeathProcessTimerSystem())
-                  .AddSystem(new SelfReleaseSystem(_entitiesLifeContext))
-                  .AddSystem(new TeleportCooldownSystem())
-                  .AddSystem(new RestoreEnergySystem())
-                  .AddSystem(new DealDamageInRangeAfterTeleportSystem(_collidersRegistryService))
-                  .AddSystem(new DisableCollidersOnDeathSystem())
-                  .AddSystem(new ApplyDamageSystem());
-
-            _entitiesLifeContext.Add(entity);
-
-            return entity;
-        }
-
         public Entity CreateHero(Vector3 position, HeroConfig config)
         {
             Entity entity = CreateEmpty();
 
-            _monoEntitiesFactory.Create(entity, position, "Entities/Hero");
+            _monoEntitiesFactory.Create(entity, position, config.PrefabPath);
 
             entity
                 .AddMoveDirection()
@@ -218,7 +139,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
         {
             Entity entity = CreateEmpty();
 
-            _monoEntitiesFactory.Create(entity, position, "Entities/Ghost");
+            _monoEntitiesFactory.Create(entity, position, config.PrefabPath);
 
             entity
                 .AddMoveDirection()

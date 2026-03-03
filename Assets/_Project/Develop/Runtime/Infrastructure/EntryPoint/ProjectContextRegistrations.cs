@@ -41,7 +41,6 @@ namespace Assets._Project.Develop.Infrastructure.EntryPoint
 
             container.RegisterAsSingle(CreateWalletService).NonLazy();
 
-            container.RegisterAsSingle(CreateChatService);
 
             container.RegisterAsSingle(CreatePlayerDataProvider);
 
@@ -94,11 +93,6 @@ namespace Assets._Project.Develop.Infrastructure.EntryPoint
             IDataRepository dataRepository = new LocalFileDataRepository(saveFolderPath, "json");
 
             return new SaveLoadService(dataSerializer, dataKeysStorage, dataRepository);
-        }
-
-        private static ChatService CreateChatService(DIContainer container)
-        {
-            return new ChatService();
         }
 
         private static WalletService CreateWalletService(DIContainer container)

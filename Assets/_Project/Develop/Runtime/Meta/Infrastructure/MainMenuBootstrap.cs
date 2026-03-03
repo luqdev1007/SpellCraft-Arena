@@ -1,9 +1,5 @@
 ﻿using Assets._Project.Develop.Infrastructure;
 using Assets._Project.Develop.Infrastructure.DI;
-using Assets._Project.Develop.Runtime.Configs.Meta.Stats;
-using Assets._Project.Develop.Runtime.Meta.Features.Stats;
-using Assets._Project.Develop.Runtime.Meta.Features.Wallet;
-using Assets._Project.Develop.Runtime.Utilites.ConfigsManagment;
 using Assets._Project.Develop.Runtime.Utilites.CoroutinesManagment;
 using Assets._Project.Develop.Runtime.Utilites.DataProviders;
 using Assets._Project.Develop.Runtime.Utilites.SceneManagement;

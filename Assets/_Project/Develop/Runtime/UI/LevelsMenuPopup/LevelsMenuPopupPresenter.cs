@@ -1,5 +1,4 @@
 ﻿using Assets._Project.Develop.Runtime.Configs.Gameplay.Levels;
-using Assets._Project.Develop.Runtime.Gameplay.TypeMode;
 using Assets._Project.Develop.Runtime.UI.Core;
 using Assets._Project.Develop.Runtime.Utilites.ConfigsManagment;
 using Assets._Project.Develop.Runtime.Utilites.CoroutinesManagment;
@@ -42,7 +41,6 @@ namespace Assets._Project.Develop.Runtime.UI.LevelsMenuPopup
             _view.SetTitle(TitleName);
 
             LevelsListConfig levelsListConfig = _configProviderService.GetConfig<LevelsListConfig>();
-            TypeModeConfig typeModeConfig = _configProviderService.GetConfig<TypeModeConfig>();
 
             for (int i = 0; i < levelsListConfig.Levels.Count; i++)
             {
@@ -50,8 +48,7 @@ namespace Assets._Project.Develop.Runtime.UI.LevelsMenuPopup
 
                 _view.LevelTilesListView.Add(levelTileView);
 
-                TypeModeSymbols typeMode = levelsListConfig.Levels[i].TypeMode;
-                GameplayInputArgs inputArgs = new GameplayInputArgs(typeModeConfig.GetValueFor(typeMode), levelsListConfig.Levels[i].LevelNumber, levelsListConfig.Levels[i].ContactTriggerSpawnPointPosition);
+                GameplayInputArgs inputArgs = new GameplayInputArgs(levelsListConfig.Levels[i].LevelNumber, levelsListConfig.Levels[i].ContactTriggerSpawnPointPosition);
 
                 LevelTilePresenter levelTilePresenter = _presentersFactory
                     .CreateLevelTilePresenter(levelTileView, inputArgs, levelsListConfig.Levels[i]);

@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Assets._Project.Develop.Runtime.Configs.Meta.Stats
 {
-    [CreateAssetMenu(menuName = "StaticData/Configs/Stats/New Game Rewards Config", fileName = "GameRewardsConfig", order = 54)]
+    [CreateAssetMenu(menuName = "Configs/Stats/New Game Rewards Config", fileName = "GameRewardsConfig", order = 54)]
     public class GameRewardsConfig : ScriptableObject
     {
         [field: SerializeField] public int RewardForWin { get; private set; } = 10;
