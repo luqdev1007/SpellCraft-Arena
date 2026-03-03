@@ -3,6 +3,7 @@ using Assets._Project.Develop.Runtime.Gameplay.Features.InputFeature;
 using Assets._Project.Develop.Runtime.Gameplay.Features.MainHero;
 using Assets._Project.Develop.Runtime.Gameplay.Features.StageFeature;
 using Assets._Project.Develop.Runtime.Meta.Features.LevelsProgression;
+using Assets._Project.Develop.Runtime.UI.Gameplay;
 using Assets._Project.Develop.Runtime.Utilites.Conditions;
 using Assets._Project.Develop.Runtime.Utilites.CoroutinesManagment;
 using Assets._Project.Develop.Runtime.Utilites.DataProviders;
@@ -35,20 +36,19 @@ namespace Assets._Project.Develop.Runtime.Gameplay.States
         public WinState CreateWinState(GameplayInputArgs inputArgs)
         {
             return new WinState(
-                _container.Resolve<IInputService>(), 
+                _container.Resolve<IInputService>(),
                 _container.Resolve<LevelsProgressionService>(),
                 inputArgs,
                 _container.Resolve<PlayerDataProvider>(),
-                _container.Resolve<SceneSwitcherService>(),
-                _container.Resolve<ICoroutinesPerformer>());
+                _container.Resolve<ICoroutinesPerformer>(),
+                _container.Resolve<GameplayPopupService>());     
         }
 
         public DefeatState CreateDefeatState()
         {
             return new DefeatState(
                 _container.Resolve<IInputService>(),
-                _container.Resolve<SceneSwitcherService>(),
-                _container.Resolve<ICoroutinesPerformer>());
+                _container.Resolve<GameplayPopupService>());
         }
 
         public GameplayStateMachine CreateGameplayStateMachine(GameplayInputArgs inputArgs)

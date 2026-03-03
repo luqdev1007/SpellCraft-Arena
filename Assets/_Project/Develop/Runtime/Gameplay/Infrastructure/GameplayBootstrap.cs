@@ -5,6 +5,7 @@ using Assets._Project.Develop.Runtime.Gameplay.Features.AI;
 using Assets._Project.Develop.Runtime.Gameplay.Features.MainHero;
 using Assets._Project.Develop.Runtime.Gameplay.States;
 using Assets._Project.Develop.Runtime.Gameplay.TypeMode;
+using Assets._Project.Develop.Runtime.UI.Gameplay;
 using Assets._Project.Develop.Runtime.Utilites.SceneManagement;
 using System;
 using System.Collections;
@@ -20,6 +21,8 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
         private TypeModeHandler _typeModeHandler;
 
         private GameplayStatesContext _gameplayStatesContext;
+
+        private GameplayScreenPresenter _screenPresenter;
 
         private EntitiesLifeContext _entitiesLifeContext;
 
@@ -43,6 +46,8 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
 
             _typeModeHandler = _container.Resolve<TypeModeHandler>();
             _typeModeHandler.Init();
+
+            _screenPresenter = _container.Resolve<GameplayScreenPresenter>();
 
             _entitiesLifeContext = _container.Resolve<EntitiesLifeContext>();
 
@@ -70,6 +75,11 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
             _entitiesLifeContext?.Update(Time.deltaTime);
 
             _gameplayStatesContext?.Update(Time.deltaTime);
+        }
+
+        private void LateUpdate()
+        {
+            _screenPresenter?.LateUpdate();
         }
 
         private void OnDestroy()

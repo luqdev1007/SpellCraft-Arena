@@ -20,6 +20,12 @@ namespace Assets._Project.Develop.Runtime.UI.Core
             {ViewIDs.LevelTile, "UI/LevelsMenuPopup/LevelTile" },
             {ViewIDs.ChatView, "UI/Chat/ChatView" },
             {ViewIDs.EndOfBattleView, "UI/Gameplay/EndOfBattleView" },
+
+            {ViewIDs.WinPopupView, "UI/Gameplay/ResultPopups/WinPopupView" },
+            {ViewIDs.DefeatPopupView, "UI/Gameplay/ResultPopups/DefeatPopupView" },
+
+            {ViewIDs.SimpleHealthBar, "UI/Gameplay/HealthBars/SimpleHealthBar" },
+            {ViewIDs.MainHeroHealthBar, "UI/Gameplay/HealthBars/MainHeroHealthBar" },
         };
 
         public ViewsFactory(ResourcesAssetsLoader resourcesAssetsLoader)

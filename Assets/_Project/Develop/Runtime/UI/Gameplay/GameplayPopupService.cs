@@ -1,4 +1,6 @@
 ﻿using Assets._Project.Develop.Runtime.UI.Core;
+using Assets._Project.Develop.Runtime.UI.Gameplay.ResultPopups;
+using System;
 using UnityEngine;
 
 namespace Assets._Project.Develop.Runtime.UI.Gameplay
@@ -21,13 +23,35 @@ namespace Assets._Project.Develop.Runtime.UI.Gameplay
 
         protected override Transform PopupLayer => _uiRoot.PopupsLayer;
 
-        public EndOfBattlePresenter OpenEndOfBattlePopup()
+        public WinPopupPresenter OpenWinPopup()
+        {
+            WinPopupView view = ViewsFactory.Create<WinPopupView>(ViewIDs.WinPopupView, PopupLayer);
+
+            WinPopupPresenter popup = _gameplayPresentersFactory.CreateWinPopupPresenter(view);
+
+            OnPopupCreated(popup, view);
+
+            return popup;
+        }
+
+        public DefeatPopupPresenter OpenDefeatPopup(Action closeCallback = null)
+        {
+            DefeatPopupView view = ViewsFactory.Create<DefeatPopupView>(ViewIDs.DefeatPopupView, PopupLayer);
+
+            DefeatPopupPresenter popup = _gameplayPresentersFactory.CreateDefeatPopupPresenter(view);
+
+            OnPopupCreated(popup, view, closeCallback);
+
+            return popup;
+        }
+
+        public EndOfBattlePresenter OpenEndOfBattlePopup(Action closeCallback = null)
         {
             EndOfBattleView view = ViewsFactory.Create<EndOfBattleView>(ViewIDs.EndOfBattleView, PopupLayer);
 
             EndOfBattlePresenter popup = _gameplayPresentersFactory.CreateEndOfBattleView(view);
 
-            OnPopupCreated(popup, view);
+            OnPopupCreated(popup, view, closeCallback);
 
             return popup;
         }

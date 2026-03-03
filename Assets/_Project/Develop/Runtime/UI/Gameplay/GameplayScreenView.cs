@@ -1,4 +1,5 @@
 ﻿using Assets._Project.Develop.Runtime.UI.Core;
+using Assets._Project.Develop.Runtime.UI.Gameplay.HealthDisplay;
 using System;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,21 +10,7 @@ namespace Assets._Project.Develop.Runtime.UI.Gameplay
     {
         public event Action OpenChatButtonClicked;
 
-        [SerializeField] private Button _openChatButton;
-
-        private void OnEnable()
-        {
-            _openChatButton.onClick.AddListener(OnOpenChatButtonClicked);
-        }
-
-        private void OnDisable()
-        {
-            _openChatButton.onClick.RemoveListener(OnOpenChatButtonClicked);
-        }
-
-        private void OnOpenChatButtonClicked()
-        {
-            OpenChatButtonClicked?.Invoke();
-        }
+        [field: SerializeField] public IconTextView StageNumberView { get; private set; }
+        [field: SerializeField] public EntitiesHealthDisplay EntitiesHealthDisplay { get; private set; }
     }
 }

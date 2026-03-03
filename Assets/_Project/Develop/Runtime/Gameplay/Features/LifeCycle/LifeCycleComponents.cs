@@ -6,6 +6,12 @@ using UnityEngine;
 
 namespace Assets._Project.Develop.Runtime.Gameplay.Features.LifeCycle
 {
+
+    public class HealthBarPoint : IEntityComponent
+    {
+        public Transform Value;
+    }
+        
     public class CurrentHealth : IEntityComponent
     {
         public ReactiveVariable<float> Value;

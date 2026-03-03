@@ -39,9 +39,9 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
             container.RegisterAsSingle(CreateGameResultService);
 
             container.RegisterAsSingle(CreateGameplayUIRoot).NonLazy();
+            container.RegisterAsSingle(CreateGameplayScreenPresenter).NonLazy();
             container.RegisterAsSingle(CreateGameplayPopupService);
             container.RegisterAsSingle(CreateGameplayPresentersFactory);
-            container.RegisterAsSingle(CreateGameplayScreenPresenter).NonLazy();
 
             container.RegisterAsSingle(CreateEntitiesFactory);
             container.RegisterAsSingle(CreateEntitiesLifeContext);
@@ -178,7 +178,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
 
         private static GameplayPresentersFactory CreateGameplayPresentersFactory(DIContainer container)
         {
-            return new GameplayPresentersFactory(container);
+            return new GameplayPresentersFactory(container, _inputArgs);
         }
 
         private static GameplayUIRoot CreateGameplayUIRoot(DIContainer container)
