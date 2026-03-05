@@ -15,9 +15,7 @@ MonoBehaviour:
   _stageConfigs:
   - {fileID: 11400000, guid: e1197bf7a6dbfd04ab783eabe32fb801, type: 2}
   - {fileID: 11400000, guid: e1197bf7a6dbfd04ab783eabe32fb801, type: 2}
-  - {fileID: 11400000, guid: e1197bf7a6dbfd04ab783eabe32fb801, type: 2}
   <LevelName>k__BackingField: Level 2
   <LevelNumber>k__BackingField: 2
   <LevelIcon>k__BackingField: {fileID: 21300030, guid: 7ab74e659e1f0a34d9cfec21c478fc12, type: 3}
-  <TypeMode>k__BackingField: 0
   <ContactTriggerSpawnPointPosition>k__BackingField: {x: 0.6, y: -0.01999998, z: 10.940001}

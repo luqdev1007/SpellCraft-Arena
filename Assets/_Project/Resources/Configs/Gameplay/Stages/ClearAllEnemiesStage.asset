@@ -13,7 +13,9 @@ MonoBehaviour:
   m_Name: ClearAllEnemiesStage
   m_EditorClassIdentifier: 
   _enemyItems:
-  - <SpawnPosition>k__BackingField: {x: -3, y: 1, z: 5}
+  - <SpawnPosition>k__BackingField: {x: -5, y: 1, z: 0}
     <EnemyConfig>k__BackingField: {fileID: 11400000, guid: 591254da9dc86cc41b876ebe07465d58, type: 2}
-  - <SpawnPosition>k__BackingField: {x: 3, y: 1, z: 5}
+  - <SpawnPosition>k__BackingField: {x: 5, y: 1, z: 0}
+    <EnemyConfig>k__BackingField: {fileID: 11400000, guid: 591254da9dc86cc41b876ebe07465d58, type: 2}
+  - <SpawnPosition>k__BackingField: {x: 0, y: 1, z: -5}
     <EnemyConfig>k__BackingField: {fileID: 11400000, guid: 591254da9dc86cc41b876ebe07465d58, type: 2}
