@@ -1,22 +1,24 @@
 ﻿using Assets._Project.Develop.Infrastructure.DI;
+using Assets._Project.Develop.Runtime.Configs.Gameplay.Abilities;
 using Assets._Project.Develop.Runtime.Configs.Gameplay.Levels;
 using Assets._Project.Develop.Runtime.Gameplay.EntitiesCore;
 using Assets._Project.Develop.Runtime.Gameplay.EntitiesCore.Mono;
+using Assets._Project.Develop.Runtime.Gameplay.Features.AbilitiesDroppingFeature;
+using Assets._Project.Develop.Runtime.Gameplay.Features.AbilitiesFeature;
 using Assets._Project.Develop.Runtime.Gameplay.Features.AI;
 using Assets._Project.Develop.Runtime.Gameplay.Features.Enemies;
 using Assets._Project.Develop.Runtime.Gameplay.Features.InputFeature;
+using Assets._Project.Develop.Runtime.Gameplay.Features.LevelUPFeature;
 using Assets._Project.Develop.Runtime.Gameplay.Features.MainHero;
+using Assets._Project.Develop.Runtime.Gameplay.Features.PauseFeature;
 using Assets._Project.Develop.Runtime.Gameplay.Features.StageFeature;
 using Assets._Project.Develop.Runtime.Gameplay.States;
-using Assets._Project.Develop.Runtime.Meta.Features.Stats;
-using Assets._Project.Develop.Runtime.Meta.Features.Wallet;
 using Assets._Project.Develop.Runtime.UI;
 using Assets._Project.Develop.Runtime.UI.Core;
 using Assets._Project.Develop.Runtime.UI.Gameplay;
 using Assets._Project.Develop.Runtime.Utilites.AssetsManagment;
 using Assets._Project.Develop.Runtime.Utilites.ConfigsManagment;
 using Assets._Project.Develop.Runtime.Utilites.CoroutinesManagment;
-using Assets._Project.Develop.Runtime.Utilites.DataProviders;
 using Assets._Project.Develop.Runtime.Utilites.SceneManagement;
 using UnityEngine;
 using Object = UnityEngine.Object;
@@ -32,6 +34,14 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
             Debug.Log("Process registrations on gameplay scene");
 
             _inputArgs = inputArgs;
+
+            container.RegisterAsSingle(CreateAbilityFactory);
+            container.RegisterAsSingle(CreateAbilityDropingRulesService);
+            container.RegisterAsSingle(CreateAbilityDropService);
+
+            container.RegisterAsSingle(CreateDropAbilityOnMainHeroLevelUpService).NonLazy();
+
+            container.RegisterAsSingle<IPauseService>(CreateTimeScalePauseService);
 
             container.RegisterAsSingle(CreateGameplayUIRoot).NonLazy();
             container.RegisterAsSingle(CreateGameplayScreenPresenter).NonLazy();
@@ -61,6 +71,37 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
 
             container.RegisterAsSingle(CreateGameplayStatesFactory);
             container.RegisterAsSingle(CreateGameplayStatesContext);
+        }
+
+        private static TimeScalePauseService CreateTimeScalePauseService(DIContainer c)
+        {
+            return new TimeScalePauseService();
+        }
+
+        private static DropAbilityOnMainHeroLevelUpService CreateDropAbilityOnMainHeroLevelUpService(DIContainer c)
+        {
+            return new DropAbilityOnMainHeroLevelUpService(
+                c.Resolve<MainHeroHolderService>(),
+                c.Resolve<GameplayPopupService>(),
+                c.Resolve<ICoroutinesPerformer>(),
+                c.Resolve<IPauseService>());
+        }
+
+        private static AbilityDropService CreateAbilityDropService(DIContainer container)
+        {
+            return new AbilityDropService(
+                container.Resolve<ConfigsProviderService>().GetConfig<AbilitiesConfigsContainer>(),
+                container.Resolve<AbilityDropingRulesService>());
+        }
+
+        private static AbilityDropingRulesService CreateAbilityDropingRulesService(DIContainer container)
+        {
+            return new AbilityDropingRulesService();
+        }
+
+        private static AbilityFactory CreateAbilityFactory(DIContainer container)
+        {
+            return new AbilityFactory(container);
         }
 
         private static GameplayStatesContext CreateGameplayStatesContext(DIContainer container)

@@ -70,6 +70,11 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
             _entitiesLifeContext?.Update(Time.deltaTime);
 
             _gameplayStatesContext?.Update(Time.deltaTime);
+
+            if (Input.GetKeyDown(KeyCode.X))
+            {
+                _container.Resolve<MainHeroHolderService>().MainHero.Experience.Value += 1000;
+            }
         }
 
         private void LateUpdate()

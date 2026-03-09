@@ -1,5 +1,8 @@
 ﻿using Assets._Project.Develop.Infrastructure.DI;
+using Assets._Project.Develop.Runtime.Configs.Gameplay.Abilities;
 using Assets._Project.Develop.Runtime.Gameplay.EntitiesCore;
+using Assets._Project.Develop.Runtime.Gameplay.Features.AbilitiesDroppingFeature;
+using Assets._Project.Develop.Runtime.Gameplay.Features.AbilitiesFeature;
 using Assets._Project.Develop.Runtime.Gameplay.Features.StageFeature;
 using Assets._Project.Develop.Runtime.UI.CommonViews;
 using Assets._Project.Develop.Runtime.UI.Core;
@@ -8,6 +11,8 @@ using Assets._Project.Develop.Runtime.UI.Gameplay.ResultPopups;
 using Assets._Project.Develop.Runtime.UI.Gameplay.Stages;
 using Assets._Project.Develop.Runtime.Utilites.CoroutinesManagment;
 using Assets._Project.Develop.Runtime.Utilites.SceneManagement;
+using Assets.CourseGame.Develop.Gameplay.Features.AbilitiesFeature.View;
+using System;
 
 namespace Assets._Project.Develop.Runtime.UI.Gameplay
 {
@@ -69,6 +74,28 @@ namespace Assets._Project.Develop.Runtime.UI.Gameplay
             return new StagePresenter(
                 view,
                 _container.Resolve<StageProviderService>()
+                );
+        }
+
+        public SelectableAbilityPresenter CreateSelectableAbilityPresenter(
+                    AbilityConfig abilityConfig,
+                    SelectableAbilityView view,
+                    Entity entity)
+        {
+            return new SelectableAbilityPresenter(abilityConfig, view, _container.Resolve<AbilityFactory>(), entity);
+        }
+
+        public AbilitySelectPopupPresenter CreateAbilitySelectPopupPresenter(
+            AbilitySelectPopupView view,
+            Entity entity)
+        {
+            return new AbilitySelectPopupPresenter(
+                _container.Resolve<ICoroutinesPerformer>(),
+                view,
+                entity,
+                this,
+                _container.Resolve<AbilityDropService>(),
+                _container.Resolve<ViewsFactory>()
                 );
         }
     }

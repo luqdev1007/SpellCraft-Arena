@@ -26,6 +26,102 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
 			return AddComponent(new Assets._Project.Develop.Runtime.Gameplay.Features.TeamsFeature.Team() {Value = value}); 
 		}
 
+		public Assets._Project.Develop.Runtime.Gameplay.Features.StatsFeature.BaseStats BaseStatsC => GetComponent<Assets._Project.Develop.Runtime.Gameplay.Features.StatsFeature.BaseStats>();
+
+		public System.Collections.Generic.Dictionary<Assets._Project.Develop.Runtime.Gameplay.Features.StatsFeature.StatTypes, System.Single> BaseStats => BaseStatsC.Value;
+
+		public bool TryGetBaseStats(out System.Collections.Generic.Dictionary<Assets._Project.Develop.Runtime.Gameplay.Features.StatsFeature.StatTypes, System.Single> value)
+		{
+			bool result = TryGetComponent(out Assets._Project.Develop.Runtime.Gameplay.Features.StatsFeature.BaseStats component);
+			if (result)
+				value = component.Value;
+			else
+				value = default(System.Collections.Generic.Dictionary<Assets._Project.Develop.Runtime.Gameplay.Features.StatsFeature.StatTypes, System.Single>);
+			return result;
+		}
+
+		public Assets._Project.Develop.Runtime.Gameplay.EntitiesCore.Entity AddBaseStats()
+		{
+			return AddComponent(new Assets._Project.Develop.Runtime.Gameplay.Features.StatsFeature.BaseStats() { Value = new System.Collections.Generic.Dictionary<Assets._Project.Develop.Runtime.Gameplay.Features.StatsFeature.StatTypes, System.Single>() }); 
+		}
+
+		public Assets._Project.Develop.Runtime.Gameplay.EntitiesCore.Entity AddBaseStats(System.Collections.Generic.Dictionary<Assets._Project.Develop.Runtime.Gameplay.Features.StatsFeature.StatTypes, System.Single> value)
+		{
+			return AddComponent(new Assets._Project.Develop.Runtime.Gameplay.Features.StatsFeature.BaseStats() {Value = value}); 
+		}
+
+		public Assets._Project.Develop.Runtime.Gameplay.Features.StatsFeature.ModifiedStats ModifiedStatsC => GetComponent<Assets._Project.Develop.Runtime.Gameplay.Features.StatsFeature.ModifiedStats>();
+
+		public System.Collections.Generic.Dictionary<Assets._Project.Develop.Runtime.Gameplay.Features.StatsFeature.StatTypes, System.Single> ModifiedStats => ModifiedStatsC.Value;
+
+		public bool TryGetModifiedStats(out System.Collections.Generic.Dictionary<Assets._Project.Develop.Runtime.Gameplay.Features.StatsFeature.StatTypes, System.Single> value)
+		{
+			bool result = TryGetComponent(out Assets._Project.Develop.Runtime.Gameplay.Features.StatsFeature.ModifiedStats component);
+			if (result)
+				value = component.Value;
+			else
+				value = default(System.Collections.Generic.Dictionary<Assets._Project.Develop.Runtime.Gameplay.Features.StatsFeature.StatTypes, System.Single>);
+			return result;
+		}
+
+		public Assets._Project.Develop.Runtime.Gameplay.EntitiesCore.Entity AddModifiedStats()
+		{
+			return AddComponent(new Assets._Project.Develop.Runtime.Gameplay.Features.StatsFeature.ModifiedStats() { Value = new System.Collections.Generic.Dictionary<Assets._Project.Develop.Runtime.Gameplay.Features.StatsFeature.StatTypes, System.Single>() }); 
+		}
+
+		public Assets._Project.Develop.Runtime.Gameplay.EntitiesCore.Entity AddModifiedStats(System.Collections.Generic.Dictionary<Assets._Project.Develop.Runtime.Gameplay.Features.StatsFeature.StatTypes, System.Single> value)
+		{
+			return AddComponent(new Assets._Project.Develop.Runtime.Gameplay.Features.StatsFeature.ModifiedStats() {Value = value}); 
+		}
+
+		public Assets._Project.Develop.Runtime.Gameplay.Features.StatsFeature.StatsEffects StatsEffectsC => GetComponent<Assets._Project.Develop.Runtime.Gameplay.Features.StatsFeature.StatsEffects>();
+
+		public Assets._Project.Develop.Runtime.Gameplay.Features.StatsFeature.StatsEffectsList StatsEffects => StatsEffectsC.Value;
+
+		public bool TryGetStatsEffects(out Assets._Project.Develop.Runtime.Gameplay.Features.StatsFeature.StatsEffectsList value)
+		{
+			bool result = TryGetComponent(out Assets._Project.Develop.Runtime.Gameplay.Features.StatsFeature.StatsEffects component);
+			if (result)
+				value = component.Value;
+			else
+				value = default(Assets._Project.Develop.Runtime.Gameplay.Features.StatsFeature.StatsEffectsList);
+			return result;
+		}
+
+		public Assets._Project.Develop.Runtime.Gameplay.EntitiesCore.Entity AddStatsEffects()
+		{
+			return AddComponent(new Assets._Project.Develop.Runtime.Gameplay.Features.StatsFeature.StatsEffects() { Value = new Assets._Project.Develop.Runtime.Gameplay.Features.StatsFeature.StatsEffectsList() }); 
+		}
+
+		public Assets._Project.Develop.Runtime.Gameplay.EntitiesCore.Entity AddStatsEffects(Assets._Project.Develop.Runtime.Gameplay.Features.StatsFeature.StatsEffectsList value)
+		{
+			return AddComponent(new Assets._Project.Develop.Runtime.Gameplay.Features.StatsFeature.StatsEffects() {Value = value}); 
+		}
+
+		public Assets._Project.Develop.Runtime.Gameplay.Features.AbilitiesFeature.AbilitiesComponent AbilitiesC => GetComponent<Assets._Project.Develop.Runtime.Gameplay.Features.AbilitiesFeature.AbilitiesComponent>();
+
+		public Assets._Project.Develop.Runtime.Gameplay.Features.AbilitiesFeature.AbilitiesList Abilities => AbilitiesC.Value;
+
+		public bool TryGetAbilities(out Assets._Project.Develop.Runtime.Gameplay.Features.AbilitiesFeature.AbilitiesList value)
+		{
+			bool result = TryGetComponent(out Assets._Project.Develop.Runtime.Gameplay.Features.AbilitiesFeature.AbilitiesComponent component);
+			if (result)
+				value = component.Value;
+			else
+				value = default(Assets._Project.Develop.Runtime.Gameplay.Features.AbilitiesFeature.AbilitiesList);
+			return result;
+		}
+
+		public Assets._Project.Develop.Runtime.Gameplay.EntitiesCore.Entity AddAbilities()
+		{
+			return AddComponent(new Assets._Project.Develop.Runtime.Gameplay.Features.AbilitiesFeature.AbilitiesComponent() { Value = new Assets._Project.Develop.Runtime.Gameplay.Features.AbilitiesFeature.AbilitiesList() }); 
+		}
+
+		public Assets._Project.Develop.Runtime.Gameplay.EntitiesCore.Entity AddAbilities(Assets._Project.Develop.Runtime.Gameplay.Features.AbilitiesFeature.AbilitiesList value)
+		{
+			return AddComponent(new Assets._Project.Develop.Runtime.Gameplay.Features.AbilitiesFeature.AbilitiesComponent() {Value = value}); 
+		}
+
 		public Assets._Project.Develop.Runtime.Gameplay.Features.SpawnFeature.SpawnInitialTime SpawnInitialTimeC => GetComponent<Assets._Project.Develop.Runtime.Gameplay.Features.SpawnFeature.SpawnInitialTime>();
 
 		public Assets._Project.Develop.Runtime.Utilites.Reactive.ReactiveVariable<System.Single> SpawnInitialTime => SpawnInitialTimeC.Value;
@@ -629,6 +725,54 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
 		public Assets._Project.Develop.Runtime.Gameplay.EntitiesCore.Entity AddDisableCollidersOnDeath(System.Collections.Generic.List<UnityEngine.Collider> value)
 		{
 			return AddComponent(new Assets._Project.Develop.Runtime.Gameplay.Features.LifeCycle.DisableCollidersOnDeath() {Value = value}); 
+		}
+
+		public Assets._Project.Develop.Runtime.Gameplay.Features.LevelUPFeature.Experience ExperienceC => GetComponent<Assets._Project.Develop.Runtime.Gameplay.Features.LevelUPFeature.Experience>();
+
+		public Assets._Project.Develop.Runtime.Utilites.Reactive.ReactiveVariable<System.Single> Experience => ExperienceC.Value;
+
+		public bool TryGetExperience(out Assets._Project.Develop.Runtime.Utilites.Reactive.ReactiveVariable<System.Single> value)
+		{
+			bool result = TryGetComponent(out Assets._Project.Develop.Runtime.Gameplay.Features.LevelUPFeature.Experience component);
+			if (result)
+				value = component.Value;
+			else
+				value = default(Assets._Project.Develop.Runtime.Utilites.Reactive.ReactiveVariable<System.Single>);
+			return result;
+		}
+
+		public Assets._Project.Develop.Runtime.Gameplay.EntitiesCore.Entity AddExperience()
+		{
+			return AddComponent(new Assets._Project.Develop.Runtime.Gameplay.Features.LevelUPFeature.Experience() { Value = new Assets._Project.Develop.Runtime.Utilites.Reactive.ReactiveVariable<System.Single>() }); 
+		}
+
+		public Assets._Project.Develop.Runtime.Gameplay.EntitiesCore.Entity AddExperience(Assets._Project.Develop.Runtime.Utilites.Reactive.ReactiveVariable<System.Single> value)
+		{
+			return AddComponent(new Assets._Project.Develop.Runtime.Gameplay.Features.LevelUPFeature.Experience() {Value = value}); 
+		}
+
+		public Assets._Project.Develop.Runtime.Gameplay.Features.LevelUPFeature.Level LevelC => GetComponent<Assets._Project.Develop.Runtime.Gameplay.Features.LevelUPFeature.Level>();
+
+		public Assets._Project.Develop.Runtime.Utilites.Reactive.ReactiveVariable<System.Int32> Level => LevelC.Value;
+
+		public bool TryGetLevel(out Assets._Project.Develop.Runtime.Utilites.Reactive.ReactiveVariable<System.Int32> value)
+		{
+			bool result = TryGetComponent(out Assets._Project.Develop.Runtime.Gameplay.Features.LevelUPFeature.Level component);
+			if (result)
+				value = component.Value;
+			else
+				value = default(Assets._Project.Develop.Runtime.Utilites.Reactive.ReactiveVariable<System.Int32>);
+			return result;
+		}
+
+		public Assets._Project.Develop.Runtime.Gameplay.EntitiesCore.Entity AddLevel()
+		{
+			return AddComponent(new Assets._Project.Develop.Runtime.Gameplay.Features.LevelUPFeature.Level() { Value = new Assets._Project.Develop.Runtime.Utilites.Reactive.ReactiveVariable<System.Int32>() }); 
+		}
+
+		public Assets._Project.Develop.Runtime.Gameplay.EntitiesCore.Entity AddLevel(Assets._Project.Develop.Runtime.Utilites.Reactive.ReactiveVariable<System.Int32> value)
+		{
+			return AddComponent(new Assets._Project.Develop.Runtime.Gameplay.Features.LevelUPFeature.Level() {Value = value}); 
 		}
 
 		public Assets._Project.Develop.Runtime.Gameplay.Features.ContactTakeDamage.BodyContactDamage BodyContactDamageC => GetComponent<Assets._Project.Develop.Runtime.Gameplay.Features.ContactTakeDamage.BodyContactDamage>();
