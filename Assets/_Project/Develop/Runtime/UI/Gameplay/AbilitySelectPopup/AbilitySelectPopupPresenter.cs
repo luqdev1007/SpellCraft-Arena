@@ -25,6 +25,7 @@ namespace Assets.CourseGame.Develop.Gameplay.Features.AbilitiesFeature.View
 
         private List<SelectableAbilityPresenter> _presenters = new();
         private SelectableAbilityPresenter _selectedPresenter;
+        private int _level;
 
         public AbilitySelectPopupPresenter(
             ICoroutinesPerformer coroutinesPerformer,
@@ -32,13 +33,15 @@ namespace Assets.CourseGame.Develop.Gameplay.Features.AbilitiesFeature.View
             Entity entity,
             GameplayPresentersFactory presentersFactory,
             AbilityDropService abilityDropper,
-            ViewsFactory viewsFactory) : base(coroutinesPerformer)
+            ViewsFactory viewsFactory,
+            int level) : base(coroutinesPerformer)
         {
             _view = view;
             _entity = entity;
             _presentersFactory = presentersFactory;
             _abilityDropper = abilityDropper;
             _viewsFactory = viewsFactory;
+            _level = level;
         }
 
         protected override PopupViewBase PopupView => _view;
@@ -47,7 +50,7 @@ namespace Assets.CourseGame.Develop.Gameplay.Features.AbilitiesFeature.View
         {
             base.Initialize();
 
-            _view.SetTitle(string.Format(Title, _entity.Level.Value));
+            _view.SetTitle(string.Format(Title, _level));
             _view.SetAdditionalText(SelectAbilityText);
             _view.SelectButtonOff();
 

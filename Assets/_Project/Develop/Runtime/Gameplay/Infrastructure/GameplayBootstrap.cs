@@ -73,7 +73,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
 
             if (Input.GetKeyDown(KeyCode.X))
             {
-                _container.Resolve<MainHeroHolderService>().MainHero.Experience.Value += 1000;
+                _container.Resolve<MainHeroHolderService>().MainHero.Experience.Value += 50;
             }
         }
 
