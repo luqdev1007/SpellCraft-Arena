@@ -1,14 +1,18 @@
 ﻿using Assets._Project.Develop.Infrastructure.DI;
+using Assets._Project.Develop.Runtime.Configs.Gameplay;
 using Assets._Project.Develop.Runtime.Configs.Gameplay.Abilities;
 using Assets._Project.Develop.Runtime.Gameplay.EntitiesCore;
 using Assets._Project.Develop.Runtime.Gameplay.Features.AbilitiesDroppingFeature;
 using Assets._Project.Develop.Runtime.Gameplay.Features.AbilitiesFeature;
+using Assets._Project.Develop.Runtime.Gameplay.Features.LevelUPFeature;
+using Assets._Project.Develop.Runtime.Gameplay.Features.MainHero;
 using Assets._Project.Develop.Runtime.Gameplay.Features.StageFeature;
 using Assets._Project.Develop.Runtime.UI.CommonViews;
 using Assets._Project.Develop.Runtime.UI.Core;
 using Assets._Project.Develop.Runtime.UI.Gameplay.HealthDisplay;
 using Assets._Project.Develop.Runtime.UI.Gameplay.ResultPopups;
 using Assets._Project.Develop.Runtime.UI.Gameplay.Stages;
+using Assets._Project.Develop.Runtime.Utilites.ConfigsManagment;
 using Assets._Project.Develop.Runtime.Utilites.CoroutinesManagment;
 using Assets._Project.Develop.Runtime.Utilites.SceneManagement;
 using Assets.CourseGame.Develop.Gameplay.Features.AbilitiesFeature.View;
@@ -99,6 +103,14 @@ namespace Assets._Project.Develop.Runtime.UI.Gameplay
                 _container.Resolve<ViewsFactory>(),
                 level
                 );
+        }
+
+        public MainHeroExperiencePresenter CreateMainHeroExperiencePresenter(BarWithText view)
+        {
+            return new MainHeroExperiencePresenter(
+                _container.Resolve<MainHeroHolderService>(),
+                view,
+                _container.Resolve<ConfigsProviderService>().GetConfig<ExperienceForUpgradeLevelConfig>());
         }
     }
 }
