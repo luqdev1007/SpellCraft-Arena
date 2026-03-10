@@ -21,8 +21,7 @@ namespace Assets._Project.Develop.Runtime.UI.MainMenu
                 view,
                 _container.Resolve<MainMenuPopupService>(),
                 _container.Resolve<WalletService>(),
-                _container.Resolve<GameStatsService>(),
-                _container.Resolve<ResetWinLoseStatsService>()
+                _container.Resolve<GameStatsService>()
                 );
         } 
     }

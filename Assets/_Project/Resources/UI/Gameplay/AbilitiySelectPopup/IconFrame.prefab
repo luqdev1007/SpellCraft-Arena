@@ -301,7 +301,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38a52ba3674fb5d4383e7e390d952718, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _icon: {fileID: 2186625224489567781}
+  _icon: {fileID: 7769659460591049759}
   _levelParent: {fileID: 7980468175701823717}
   _level: {fileID: 5316039107803154812}
 --- !u!1 &6295509101017500127

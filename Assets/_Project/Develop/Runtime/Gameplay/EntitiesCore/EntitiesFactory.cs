@@ -42,9 +42,13 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
 
             Dictionary<StatTypes, float> baseStats = new()
             {
-                {StatTypes.MoveSpeed, config.MoveSpeed },
-                {StatTypes.MaxHealth, config.MaxHealth },
-                {StatTypes.Damage, config.InstantAttackDamage},
+                { StatTypes.MoveSpeed, config.MoveSpeed },
+                { StatTypes.MaxHealth, config.MaxHealth },
+                { StatTypes.Damage, config.InstantAttackDamage },
+                { StatTypes.AttackSpeedMultiplier, config.AttackSpeedMultiplier },
+                { StatTypes.AttackProcessTime, config.AttackProcessTime },
+                { StatTypes.AttackDelayTime, config.AttackDelayTime },
+                { StatTypes.AttackCooldown, config.AttackCooldown },
             };
 
             Dictionary<StatTypes, float> modifiedStats = new(baseStats);
@@ -136,6 +140,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
                 .AddSystem(new MoveSpeedStatSynchronizerSystem())
                 .AddSystem(new MaxHealthStatSynchronizerSystem())
                 .AddSystem(new DamageStatSynchronizerSystem())
+                .AddSystem(new AttackSpeedStatSynchronizerSystem())
 
                 .AddSystem(new SpawnProcessTimerSystem())
                 .AddSystem(new RigidbodyMovementSystem())

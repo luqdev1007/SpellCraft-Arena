@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: AbilitiesConfigsContainer
   m_EditorClassIdentifier: 
   _abilityConfigs:
+  - {fileID: 11400000, guid: 6044b577e8f53d04a8d36964f77b09ed, type: 2}
+  - {fileID: 11400000, guid: fe414f1d4b056cb4faec5f92d52d878e, type: 2}
   - {fileID: 11400000, guid: ebc7b15821db8e140b149b09784bb8a8, type: 2}
   - {fileID: 11400000, guid: 54ddcd782a637544f9bbe9d5b730c136, type: 2}
   - {fileID: 11400000, guid: 5aa10a81a086f4447aea27270256e300, type: 2}

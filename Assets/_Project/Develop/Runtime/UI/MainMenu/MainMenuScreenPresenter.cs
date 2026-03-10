@@ -12,7 +12,6 @@ namespace Assets._Project.Develop.Runtime.UI.MainMenu
         private readonly MainMenuPopupService _popupService;
         private readonly WalletService _wallet;
         private readonly GameStatsService _statsService;
-        private readonly ResetWinLoseStatsService _resetDataService;
 
         private List<IDisposable> _disposables = new();
 
@@ -20,14 +19,12 @@ namespace Assets._Project.Develop.Runtime.UI.MainMenu
             MainMenuScreenView view,
             MainMenuPopupService popupService,
             WalletService wallet,
-            GameStatsService statsService,
-            ResetWinLoseStatsService resetDataService)
+            GameStatsService statsService)
         {
             _view = view;
             _popupService = popupService;
             _wallet = wallet;
             _statsService = statsService;
-            _resetDataService = resetDataService;
         }
 
         public void Initialize()
@@ -41,15 +38,11 @@ namespace Assets._Project.Develop.Runtime.UI.MainMenu
             _disposables.Add(_statsService.Losses.Subscribe(OnLossesChanged));
 
             _view.StartGameButtonClicked += OnStartGameButtonClicked;
-            _view.ResetStatsButtonClicked += OnResetStatsButtonClicked;
-
-            CheckResetPossibility();
         }
 
         public void Dispose()
         {
             _view.StartGameButtonClicked -= OnStartGameButtonClicked;
-            _view.ResetStatsButtonClicked -= OnResetStatsButtonClicked;
 
             foreach (var disposable in _disposables)
                 disposable.Dispose();
@@ -72,33 +65,9 @@ namespace Assets._Project.Develop.Runtime.UI.MainMenu
             _popupService.OpenLevelsMenuPopup();
         }
 
-        private void OnResetStatsButtonClicked()
-        {
-            _popupService.OpenConfirmPopup(ResetStats, $"Вы уверены, что хотите сбросить всю статистику?\n" +
-                $"Это будет стоить Вам {_resetDataService.ResetCost} {_resetDataService.ResetCurrency}");
-        }
-
-        private void ResetStats()
-        {
-            _resetDataService.TryResetData();
-        }
-
         private void OnGoldChanged(int arg1, int newValue)
         {
-            CheckResetPossibility();
             _view.SetGoldText(newValue.ToString());
-        }
-
-        private void CheckResetPossibility()
-        {
-            if (_resetDataService.CanReset)
-            {
-                _view.EnableResetButton();
-            }
-            else
-            {
-                _view.DisableResetButton();
-            }
         }
     }
 }

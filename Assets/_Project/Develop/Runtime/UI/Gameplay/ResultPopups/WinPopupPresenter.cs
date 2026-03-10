@@ -6,7 +6,7 @@ namespace Assets._Project.Develop.Runtime.UI.Gameplay.ResultPopups
 {
     public class WinPopupPresenter : PopupPresenterBase
     {
-        private const string TitleName = "Katenka pupsik";
+        private const string TitleName = "Victory!";
 
         private readonly WinPopupView _view;
         private readonly SceneSwitcherService _sceneSwitcherService;
