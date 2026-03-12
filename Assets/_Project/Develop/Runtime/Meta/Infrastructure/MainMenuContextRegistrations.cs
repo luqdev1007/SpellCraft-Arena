@@ -11,8 +11,6 @@ namespace Assets._Project.Develop.Runtime.Meta.Infrastructure
     {
         public static void Process(DIContainer container)
         {
-            Debug.Log("Process registrations on main menu scene");
-
             container.RegisterAsSingle(CreateMainMenuUIRoot).NonLazy();
             container.RegisterAsSingle(CreateMainMenuPresentersFactory);
             container.RegisterAsSingle(CreateMainMenuScreenPresenter).NonLazy();
@@ -51,7 +49,7 @@ namespace Assets._Project.Develop.Runtime.Meta.Infrastructure
                 .Resolve<ViewsFactory>()
                 .Create<MainMenuScreenView>(ViewIDs.MainMenuScreenView, uiRoot.HUDLayer);
 
-            MainMenuScreenPresenter presenter = container.Resolve<MainMenuPresentersFactory>().CreateMainMenuScreen(view);
+            MainMenuScreenPresenter presenter = container.Resolve<MainMenuPresentersFactory>().CreateMainMenuScreenPresenter(view);
 
             return presenter;
         }

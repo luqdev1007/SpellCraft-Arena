@@ -1,8 +1,7 @@
 ﻿using Assets._Project.Develop.Infrastructure.DI;
-using Assets._Project.Develop.Runtime.Meta.Features.Stats;
-using Assets._Project.Develop.Runtime.Meta.Features.Wallet;
-using Assets._Project.Develop.Runtime.Utilites.CoroutinesManagment;
-using Assets._Project.Develop.Runtime.Utilites.SceneManagement;
+using Assets._Project.Develop.Runtime.UI.CommonViews;
+using Assets._Project.Develop.Runtime.UI.Core;
+using Assets._Project.Develop.Runtime.UI.Wallet;
 
 namespace Assets._Project.Develop.Runtime.UI.MainMenu
 {
@@ -15,14 +14,18 @@ namespace Assets._Project.Develop.Runtime.UI.MainMenu
             _container = container;
         }
 
-        public MainMenuScreenPresenter CreateMainMenuScreen(MainMenuScreenView view)
+        public MainMenuScreenPresenter CreateMainMenuScreenPresenter(MainMenuScreenView view)
         {
             return new MainMenuScreenPresenter(
                 view,
                 _container.Resolve<MainMenuPopupService>(),
-                _container.Resolve<WalletService>(),
-                _container.Resolve<GameStatsService>()
-                );
-        } 
+                CreateWalletPresenter(view.CurrenciesView)
+            );
+        }
+
+        private WalletPresenter CreateWalletPresenter(IconTextListView view)
+        {
+            return _container.Resolve<ProjectPresentersFactory>().CreateWalletPresenter(view);
+        }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Assets._Project.Develop.Infrastructure.DI;
 using Assets._Project.Develop.Runtime.Configs.Gameplay.Abilities;
 using Assets._Project.Develop.Runtime.Configs.Gameplay.Levels;
+using Assets._Project.Develop.Runtime.Configs.Gameplay.Loot;
 using Assets._Project.Develop.Runtime.Gameplay.EntitiesCore;
 using Assets._Project.Develop.Runtime.Gameplay.EntitiesCore.Mono;
 using Assets._Project.Develop.Runtime.Gameplay.Features.AbilitiesDroppingFeature;
@@ -9,6 +10,7 @@ using Assets._Project.Develop.Runtime.Gameplay.Features.AI;
 using Assets._Project.Develop.Runtime.Gameplay.Features.Enemies;
 using Assets._Project.Develop.Runtime.Gameplay.Features.InputFeature;
 using Assets._Project.Develop.Runtime.Gameplay.Features.LevelUPFeature;
+using Assets._Project.Develop.Runtime.Gameplay.Features.LootFeature;
 using Assets._Project.Develop.Runtime.Gameplay.Features.MainHero;
 using Assets._Project.Develop.Runtime.Gameplay.Features.PauseFeature;
 using Assets._Project.Develop.Runtime.Gameplay.Features.StageFeature;
@@ -31,13 +33,15 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
 
         public static void Process(DIContainer container, GameplayInputArgs inputArgs)
         {
-            Debug.Log("Process registrations on gameplay scene");
-
             _inputArgs = inputArgs;
 
             container.RegisterAsSingle(CreateAbilityFactory);
             container.RegisterAsSingle(CreateAbilityDropingRulesService);
             container.RegisterAsSingle(CreateAbilityDropService);
+
+            container.RegisterAsSingle(CreateLootFactory);
+            container.RegisterAsSingle(CreateDropLootService);
+            container.RegisterAsSingle(CreateLootPullingService).NonLazy();
 
             container.RegisterAsSingle(CreateDropAbilityOnMainHeroLevelUpService).NonLazy();
 
@@ -71,6 +75,23 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
 
             container.RegisterAsSingle(CreateGameplayStatesFactory);
             container.RegisterAsSingle(CreateGameplayStatesContext);
+        }
+
+        private static LootPullingService CreateLootPullingService(DIContainer c)
+        {
+            return new LootPullingService(c.Resolve<EntitiesLifeContext>());
+        }
+
+        private static DropLootService CreateDropLootService(DIContainer c)
+        {
+            return new DropLootService(
+                c.Resolve<ConfigsProviderService>().GetConfig<LootListConfig>(),
+                c.Resolve<LootFactory>());
+        }
+
+        private static LootFactory CreateLootFactory(DIContainer c)
+        {
+            return new LootFactory(c);
         }
 
         private static TimeScalePauseService CreateTimeScalePauseService(DIContainer c)

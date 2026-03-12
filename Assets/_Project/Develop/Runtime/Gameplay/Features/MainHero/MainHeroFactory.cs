@@ -50,6 +50,9 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.MainHero
                 ;
 
             entity
+                .AddCoins(new ReactiveVariable<int>(0));
+
+            entity
                 .AddLevel(new ReactiveVariable<int>(1))
                 .AddExperience()
                 .AddSystem(new LevelUpSystem(_configsProviderService.GetConfig<ExperienceForUpgradeLevelConfig>()))

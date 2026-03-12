@@ -1,9 +1,12 @@
 ﻿using Assets._Project.Develop.Runtime.Utilites.DataProviders;
 using Assets._Project.Develop.Runtime.Utilites.DataManagment;
 using Assets._Project.Develop.Runtime.Utilites.Reactive;
+using Assets._Project.Develop.Runtime.Meta.Features.Wallet;
+using System;
 
 namespace Assets._Project.Develop.Runtime.Meta.Features.Stats
 {
+
     public class GameStatsService : IDataReader<PlayerData>, IDataWriter<PlayerData>
     {
         private readonly PlayerDataProvider _playerDataProvider;

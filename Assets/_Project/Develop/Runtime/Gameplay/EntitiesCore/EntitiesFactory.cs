@@ -5,7 +5,9 @@ using Assets._Project.Develop.Runtime.Gameplay.Features.ApplyDamage;
 using Assets._Project.Develop.Runtime.Gameplay.Features.Attack;
 using Assets._Project.Develop.Runtime.Gameplay.Features.Attack.Shoot;
 using Assets._Project.Develop.Runtime.Gameplay.Features.ContactTakeDamage;
+using Assets._Project.Develop.Runtime.Gameplay.Features.InputFeature;
 using Assets._Project.Develop.Runtime.Gameplay.Features.LifeCycle;
+using Assets._Project.Develop.Runtime.Gameplay.Features.LootFeature;
 using Assets._Project.Develop.Runtime.Gameplay.Features.MovementFeature;
 using Assets._Project.Develop.Runtime.Gameplay.Features.Sensors;
 using Assets._Project.Develop.Runtime.Gameplay.Features.SpawnFeature;
@@ -188,10 +190,9 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
                 .AddContactEntitiesBuffer(new Buffer<Entity>(64))
                 .AddBodyContactDamage(new ReactiveVariable<float>(config.BodyContactDamage))
 
-
                 .AddSpawnInitialTime(new ReactiveVariable<float>(config.SpawnProcessTime))
                 .AddSpawnCurrentTime()
-                .AddInSpawnProcess();
+                .AddInSpawnProcess()        
                 ;
 
             ICompositeCondition canMove = new CompositeCondition()
@@ -312,6 +313,43 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
                   .AddSystem(new BodyContactsEntitiesFilterSystem(_collidersRegistryService));
 
             _entitiesLifeContext.Add(entity);
+
+            return entity;
+        }
+
+
+        public Entity CreatePullable(string prefabPath, Vector3 position)
+        {
+            Entity entity = CreateEmpty();
+
+            _monoEntitiesFactory.Create(entity, position, prefabPath);
+
+            entity
+                .AddIsPullable()
+                .AddIsPullingProcess()
+                .AddInSpawnProcess(new ReactiveVariable<bool>(true))
+                .AddCurrentTarget(new ReactiveVariable<Entity>(null))
+                .AddMoveDirection()
+                .AddMoveSpeed(new ReactiveVariable<float>(12))
+                .AddIsMoving()
+                .AddIsCollected();
+
+            ICompositeCondition moveCondition = new CompositeCondition()
+                .Add(new FuncCondition(() => entity.IsPullingProcess.Value))
+                .Add(new FuncCondition(() => entity.InSpawnProcess.Value == false));
+
+            ICompositeCondition mustSelfRelease = new CompositeCondition()
+                .Add(new FuncCondition(() => entity.IsCollected.Value));
+
+            entity
+                .AddCanMove(moveCondition)
+                .AddMustSelfRelease(mustSelfRelease);
+
+            entity
+                .AddSystem(new GenerateMoveDirectionToTargetSystem())
+                .AddSystem(new RigidbodyMovementSystem())
+                .AddSystem(new CollectedOnNearToTargetSystem())
+                .AddSystem(new SelfReleaseSystem(_entitiesLifeContext));
 
             return entity;
         }

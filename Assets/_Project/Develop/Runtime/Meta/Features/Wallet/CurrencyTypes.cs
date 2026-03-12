@@ -4,5 +4,7 @@
     {
         Gold = 0,
         Diamond = 1,
+        Wins = 2,
+        Loses = 3
     }
 }

@@ -23,8 +23,6 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.AI.States
         {
             base.Enter();
 
-            Debug.Log("attack trigger state enter!");
-
             _attackRequest.Invoke();
         }
 

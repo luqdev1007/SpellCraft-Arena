@@ -55,7 +55,6 @@ namespace Assets.CourseGame.Develop.Gameplay.Features.AbilitiesFeature.View
 
         private void OnClicked()
         {
-            Debug.Log("Clicked");
             Clicked?.Invoke();
         }
 

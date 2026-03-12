@@ -1,3 +1,4 @@
+using Assets._Project.Develop.Runtime.UI.CommonViews;
 using Assets._Project.Develop.Runtime.UI.Core;
 using System;
 using UnityEngine;
@@ -7,36 +8,17 @@ public class MainMenuScreenView : MonoBehaviour, IView
 {
     public event Action StartGameButtonClicked;
 
-    [SerializeField] private IconTextView _goldView;
-    [SerializeField] private IconTextView _diamondView;
-    [SerializeField] private IconTextView _winsView;
-    [SerializeField] private IconTextView _losesView;
-
-    [SerializeField] private Button _startGameButton;
+    [field: SerializeField] public IconTextListView CurrenciesView { get; private set; }
+    [field: SerializeField] public Button StartGameButton { get; private set; }
 
     private void OnEnable()
     {
-        _startGameButton.onClick.AddListener(OnStartGameButtonClicked);
+        StartGameButton.onClick.AddListener(OnStartGameButtonClicked);
     }
 
     private void OnDisable()
     {
-        _startGameButton.onClick.RemoveListener(OnStartGameButtonClicked);
-    }
-
-    public void SetWinsText(string value)
-    {
-        _winsView.SetText(value);
-    }
-
-    public void SetLosesText(string value)
-    {
-        _losesView.SetText(value);
-    }
-
-    public void SetGoldText(string value)
-    {
-        _goldView.SetText(value);
+        StartGameButton.onClick.RemoveListener(OnStartGameButtonClicked);
     }
 
     private void OnStartGameButtonClicked()

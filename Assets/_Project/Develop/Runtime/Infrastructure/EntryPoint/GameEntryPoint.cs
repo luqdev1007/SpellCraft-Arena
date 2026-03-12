@@ -13,11 +13,7 @@ namespace Assets._Project.Develop.Infrastructure.EntryPoint
     {
         private void Awake()
         {
-            Debug.Log("Start project, setup settings");
-
             SetupAppSettings();
-
-            Debug.Log("Global process registations for project");
 
             DIContainer projectContainer = new DIContainer();
             ProjectContextRegistrations.Process(projectContainer);
@@ -42,8 +38,6 @@ namespace Assets._Project.Develop.Infrastructure.EntryPoint
 
             loadingScreen.Show();
 
-            Debug.Log("Begin servises init...");
-
             yield return container.Resolve<ConfigsProviderService>().LoadAsync();
 
             bool isPlayerDataSaveExists = false;
@@ -57,7 +51,6 @@ namespace Assets._Project.Develop.Infrastructure.EntryPoint
 
             yield return new WaitForSeconds(1); // simulation of long inits
 
-            Debug.Log("Servises init is finished");
 
             loadingScreen.Hide();
 

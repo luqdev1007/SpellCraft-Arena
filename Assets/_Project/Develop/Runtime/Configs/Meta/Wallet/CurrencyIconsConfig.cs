@@ -11,14 +11,19 @@ namespace Assets._Project.Develop.Runtime.Configs.Meta.Wallet
     {
         [SerializeField] private List<CurrencyConfig> _configs;
 
-        public Sprite GetSpriteFor(CurrencyTypes currencyType)
-            => _configs.First(config => config.Type == currencyType).Sprite;
+        public string GetSpriteNameFor(CurrencyTypes currencyType)
+            => _configs.First(config => config.Type == currencyType).SpriteName;
+
+        public int GetSpriteIndexFor(CurrencyTypes currencyType)
+            => _configs.First(config => config.Type == currencyType).SpriteIndex;
 
         [Serializable]
         private class CurrencyConfig
         {
             [field: SerializeField] public CurrencyTypes Type { get; private set; }
             [field: SerializeField] public Sprite Sprite { get; private set; }
+            [field: SerializeField] public int SpriteIndex { get; private set; }
+            [field: SerializeField] public string SpriteName { get; private set; }
         }
     }
 }

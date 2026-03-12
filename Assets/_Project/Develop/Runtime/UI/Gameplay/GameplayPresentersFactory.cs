@@ -69,7 +69,9 @@ namespace Assets._Project.Develop.Runtime.UI.Gameplay
         {
             return new GameplayScreenPresenter(
                 view, 
-                _container.Resolve<GameplayPresentersFactory>()
+                _container.Resolve<GameplayPresentersFactory>(),
+                _container.Resolve<MainHeroHolderService>(),
+                _container.Resolve<ProjectPresentersFactory>()
                 );
         }
 

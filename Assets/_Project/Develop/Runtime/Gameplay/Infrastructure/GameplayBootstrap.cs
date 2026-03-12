@@ -41,8 +41,6 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
 
         public override IEnumerator Initialize()
         {
-            Debug.Log("Gameplay scene init");
-
             _screenPresenter = _container.Resolve<GameplayScreenPresenter>();
 
             _entitiesLifeContext = _container.Resolve<EntitiesLifeContext>();
@@ -58,8 +56,6 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
 
         public override void Run()
         {
-            Debug.Log($"Start gameplay scene");
-
             _gameplayStatesContext.Run();
         }
 

@@ -1,5 +1,6 @@
 ﻿using Assets._Project.Develop.Infrastructure;
 using Assets._Project.Develop.Infrastructure.DI;
+using Assets._Project.Develop.Runtime.Meta.Features.Stats;
 using Assets._Project.Develop.Runtime.Utilites.CoroutinesManagment;
 using Assets._Project.Develop.Runtime.Utilites.DataProviders;
 using Assets._Project.Develop.Runtime.Utilites.SceneManagement;
@@ -23,8 +24,6 @@ namespace Assets._Project.Develop.Runtime.Meta.Infrastructure
 
         public override IEnumerator Initialize()
         {
-            Debug.Log("Main menu scene init");
-
             _playerDataProvider = _container.Resolve<PlayerDataProvider>();
             _coroutinesPerformer = _container.Resolve<ICoroutinesPerformer>();
 
@@ -33,7 +32,7 @@ namespace Assets._Project.Develop.Runtime.Meta.Infrastructure
 
         public override void Run()
         {
-            Debug.Log("Run main menu bootstrap");
+            Debug.Log("F2 - save\nR - > reset");
         }
 
         private void Update()
@@ -42,6 +41,12 @@ namespace Assets._Project.Develop.Runtime.Meta.Infrastructure
             {
                 _coroutinesPerformer.StartPerform(_playerDataProvider.SaveAsync());
                 Debug.Log("Data is saved");
+            }
+
+            if (Input.GetKeyDown(KeyCode.R))
+            {
+                _playerDataProvider.Reset();
+                Debug.Log("Data is reseted");
             }
         }
     }

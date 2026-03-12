@@ -116,7 +116,6 @@ namespace Assets.CourseGame.Develop.Gameplay.Features.AbilitiesFeature.View
             _view.SelectButtonOn();
             _view.AbilityListView.Select(selected.View);
             _selectedPresenter = selected;
-            Debug.Log("OnPresenterSelected");
         }
     }
 }
