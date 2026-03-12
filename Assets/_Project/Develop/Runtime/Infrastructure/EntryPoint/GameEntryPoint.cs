@@ -1,7 +1,9 @@
 ﻿using Assets._Project.Develop.Infrastructure.DI;
+using Assets._Project.Develop.Runtime.Infrastructure.EntryPoint;
+using Assets._Project.Develop.Runtime.Meta.Features.StatsUpgrade;
 using Assets._Project.Develop.Runtime.Utilites.ConfigsManagment;
 using Assets._Project.Develop.Runtime.Utilites.CoroutinesManagment;
-using Assets._Project.Develop.Runtime.Utilites.DataProviders;
+using Assets._Project.Develop.Runtime.Utilites.DataManagment.DataProviders;
 using Assets._Project.Develop.Runtime.Utilites.LoadingScreen;
 using Assets._Project.Develop.Runtime.Utilites.SceneManagement;
 using System.Collections;
@@ -40,6 +42,7 @@ namespace Assets._Project.Develop.Infrastructure.EntryPoint
 
             yield return container.Resolve<ConfigsProviderService>().LoadAsync();
 
+            container.Resolve<StatsUpgradeService>().InitializeDefaults(); // ← добавь
             bool isPlayerDataSaveExists = false;
 
             yield return playerDataProvider.ExistsAsync(result => isPlayerDataSaveExists = result);

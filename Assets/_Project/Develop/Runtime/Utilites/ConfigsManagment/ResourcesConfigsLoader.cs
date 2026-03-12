@@ -24,7 +24,8 @@ namespace Assets._Project.Develop.Runtime.Utilites.ConfigsManagment
             { typeof(StartWalletConfig), "Configs/Meta/Wallet/StartWalletConfig" },
             { typeof(CurrencyIconsConfig), "Configs/Meta/Wallet/CurrencyIconsConfig" },
 
-            { typeof(GameRewardsConfig), "Configs/Meta/Stats/GameRewardsConfig" },
+            { typeof(PlayerStatsUpgradeConfig), "Configs/Meta/Stats/PlayerStatsUpgradeConfig" },
+            { typeof(StatsViewConfig), "Configs/Meta/Stats/StatsViewConfig" },
 
             { typeof(LevelsListConfig), "Configs/Gameplay/Levels/LevelsListConfig" },
 

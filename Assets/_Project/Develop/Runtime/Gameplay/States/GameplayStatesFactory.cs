@@ -10,9 +10,8 @@ using Assets._Project.Develop.Runtime.Meta.Features.Wallet;
 using Assets._Project.Develop.Runtime.UI.Gameplay;
 using Assets._Project.Develop.Runtime.Utilites.Conditions;
 using Assets._Project.Develop.Runtime.Utilites.CoroutinesManagment;
-using Assets._Project.Develop.Runtime.Utilites.DataProviders;
+using Assets._Project.Develop.Runtime.Utilites.DataManagment.DataProviders;
 using Assets._Project.Develop.Runtime.Utilites.SceneManagement;
-using Unity.VisualScripting;
 
 namespace Assets._Project.Develop.Runtime.Gameplay.States
 {

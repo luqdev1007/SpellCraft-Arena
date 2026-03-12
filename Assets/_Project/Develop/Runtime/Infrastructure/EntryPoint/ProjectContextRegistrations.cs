@@ -1,17 +1,17 @@
 ﻿using Assets._Project.Develop.Infrastructure.DI;
 using Assets._Project.Develop.Runtime.Meta.Features.LevelsProgression;
-using Assets._Project.Develop.Runtime.Meta.Features.Stats;
+using Assets._Project.Develop.Runtime.Meta.Features.StatsUpgrade;
 using Assets._Project.Develop.Runtime.Meta.Features.Wallet;
 using Assets._Project.Develop.Runtime.UI;
 using Assets._Project.Develop.Runtime.UI.Core;
 using Assets._Project.Develop.Runtime.Utilites.AssetsManagment;
 using Assets._Project.Develop.Runtime.Utilites.ConfigsManagment;
 using Assets._Project.Develop.Runtime.Utilites.CoroutinesManagment;
-using Assets._Project.Develop.Runtime.Utilites.DataManagment;
+using Assets._Project.Develop.Runtime.Utilites.DataManagment.DataProviders;
 using Assets._Project.Develop.Runtime.Utilites.DataManagment.DataRepository;
 using Assets._Project.Develop.Runtime.Utilites.DataManagment.KeyStorage;
 using Assets._Project.Develop.Runtime.Utilites.DataManagment.Serializers;
-using Assets._Project.Develop.Runtime.Utilites.DataProviders;
+using Assets._Project.Develop.Runtime.Utilites.DataManagment;
 using Assets._Project.Develop.Runtime.Utilites.LoadingScreen;
 using Assets._Project.Develop.Runtime.Utilites.Reactive;
 using Assets._Project.Develop.Runtime.Utilites.SceneManagement;
@@ -21,7 +21,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
-namespace Assets._Project.Develop.Infrastructure.EntryPoint
+namespace Assets._Project.Develop.Runtime.Infrastructure.EntryPoint
 {
     public class ProjectContextRegistrations
     {
@@ -29,7 +29,7 @@ namespace Assets._Project.Develop.Infrastructure.EntryPoint
         {
             container.RegisterAsSingle<ICoroutinesPerformer>(CreateCoroutinesPerformer);
 
-            container.RegisterAsSingle(CreateConfigProviderService);
+            container.RegisterAsSingle(CreateConfigsProviderService);
 
             container.RegisterAsSingle(CreateResourcesAssetsLoader);
 
@@ -37,103 +37,103 @@ namespace Assets._Project.Develop.Infrastructure.EntryPoint
 
             container.RegisterAsSingle(CreateSceneSwitcherService);
 
-            container.RegisterAsSingle<ILoadingScreen>(CreateStandartLoadingScreen);
+            container.RegisterAsSingle<ILoadingScreen>(CreateLoadingScreen);
 
             container.RegisterAsSingle(CreateWalletService).NonLazy();
 
-
             container.RegisterAsSingle(CreatePlayerDataProvider);
-
-            container.RegisterAsSingle<ISaveLoadService>(CreateSaveLoadService);
-
-            container.RegisterAsSingle(CreateGameStatsService).NonLazy();
 
             container.RegisterAsSingle(CreateProjectPresentersFactory);
 
             container.RegisterAsSingle(CreateViewsFactory);
 
-            container.RegisterAsSingle(CreateTimerServiceFactory);
+            container.RegisterAsSingle(CreateTimerService);
+
+            container.RegisterAsSingle<ISaveLoadService>(CreateSaveLoadService);
 
             container.RegisterAsSingle(CreateLevelsProgressionService).NonLazy();
+
+            container.RegisterAsSingle(CreateStatsUpgradeService).NonLazy();
         }
 
-        private static TimerServiceFactory CreateTimerServiceFactory(DIContainer container)
-            => new TimerServiceFactory(container);
+        private static StatsUpgradeService CreateStatsUpgradeService(DIContainer c)
+            => new StatsUpgradeService(c.Resolve<PlayerDataProvider>(), c.Resolve<ConfigsProviderService>());
 
-        private static LevelsProgressionService CreateLevelsProgressionService(DIContainer container)
-            => new LevelsProgressionService(container.Resolve<PlayerDataProvider>());
+        private static TimerServiceFactory CreateTimerService(DIContainer c)
+            => new TimerServiceFactory(c);
 
-        private static ViewsFactory CreateViewsFactory(DIContainer container) 
-            => new ViewsFactory(container.Resolve<ResourcesAssetsLoader>());
+        private static LevelsProgressionService CreateLevelsProgressionService(DIContainer c)
+            => new LevelsProgressionService(c.Resolve<PlayerDataProvider>());
 
-        private static ProjectPresentersFactory CreateProjectPresentersFactory(DIContainer container) 
-            => new ProjectPresentersFactory(container);
+        private static ViewsFactory CreateViewsFactory(DIContainer c)
+            => new ViewsFactory(c.Resolve<ResourcesAssetsLoader>());
 
-        private static GameStatsService CreateGameStatsService(DIContainer container) 
-            => new GameStatsService(container.Resolve<PlayerDataProvider>());
+        private static ProjectPresentersFactory CreateProjectPresentersFactory(DIContainer c)
+            => new ProjectPresentersFactory(c);
 
-        private static PlayerDataProvider CreatePlayerDataProvider(DIContainer container) 
-            => new PlayerDataProvider(container.Resolve<ISaveLoadService>(), container.Resolve<ConfigsProviderService>());
+        private static PlayerDataProvider CreatePlayerDataProvider(DIContainer c)
+            => new PlayerDataProvider(c.Resolve<ISaveLoadService>(), c.Resolve<ConfigsProviderService>());
 
-        private static SaveLoadService CreateSaveLoadService(DIContainer container)
+        private static SaveLoadService CreateSaveLoadService(DIContainer c)
         {
             IDataSerializer dataSerializer = new JsonSerializer();
             IDataKeysStorage dataKeysStorage = new MapDataKeysStorage();
 
-            string saveFolderPath = Application.isEditor? Application.dataPath : Application.persistentDataPath;
+            string saveFolderPath = Application.isEditor ? Application.dataPath : Application.persistentDataPath;
 
             IDataRepository dataRepository = new LocalFileDataRepository(saveFolderPath, "json");
 
             return new SaveLoadService(dataSerializer, dataKeysStorage, dataRepository);
         }
 
-        private static WalletService CreateWalletService(DIContainer container)
+        private static WalletService CreateWalletService(DIContainer c)
         {
             Dictionary<CurrencyTypes, ReactiveVariable<int>> currencies = new();
-            
-            foreach (CurrencyTypes currencyType in Enum.GetValues(typeof(CurrencyTypes)))
-            {
-                currencies[currencyType] = new ReactiveVariable<int>(0);
-            }
 
-            return new WalletService(currencies, container.Resolve<PlayerDataProvider>());
+            foreach (CurrencyTypes currencyType in Enum.GetValues(typeof(CurrencyTypes)))
+                currencies[currencyType] = new ReactiveVariable<int>();
+
+            return new WalletService(currencies, c.Resolve<PlayerDataProvider>());
         }
 
-        private static SceneSwitcherService CreateSceneSwitcherService(DIContainer container) 
-            => new SceneSwitcherService(container.Resolve<SceneLoaderService>(), container.Resolve<ILoadingScreen>(), container);
+        private static SceneSwitcherService CreateSceneSwitcherService(DIContainer c)
+            => new SceneSwitcherService(
+                c.Resolve<SceneLoaderService>(),
+                c.Resolve<ILoadingScreen>(),
+                c);
 
-        private static SceneLoaderService CreateSceneLoaderService(DIContainer container) 
+        private static SceneLoaderService CreateSceneLoaderService(DIContainer c)
             => new SceneLoaderService();
 
-        private static ConfigsProviderService CreateConfigProviderService(DIContainer container)
+        private static ConfigsProviderService CreateConfigsProviderService(DIContainer c)
         {
-            ResourcesAssetsLoader resourcesAssetsLoader = container.Resolve<ResourcesAssetsLoader>();
-            ResourcesConfigsLoader resourcesConfigsLoader = new ResourcesConfigsLoader(resourcesAssetsLoader);
+            ResourcesAssetsLoader resourcesAssetsLoader = c.Resolve<ResourcesAssetsLoader>();
 
+            ResourcesConfigsLoader resourcesConfigsLoader = new ResourcesConfigsLoader(resourcesAssetsLoader);
             return new ConfigsProviderService(resourcesConfigsLoader);
         }
 
-        private static ResourcesAssetsLoader CreateResourcesAssetsLoader(DIContainer container) 
+        private static ResourcesAssetsLoader CreateResourcesAssetsLoader(DIContainer c)
             => new ResourcesAssetsLoader();
 
-        private static CoroutinesPerformer CreateCoroutinesPerformer(DIContainer container)
+        private static CoroutinesPerformer CreateCoroutinesPerformer(DIContainer c)
         {
-            ResourcesAssetsLoader resourcesAssetsLoader = container.Resolve<ResourcesAssetsLoader>();
+            ResourcesAssetsLoader resourcesAssetsLoader = c.Resolve<ResourcesAssetsLoader>();
 
-            CoroutinesPerformer coroutinesPerformer = resourcesAssetsLoader
+            CoroutinesPerformer coroutinesPerformerPrefab = resourcesAssetsLoader
                 .Load<CoroutinesPerformer>("Utilities/CoroutinesPerformer");
 
-            return Object.Instantiate(coroutinesPerformer);
+            return Object.Instantiate(coroutinesPerformerPrefab);
         }
 
-        private static StandartLoadingScreen CreateStandartLoadingScreen(DIContainer container)
+        private static StandartLoadingScreen CreateLoadingScreen(DIContainer c)
         {
-            ResourcesAssetsLoader resourcesAssetsLoader = container.Resolve<ResourcesAssetsLoader>();
+            ResourcesAssetsLoader resourcesAssetsLoader = c.Resolve<ResourcesAssetsLoader>();
 
-            StandartLoadingScreen standartLoadingScreen = resourcesAssetsLoader
+            StandartLoadingScreen standardLoadingScreenPrefab = resourcesAssetsLoader
                 .Load<StandartLoadingScreen>("Utilities/StandartLoadingScreen");
 
-            return Object.Instantiate(standartLoadingScreen);
+            return Object.Instantiate(standardLoadingScreenPrefab);
         }
     }
 }

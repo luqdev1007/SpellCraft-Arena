@@ -1,10 +1,8 @@
-﻿using Assets._Project.Develop.Runtime.Utilites.DataManagment;
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 
-namespace Assets._Project.Develop.Runtime.Utilites.DataProviders
+namespace Assets._Project.Develop.Runtime.Utilites.DataManagment.DataProviders
 {
     public abstract class DataProvider<TData> where TData : ISaveData
     {

@@ -1,5 +1,5 @@
 ﻿using Assets._Project.Develop.Runtime.Utilites.DataManagment;
-using Assets._Project.Develop.Runtime.Utilites.DataProviders;
+using Assets._Project.Develop.Runtime.Utilites.DataManagment.DataProviders;
 using Assets._Project.Develop.Runtime.Utilites.Reactive;
 using System;
 using System.Collections.Generic;

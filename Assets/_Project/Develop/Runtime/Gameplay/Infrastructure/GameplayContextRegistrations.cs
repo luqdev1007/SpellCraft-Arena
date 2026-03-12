@@ -15,12 +15,15 @@ using Assets._Project.Develop.Runtime.Gameplay.Features.MainHero;
 using Assets._Project.Develop.Runtime.Gameplay.Features.PauseFeature;
 using Assets._Project.Develop.Runtime.Gameplay.Features.StageFeature;
 using Assets._Project.Develop.Runtime.Gameplay.States;
+using Assets._Project.Develop.Runtime.Meta.Features.Stats;
+using Assets._Project.Develop.Runtime.Meta.Features.StatsUpgrade;
 using Assets._Project.Develop.Runtime.UI;
 using Assets._Project.Develop.Runtime.UI.Core;
 using Assets._Project.Develop.Runtime.UI.Gameplay;
 using Assets._Project.Develop.Runtime.Utilites.AssetsManagment;
 using Assets._Project.Develop.Runtime.Utilites.ConfigsManagment;
 using Assets._Project.Develop.Runtime.Utilites.CoroutinesManagment;
+using Assets._Project.Develop.Runtime.Utilites.DataManagment.DataProviders;
 using Assets._Project.Develop.Runtime.Utilites.SceneManagement;
 using UnityEngine;
 using Object = UnityEngine.Object;
@@ -34,6 +37,8 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
         public static void Process(DIContainer container, GameplayInputArgs inputArgs)
         {
             _inputArgs = inputArgs;
+
+
 
             container.RegisterAsSingle(CreateAbilityFactory);
             container.RegisterAsSingle(CreateAbilityDropingRulesService);
@@ -75,7 +80,16 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
 
             container.RegisterAsSingle(CreateGameplayStatesFactory);
             container.RegisterAsSingle(CreateGameplayStatesContext);
+
+            container.RegisterAsSingle(CreateGameStatsService);
         }
+
+
+        private static GameStatsService CreateGameStatsService(DIContainer container)
+        {
+            return new GameStatsService(container.Resolve<PlayerDataProvider>());
+        }
+
 
         private static LootPullingService CreateLootPullingService(DIContainer c)
         {

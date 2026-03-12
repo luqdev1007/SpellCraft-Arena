@@ -31,8 +31,8 @@ namespace Assets._Project.Develop.Runtime.Gameplay.States
 
             _gameplayPopupService.OpenDefeatPopup();
 
-            _walletService.Add(CurrencyTypes.Wins, 1);
-            _gameStatsService.Wins.Value++;
+            _walletService.Add(CurrencyTypes.Loses, 1);
+            _gameStatsService.Losses.Value++;
         }
 
         public void Update(float deltaTime)

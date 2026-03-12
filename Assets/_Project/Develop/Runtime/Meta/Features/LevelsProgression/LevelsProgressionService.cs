@@ -1,5 +1,5 @@
 ﻿using Assets._Project.Develop.Runtime.Utilites.DataManagment;
-using Assets._Project.Develop.Runtime.Utilites.DataProviders;
+using Assets._Project.Develop.Runtime.Utilites.DataManagment.DataProviders;
 using System.Collections.Generic;
 
 namespace Assets._Project.Develop.Runtime.Meta.Features.LevelsProgression

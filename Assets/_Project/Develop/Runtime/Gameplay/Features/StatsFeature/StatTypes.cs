@@ -11,4 +11,3 @@
         AttackCooldown = 7,
     }
 }
-

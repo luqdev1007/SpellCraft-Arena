@@ -38,27 +38,26 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
             _collidersRegistryService = container.Resolve<CollidersRegistryService>();
         }
 
-        public Entity CreateHero(Vector3 position, HeroConfig config)
+        public Entity CreateHero(Vector3 position, HeroConfig config, Dictionary<StatTypes, float> upgradeStats)
         {
             Entity entity = CreateEmpty();
 
             Dictionary<StatTypes, float> baseStats = new()
-            {
-                { StatTypes.MoveSpeed, config.MoveSpeed },
-                { StatTypes.MaxHealth, config.MaxHealth },
-                { StatTypes.Damage, config.InstantAttackDamage },
-                { StatTypes.AttackSpeedMultiplier, config.AttackSpeedMultiplier },
-                { StatTypes.AttackProcessTime, config.AttackProcessTime },
-                { StatTypes.AttackDelayTime, config.AttackDelayTime },
-                { StatTypes.AttackCooldown, config.AttackCooldown },
-            };
+    {
+        { StatTypes.MoveSpeed, upgradeStats.TryGetValue(StatTypes.MoveSpeed, out float ms) ? ms : config.MoveSpeed },
+        { StatTypes.MaxHealth, upgradeStats.TryGetValue(StatTypes.MaxHealth, out float mh) ? mh : config.MaxHealth },
+        { StatTypes.Damage, upgradeStats.TryGetValue(StatTypes.Damage, out float dmg) ? dmg : config.InstantAttackDamage },
+        { StatTypes.AttackSpeedMultiplier, upgradeStats.TryGetValue(StatTypes.AttackSpeedMultiplier, out float asp) ? asp : 1f },
+        { StatTypes.AttackProcessTime, config.AttackProcessTime },
+        { StatTypes.AttackDelayTime, config.AttackDelayTime },
+        { StatTypes.AttackCooldown, config.AttackCooldown },
+    };
 
             Dictionary<StatTypes, float> modifiedStats = new(baseStats);
 
             _monoEntitiesFactory.Create(entity, position, config.PrefabPath);
 
             entity
-                // stats
                 .AddStatsEffects()
                 .AddBaseStats(baseStats)
                 .AddModifiedStats(modifiedStats)
@@ -120,8 +119,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
                 .Add(new FuncCondition(() => entity.InAttackProcess.Value == false))
                 .Add(new FuncCondition(() => entity.IsMoving.Value == false))
                 .Add(new FuncCondition(() => entity.InAttackCooldown.Value == false))
-                .Add(new FuncCondition(() => entity.InSpawnProcess.Value == false))
-                ;
+                .Add(new FuncCondition(() => entity.InSpawnProcess.Value == false));
 
             ICompositeCondition mustCancelAttack = new CompositeCondition(LogicOperations.Or)
                 .Add(new FuncCondition(() => entity.IsDead.Value == true))
@@ -137,7 +135,6 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
                 .AddMustCancelAttack(mustCancelAttack);
 
             entity
-                // stats 
                 .AddSystem(new StatEffectsApplierSystem())
                 .AddSystem(new MoveSpeedStatSynchronizerSystem())
                 .AddSystem(new MaxHealthStatSynchronizerSystem())
