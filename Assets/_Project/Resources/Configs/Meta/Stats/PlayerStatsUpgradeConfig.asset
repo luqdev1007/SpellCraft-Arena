@@ -17,15 +17,15 @@ MonoBehaviour:
     <StatValues>k__BackingField:
     - 4
     - 6
-    - 8
-    - 12
+    - 30
+    - 45
     <CostType>k__BackingField: 0
     <UpgradeToNextLevelCost>k__BackingField: 190000003200000064000000
   - <Type>k__BackingField: 2
     <StatValues>k__BackingField:
     - 33
     - 66
-    - 99
+    - 255
     <CostType>k__BackingField: 0
     <UpgradeToNextLevelCost>k__BackingField: 1e0000004b000000
   - <Type>k__BackingField: 3
