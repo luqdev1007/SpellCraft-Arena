@@ -1,17 +1,22 @@
 ﻿using Assets._Project.Develop.Infrastructure.DI;
 using Assets._Project.Develop.Runtime.Configs.Gameplay.Levels;
+using Assets._Project.Develop.Runtime.Configs.Meta.Stats;
 using Assets._Project.Develop.Runtime.Configs.Meta.Wallet;
+using Assets._Project.Develop.Runtime.Gameplay.Features.StatsFeature;
 using Assets._Project.Develop.Runtime.Meta.Features.LevelsProgression;
+using Assets._Project.Develop.Runtime.Meta.Features.StatsUpgrade;
 using Assets._Project.Develop.Runtime.Meta.Features.Wallet;
 using Assets._Project.Develop.Runtime.UI.CommonViews;
 using Assets._Project.Develop.Runtime.UI.Core;
 using Assets._Project.Develop.Runtime.UI.Core.ConfirmPopup;
 using Assets._Project.Develop.Runtime.UI.LevelsMenuPopup;
+using Assets._Project.Develop.Runtime.UI.StatsUpgradePopup;
 using Assets._Project.Develop.Runtime.UI.Wallet;
 using Assets._Project.Develop.Runtime.Utilites.ConfigsManagment;
 using Assets._Project.Develop.Runtime.Utilites.CoroutinesManagment;
 using Assets._Project.Develop.Runtime.Utilites.Reactive;
 using Assets._Project.Develop.Runtime.Utilites.SceneManagement;
+using Assets.CourseGame.Develop.MainMenu.StatsUpgradeFeature;
 using System;
 
 namespace Assets._Project.Develop.Runtime.UI
@@ -57,6 +62,32 @@ namespace Assets._Project.Develop.Runtime.UI
                 currencyType, 
                 _container.Resolve<ConfigsProviderService>().GetConfig<CurrencyIconsConfig>(),
                 view);
+        }
+
+        public UpgradableStatPresenter CreateUpgradableStatPresenter(UpgradableStatView view, StatTypes statType)
+        {
+            return new UpgradableStatPresenter(
+                view,
+                statType,
+                _container.Resolve<ConfigsProviderService>().GetConfig<StatsViewConfig>(),
+                _container.Resolve<StatsUpgradeService>(),
+                _container.Resolve<WalletService>(),
+                _container.Resolve<ConfigsProviderService>().GetConfig<CurrencyIconsConfig>());
+        }
+
+        public StatsUpgradePopupPresenter CreateStatsUpgradePopupPresenter(StatsUpgradePopupView view)
+        {
+            return new StatsUpgradePopupPresenter(
+                _container.Resolve<ICoroutinesPerformer>(),
+                view,
+                _container.Resolve<ProjectPresentersFactory>(),
+                _container.Resolve<StatsUpgradeService>(),
+                _container.Resolve<ViewsFactory>());
+        }
+
+        public CharacterPreviewPresenter CreateCharacterPreviewPresenter()
+        {
+            return new CharacterPreviewPresenter(_container.Resolve<SceneLoaderService>(), _container.Resolve<ICoroutinesPerformer>());
         }
 
         public WalletPresenter CreateWalletPresenter(IconTextListView view)

@@ -2,6 +2,9 @@
 {
     public class ViewIDs
     {
+        public const string UpgradableStatView = nameof(UpgradableStatView);
+        public const string StatsUpgradePopupView = nameof(StatsUpgradePopupView);
+
         public const string CurrencyView = nameof(CurrencyView);
 
         public const string AbilitySelectView = nameof(AbilitySelectView);

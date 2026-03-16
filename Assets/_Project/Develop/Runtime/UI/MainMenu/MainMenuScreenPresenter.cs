@@ -1,37 +1,66 @@
 ﻿using Assets._Project.Develop.Runtime.UI.Core;
-using Assets._Project.Develop.Runtime.UI.MainMenu;
 using Assets._Project.Develop.Runtime.UI.Wallet;
+using System.Collections.Generic;
 
-public class MainMenuScreenPresenter : IPresenter
+namespace Assets._Project.Develop.Runtime.UI.MainMenu
 {
-    private readonly MainMenuScreenView _view;
-    private readonly MainMenuPopupService _popupService;
-    private readonly WalletPresenter _walletPresenter;
-
-    public MainMenuScreenPresenter(
-        MainMenuScreenView view,
-        MainMenuPopupService popupService,
-        WalletPresenter walletPresenter)
+    public class MainMenuScreenPresenter : IPresenter
     {
-        _view = view;
-        _popupService = popupService;
-        _walletPresenter = walletPresenter;
-    }
+        private readonly MainMenuScreenView _screen;
 
-    public void Initialize()
-    {
-        _walletPresenter.Initialize();
-        _view.StartGameButtonClicked += OnStartGameButtonClicked;
-    }
+        private readonly ProjectPresentersFactory _projectPresentersFactory;
 
-    public void Dispose()
-    {
-        _walletPresenter.Dispose();
-        _view.StartGameButtonClicked -= OnStartGameButtonClicked;
-    }
+        private readonly MainMenuPopupService _popupService;
 
-    private void OnStartGameButtonClicked()
-    {
-        _popupService.OpenLevelsMenuPopup();
+        private readonly List<IPresenter> _childPresenters = new();
+
+        public MainMenuScreenPresenter(
+            MainMenuScreenView screen,
+            ProjectPresentersFactory projectPresentersFactory,
+            MainMenuPopupService popupService)
+        {
+            _screen = screen;
+            _projectPresentersFactory = projectPresentersFactory;
+            _popupService = popupService;
+        }
+
+        public void Initialize()
+        {
+            _screen.StartGameButtonClicked += OnOpenLevelsMenuButtonClicked;
+            _screen.UpgradesButtonClicked += OnOpenStatsUpgradeButtonClicked;
+
+            CreateWallet();
+
+            foreach (IPresenter presenter in _childPresenters)
+                presenter.Initialize();
+        }
+
+        public void Dispose()
+        {
+            _screen.StartGameButtonClicked -= OnOpenLevelsMenuButtonClicked;
+            _screen.UpgradesButtonClicked -= OnOpenStatsUpgradeButtonClicked;
+
+            foreach (IPresenter presenter in _childPresenters)
+                presenter.Dispose();
+
+            _childPresenters.Clear();
+        }
+
+        private void CreateWallet()
+        {
+            WalletPresenter walletPresenter = _projectPresentersFactory.CreateWalletPresenter(_screen.WalletView);
+
+            _childPresenters.Add(walletPresenter);
+        }
+
+        private void OnOpenLevelsMenuButtonClicked()
+        {
+            _popupService.OpenLevelsMenuPopup();
+        }
+
+        private void OnOpenStatsUpgradeButtonClicked()
+        {
+            _popupService.OpenStatsUpgradePopup();
+        }
     }
 }

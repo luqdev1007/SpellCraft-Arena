@@ -19,7 +19,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.Attack
         {
             _endAttackEvent = entity.EndAttackEvent;
             _inAttackProcess = entity.InAttackProcess;
-            _attackProcessInitialTime = entity.AttackProcessInitialTime;
+            _attackProcessInitialTime = entity.AttackProcessModifiedTime;
             _attackProcessCurrentTime = entity.AttackProcessCurrentTime;
 
             _timerDisposable = _attackProcessCurrentTime.Subscribe(OnTimerChanged);

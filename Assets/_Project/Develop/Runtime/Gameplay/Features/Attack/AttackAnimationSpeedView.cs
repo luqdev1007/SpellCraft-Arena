@@ -1,6 +1,7 @@
-﻿using Assets._Project.Develop.Runtime.Gameplay.EntitiesCore.Mono;
-using Assets._Project.Develop.Runtime.Gameplay.EntitiesCore;
+﻿using Assets._Project.Develop.Runtime.Gameplay.EntitiesCore;
+using Assets._Project.Develop.Runtime.Gameplay.EntitiesCore.Mono;
 using Assets._Project.Develop.Runtime.Utilites.Reactive;
+using System;
 using UnityEngine;
 
 namespace Assets._Project.Develop.Runtime.Gameplay.Features.Attack
@@ -10,10 +11,12 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.Attack
     {
         private readonly int _attackAnimationSpeedMultiplierKey = Animator.StringToHash("AttackAnimationSpeedMultiplier");
 
-        [SerializeField] private AnimationClip _animationClip;
         [SerializeField] private Animator _animator;
 
-        private ReactiveVariable<float> _attackProcessTime;
+        private ReactiveVariable<float> _attackProcessInitialTime;
+        private ReactiveVariable<float> _attackProcessModifiedTime;
+
+        private IDisposable _attackProcessTimeChangedDisposable;
 
         private void OnValidate()
         {
@@ -22,12 +25,23 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.Attack
 
         protected override void OnEntityStartedWork(Entity entity)
         {
-            _attackProcessTime = entity.AttackProcessInitialTime;
+            _attackProcessInitialTime = entity.AttackProcessInitialTime;
+            _attackProcessModifiedTime = entity.AttackProcessModifiedTime;
 
-            // Формула: Длина анимации / Время процесса в логике = Множитель скорости для Animator
-            float speedMultiplier = _animationClip.length / _attackProcessTime.Value;
+            _attackProcessTimeChangedDisposable = _attackProcessModifiedTime.Subscribe(OnAttackProcessTimeChanged);
+            OnAttackProcessTimeChanged(0, _attackProcessModifiedTime.Value);
+        }
 
-            _animator.SetFloat(_attackAnimationSpeedMultiplierKey, speedMultiplier);
+        public override void Cleanup(Entity entity)
+        {
+            base.Cleanup(entity);
+
+            _attackProcessTimeChangedDisposable.Dispose();
+        }
+
+        private void OnAttackProcessTimeChanged(float arg1, float currentAttackProcessTime)
+        {
+            _animator.SetFloat(_attackAnimationSpeedMultiplierKey, _attackProcessInitialTime.Value / currentAttackProcessTime);
         }
     }
 }

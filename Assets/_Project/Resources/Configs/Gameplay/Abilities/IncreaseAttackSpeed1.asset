@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 335b6322e1154724da8c8bf377517eae, type: 3}
   m_Name: IncreaseAttackSpeed1
   m_EditorClassIdentifier: 
-  <ID>k__BackingField: IncreaseAttackSpeed1
+  <ID>k__BackingField: AttacksPerSecond1
   <Name>k__BackingField: Attack Speed+
   <Description>k__BackingField: +100%
   <Icon>k__BackingField: {fileID: 21300000, guid: 9a054775d90e34c9cba80046883d47ad, type: 3}

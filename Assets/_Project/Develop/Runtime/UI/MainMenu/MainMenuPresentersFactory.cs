@@ -1,6 +1,5 @@
 ﻿using Assets._Project.Develop.Infrastructure.DI;
 using Assets._Project.Develop.Runtime.UI.CommonViews;
-using Assets._Project.Develop.Runtime.UI.Core;
 using Assets._Project.Develop.Runtime.UI.Wallet;
 
 namespace Assets._Project.Develop.Runtime.UI.MainMenu
@@ -18,8 +17,8 @@ namespace Assets._Project.Develop.Runtime.UI.MainMenu
         {
             return new MainMenuScreenPresenter(
                 view,
-                _container.Resolve<MainMenuPopupService>(),
-                CreateWalletPresenter(view.CurrenciesView)
+                _container.Resolve<ProjectPresentersFactory>(),
+                _container.Resolve<MainMenuPopupService>()
             );
         }
 

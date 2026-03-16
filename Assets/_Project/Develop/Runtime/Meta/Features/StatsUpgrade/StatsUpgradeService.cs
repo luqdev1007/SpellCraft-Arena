@@ -22,6 +22,8 @@ namespace Assets._Project.Develop.Runtime.Meta.Features.StatsUpgrade
             playerDataProvider.RegisterWriter(this);
         }
 
+        public List<StatTypes> UpgradeableStats => _statLevels.Keys.Where(t => IsStatUpgradeable(t)).ToList();
+
         public List<StatTypes> AvailableStats => _statLevels.Keys.ToList();
 
         public IReadOnlyVariable<int> GetStatLevelFor(StatTypes statType)

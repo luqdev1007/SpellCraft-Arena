@@ -1,11 +1,9 @@
-﻿using Assets._Project.Develop.Runtime.Configs.Gameplay.Abilities;
-using Assets._Project.Develop.Runtime.Gameplay.EntitiesCore;
+﻿using Assets._Project.Develop.Runtime.Gameplay.EntitiesCore;
 using Assets._Project.Develop.Runtime.Gameplay.Features.AbilitiesDroppingFeature;
 using Assets._Project.Develop.Runtime.UI.Core;
 using Assets._Project.Develop.Runtime.UI.Gameplay;
 using Assets._Project.Develop.Runtime.Utilites.CoroutinesManagment;
 using System.Collections.Generic;
-using UnityEngine;
 
 namespace Assets.CourseGame.Develop.Gameplay.Features.AbilitiesFeature.View
 {
@@ -25,6 +23,7 @@ namespace Assets.CourseGame.Develop.Gameplay.Features.AbilitiesFeature.View
 
         private List<SelectableAbilityPresenter> _presenters = new();
         private SelectableAbilityPresenter _selectedPresenter;
+
         private int _level;
 
         public AbilitySelectPopupPresenter(
@@ -56,7 +55,7 @@ namespace Assets.CourseGame.Develop.Gameplay.Features.AbilitiesFeature.View
 
             _view.SelectButtonClicked += OnSelectButtonClicked;
 
-            List<AbilityConfig> dropOptions = _abilityDropper.Drop(AbilitiesCount, _entity);
+            List<AbilityDropOption> dropOptions = _abilityDropper.Drop(AbilitiesCount, _entity);
 
             for (int i = 0; i < dropOptions.Count; i++)
             {
@@ -65,7 +64,7 @@ namespace Assets.CourseGame.Develop.Gameplay.Features.AbilitiesFeature.View
                 _view.AbilityListView.Add(selectableAbilityView);
 
                 SelectableAbilityPresenter presenter = _presentersFactory
-                    .CreateSelectableAbilityPresenter(dropOptions[i], selectableAbilityView, _entity);
+                    .CreateSelectableAbilityPresenter(dropOptions[i].Config, selectableAbilityView, _entity, dropOptions[i].Level);
 
                 presenter.Selected += OnPresenterSelected;
                 presenter.Initialize();

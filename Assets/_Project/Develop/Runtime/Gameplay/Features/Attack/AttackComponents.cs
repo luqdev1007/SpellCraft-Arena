@@ -1,10 +1,21 @@
 ﻿using Assets._Project.Develop.Runtime.Gameplay.EntitiesCore;
+using Assets._Project.Develop.Runtime.Gameplay.Features.Attack.Shoot;
 using Assets._Project.Develop.Runtime.Utilites.Conditions;
 using Assets._Project.Develop.Runtime.Utilites.Reactive;
 using UnityEngine;
 
 namespace Assets._Project.Develop.Runtime.Gameplay.Features.Attack
 {
+    public class IsProjectile : IEntityComponent
+    {
+        
+    }
+
+    public class InstantShootingDirection : IEntityComponent
+    {
+        public InstantShootingDirectionArgs Value;
+    }
+
     public class StartAttackRequest : IEntityComponent
     {
         public ReactiveEvent Value;
@@ -30,6 +41,12 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.Attack
         public ReactiveVariable<float> Value;
     }
 
+    public class AttackProcessModifiedTime : IEntityComponent
+    {
+        public ReactiveVariable<float> Value;
+    }
+
+
     public class AttackProcessCurrentTime : IEntityComponent
     {
         public ReactiveVariable<float> Value;
@@ -54,6 +71,12 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.Attack
     {
         public ReactiveVariable<float> Value;
     }
+
+    public class AttackDelayModifiedTime : IEntityComponent
+    {
+        public ReactiveVariable<float> Value;
+    }
+
 
     public class AttackDelayEndEvent : IEntityComponent
     {
@@ -81,6 +104,11 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.Attack
     }
 
     public class AttackCooldownInitialTime : IEntityComponent
+    {
+        public ReactiveVariable<float> Value;
+    }
+
+    public class AttackCooldownModifiedTime : IEntityComponent
     {
         public ReactiveVariable<float> Value;
     }

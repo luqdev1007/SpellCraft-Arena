@@ -18,18 +18,24 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.AbilitiesDroppingFea
             _abilityDropingRules = abilityDropingRules;
         }
 
-        public List<AbilityConfig> Drop(int count, Entity entity)
+        public List<AbilityDropOption> Drop(int count, Entity entity)
         {
-            List<AbilityConfig> availablesAbilities
-                = new List<AbilityConfig>(_abilitiesConfigsContainer
-                    .AbilityConfigs
-                    .Where(abilityOption => _abilityDropingRules.IsAvailable(abilityOption, entity)));
+            List<AbilityDropOption> availablesAbilities = new List<AbilityDropOption>();
 
-            List<AbilityConfig> selectedAbilities = new();
+            foreach (AbilityConfig abilityConfig in _abilitiesConfigsContainer.AbilityConfigs)
+            {
+                for (int level = 1; level < abilityConfig.MaxLevel + 1; level++)
+                {
+                    if (_abilityDropingRules.IsAvailable(abilityConfig, entity, level))
+                        availablesAbilities.Add(new AbilityDropOption(abilityConfig, level));
+                }
+            }
+
+            List<AbilityDropOption> selectedAbilities = new();
 
             for (int i = 0; i < count; i++)
             {
-                AbilityConfig selectedAbility = availablesAbilities[UnityEngine.Random.Range(0, availablesAbilities.Count)];
+                AbilityDropOption selectedAbility = availablesAbilities[UnityEngine.Random.Range(0, availablesAbilities.Count)];
                 selectedAbilities.Add(selectedAbility);
                 availablesAbilities.Remove(selectedAbility);
             }
