@@ -266,7 +266,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1672911948109865896}
   - component: {fileID: 5276411892330779776}
-  - component: {fileID: 4547207793374612493}
   m_Layer: 5
   m_Name: LightAspectButton
   m_TagString: Untagged
@@ -339,19 +338,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &4547207793374612493
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 337027108660258593}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d3abc88432a88f24faa5a3ea0241bbca, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _aspectName: 2
 --- !u!1 &540434180544853957
 GameObject:
   m_ObjectHideFlags: 0
@@ -362,7 +348,6 @@ GameObject:
   m_Component:
   - component: {fileID: 6704607936544431775}
   - component: {fileID: 5217830649150424899}
-  - component: {fileID: 405343874644651542}
   m_Layer: 5
   m_Name: BloodAspectButton
   m_TagString: Untagged
@@ -435,19 +420,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &405343874644651542
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 540434180544853957}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d3abc88432a88f24faa5a3ea0241bbca, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _aspectName: 0
 --- !u!1 &569914544147063800
 GameObject:
   m_ObjectHideFlags: 0
@@ -458,7 +430,6 @@ GameObject:
   m_Component:
   - component: {fileID: 6774452616102781057}
   - component: {fileID: 4637885444894689005}
-  - component: {fileID: 1162247537530178263}
   m_Layer: 5
   m_Name: DeathAspectButton
   m_TagString: Untagged
@@ -531,19 +502,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &1162247537530178263
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 569914544147063800}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d3abc88432a88f24faa5a3ea0241bbca, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _aspectName: 3
 --- !u!1 &634429127051186350
 GameObject:
   m_ObjectHideFlags: 0
@@ -1147,7 +1105,6 @@ GameObject:
   m_Component:
   - component: {fileID: 423442717655257593}
   - component: {fileID: 1647794040801291620}
-  - component: {fileID: 2839344247402132224}
   m_Layer: 5
   m_Name: ArcaneAspectButton
   m_TagString: Untagged
@@ -1220,19 +1177,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &2839344247402132224
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1675377697485994895}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d3abc88432a88f24faa5a3ea0241bbca, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _aspectName: 6
 --- !u!1 &1682954173636718991
 GameObject:
   m_ObjectHideFlags: 0
@@ -1646,7 +1590,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2520580467555117367}
   - component: {fileID: 6970734523632421278}
-  - component: {fileID: 1554337093652557389}
   m_Layer: 5
   m_Name: FireAspectButton
   m_TagString: Untagged
@@ -1719,19 +1662,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &1554337093652557389
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2759663739575209859}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d3abc88432a88f24faa5a3ea0241bbca, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _aspectName: 1
 --- !u!1 &2843844341966190146
 GameObject:
   m_ObjectHideFlags: 0
@@ -1906,7 +1836,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2750210896007546533}
   - component: {fileID: 4484329604508930885}
-  - component: {fileID: 6912202676641178496}
   m_Layer: 5
   m_Name: IceAspectButton
   m_TagString: Untagged
@@ -1979,19 +1908,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &6912202676641178496
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3022412041060045428}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d3abc88432a88f24faa5a3ea0241bbca, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _aspectName: 5
 --- !u!1 &3190523256194675628
 GameObject:
   m_ObjectHideFlags: 0
@@ -2990,7 +2906,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6319476949616109836}
-  - component: {fileID: -9043326753864494014}
   m_Layer: 5
   m_Name: CombatActionsBarView
   m_TagString: Untagged
@@ -3023,18 +2938,6 @@ RectTransform:
   m_AnchoredPosition: {x: -50, y: 50}
   m_SizeDelta: {x: 400, y: 400}
   m_Pivot: {x: 1, y: 0}
---- !u!114 &-9043326753864494014
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5215012826288859942}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 65cb54f077be30e488d1261c4abff2b1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &5224251148887776477
 GameObject:
   m_ObjectHideFlags: 0
@@ -3576,7 +3479,6 @@ GameObject:
   m_Component:
   - component: {fileID: 3519218718984774919}
   - component: {fileID: 942750293994043479}
-  - component: {fileID: 5120309393460968888}
   m_Layer: 5
   m_Name: NatureAspectButton
   m_TagString: Untagged
@@ -3649,19 +3551,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &5120309393460968888
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7102741198278052490}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d3abc88432a88f24faa5a3ea0241bbca, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _aspectName: 4
 --- !u!1 &7187103270394138173
 GameObject:
   m_ObjectHideFlags: 0
