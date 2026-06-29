@@ -69,7 +69,10 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
 
             container.RegisterAsSingle(CreateAIBrainContext);
 
-            container.RegisterAsSingle<IInputService>(CreateDesktopInput);
+            if (Application.isMobilePlatform)
+                container.RegisterAsSingle<IInputService>(c => new MobileInput());
+            else
+                container.RegisterAsSingle<IInputService>(CreateDesktopInput);
 
             container.RegisterAsSingle(CreateMainHeroFactory);
             container.RegisterAsSingle(CreateEnemiesFactory);

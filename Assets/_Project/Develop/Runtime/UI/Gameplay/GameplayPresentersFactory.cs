@@ -1,6 +1,7 @@
 ﻿using Assets._Project.Develop.Infrastructure.DI;
 using Assets._Project.Develop.Runtime.Configs.Gameplay;
 using Assets._Project.Develop.Runtime.Configs.Gameplay.Abilities;
+using Assets._Project.Develop.Runtime.Configs.Gameplay.Spells;
 using Assets._Project.Develop.Runtime.Gameplay.EntitiesCore;
 using Assets._Project.Develop.Runtime.Gameplay.Features.AbilitiesDroppingFeature;
 using Assets._Project.Develop.Runtime.Gameplay.Features.AbilitiesFeature;
@@ -10,7 +11,9 @@ using Assets._Project.Develop.Runtime.Gameplay.Features.StageFeature;
 using Assets._Project.Develop.Runtime.UI.CommonViews;
 using Assets._Project.Develop.Runtime.UI.Core;
 using Assets._Project.Develop.Runtime.UI.Gameplay.HealthDisplay;
+using Assets._Project.Develop.Runtime.UI.Gameplay.ManaDisplay;
 using Assets._Project.Develop.Runtime.UI.Gameplay.ResultPopups;
+using Assets._Project.Develop.Runtime.UI.Gameplay.SpellPanel;
 using Assets._Project.Develop.Runtime.UI.Gameplay.Stages;
 using Assets._Project.Develop.Runtime.Utilites.ConfigsManagment;
 using Assets._Project.Develop.Runtime.Utilites.CoroutinesManagment;
@@ -114,6 +117,18 @@ namespace Assets._Project.Develop.Runtime.UI.Gameplay
                 _container.Resolve<MainHeroHolderService>(),
                 view,
                 _container.Resolve<ConfigsProviderService>().GetConfig<ExperienceForUpgradeLevelConfig>());
+        }
+
+        public ManaBarPresenter CreateManaBarPresenter(BarWithText view, Entity entity)
+        {
+            return new ManaBarPresenter(view, entity);
+        }
+
+        public SpellPanelPresenter CreateSpellPanelPresenter(SpellPanelView view, Entity entity)
+        {
+            SpellsConfigsContainer container = _container.Resolve<ConfigsProviderService>().GetConfig<SpellsConfigsContainer>();
+
+            return new SpellPanelPresenter(view, entity, container, container.AspectIcons);
         }
     }
 }

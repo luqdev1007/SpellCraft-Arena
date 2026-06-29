@@ -3,7 +3,6 @@ using Assets._Project.Develop.Runtime.Configs.Gameplay.Entities;
 using Assets._Project.Develop.Runtime.Gameplay.EntitiesCore;
 using Assets._Project.Develop.Runtime.Gameplay.Features.AbilitiesFeature;
 using Assets._Project.Develop.Runtime.Gameplay.Features.AI;
-using Assets._Project.Develop.Runtime.Gameplay.Features.AI.States;
 using Assets._Project.Develop.Runtime.Gameplay.Features.LevelUPFeature;
 using Assets._Project.Develop.Runtime.Gameplay.Features.StatsFeature;
 using Assets._Project.Develop.Runtime.Gameplay.Features.TeamsFeature;
@@ -11,6 +10,7 @@ using System.Collections.Generic;
 using System;
 using UnityEngine;
 using Assets._Project.Develop.Infrastructure.DI;
+using Assets._Project.Develop.Runtime.Configs.Gameplay.Spells;
 using Assets._Project.Develop.Runtime.Utilites.ConfigsManagment;
 using Assets._Project.Develop.Runtime.Utilites.Reactive;
 using Assets._Project.Develop.Runtime.Meta.Features.StatsUpgrade;
@@ -59,8 +59,11 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.MainHero
                 .AddExperience()
                 .AddSystem(new LevelUpSystem(_configsProviderService.GetConfig<ExperienceForUpgradeLevelConfig>()));
 
-            entity.AddCurrentTarget();
-            _brainsFactory.CreateMainHeroBrain(entity, new NearestDamagableTargetSelector(entity));
+            SpellsConfigsContainer spellsContainer = _configsProviderService.GetConfig<SpellsConfigsContainer>();
+            SpellConfig defaultSpell = spellsContainer.Spells.Count > 0 ? spellsContainer.Spells[0] : null;
+            entity.ActiveSpellConfigC.Value = defaultSpell;
+
+            _brainsFactory.CreateMainHeroBrain(entity);
 
             _entitiesLifeContext.Add(entity);
 

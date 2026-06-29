@@ -2,15 +2,15 @@
 using Assets._Project.Develop.Runtime.Configs.Gameplay.Entities;
 using Assets._Project.Develop.Runtime.Gameplay.EntitiesCore.Mono;
 using Assets._Project.Develop.Runtime.Gameplay.Features.ApplyDamage;
-using Assets._Project.Develop.Runtime.Gameplay.Features.Attack;
-using Assets._Project.Develop.Runtime.Gameplay.Features.Attack.Shoot;
 using Assets._Project.Develop.Runtime.Gameplay.Features.ContactTakeDamage;
 using Assets._Project.Develop.Runtime.Gameplay.Features.InputFeature;
 using Assets._Project.Develop.Runtime.Gameplay.Features.LifeCycle;
 using Assets._Project.Develop.Runtime.Gameplay.Features.LootFeature;
+using Assets._Project.Develop.Runtime.Gameplay.Features.ManaFeature;
 using Assets._Project.Develop.Runtime.Gameplay.Features.MovementFeature;
 using Assets._Project.Develop.Runtime.Gameplay.Features.Sensors;
 using Assets._Project.Develop.Runtime.Gameplay.Features.SpawnFeature;
+using Assets._Project.Develop.Runtime.Gameplay.Features.SpellcastingFeature;
 using Assets._Project.Develop.Runtime.Gameplay.Features.StatsFeature;
 using Assets._Project.Develop.Runtime.Gameplay.Features.TeamsFeature;
 using Assets._Project.Develop.Runtime.Utilites;
@@ -18,7 +18,6 @@ using Assets._Project.Develop.Runtime.Utilites.Conditions;
 using Assets._Project.Develop.Runtime.Utilites.Reactive;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEditor.Experimental.GraphView.GraphView;
 
 namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
 {
@@ -48,9 +47,6 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
             _monoEntitiesFactory.Create(entity, position, config.PrefabPath);
 
             entity
-                .AddAttacksPerSecond()
-                .AddInstantShootingDirection(new InstantShootingDirectionArgs(new InstantShotDirectionArgs(0, 1)))
-
                 .AddStatsEffects()
                 .AddBaseStats(baseStats)
                 .AddModifiedStats(modifiedStats)
@@ -69,40 +65,34 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
                 .AddTakeDamageRequest()
                 .AddTakeDamageEvent()
 
-                .AddAttackProcessInitialTime(new ReactiveVariable<float>(config.AttackProcessTime))
-                .AddAttackProcessModifiedTime(new ReactiveVariable<float>(config.AttackProcessTime))
+                .AddMaxMana(new ReactiveVariable<float>(config.MaxMana))
+                .AddCurrentMana(new ReactiveVariable<float>(config.MaxMana))
+                .AddManaRegenRate(new ReactiveVariable<float>(config.ManaRegenRate))
 
-                .AddAttackProcessCurrentTime()
-                .AddInAttackProcess()
-                .AddStartAttackRequest()
-                .AddStartAttackEvent()
-                .AddEndAttackEvent()
-
-                .AddAttackDelayTime(new ReactiveVariable<float>(config.AttackDelayTime))
-                .AddAttackDelayModifiedTime(new ReactiveVariable<float>(config.AttackDelayTime))
-
-                .AddAttackDelayEndEvent()
-                .AddInstantAttackDamage(new ReactiveVariable<float>(baseStats[StatTypes.Damage]))
-                .AddAttackCanceledEvent()
-
-                .AddAttackCooldownInitialTime(new ReactiveVariable<float>(config.AttackCooldown))
-                .AddAttackCooldownModifiedTime(new ReactiveVariable<float>(config.AttackCooldown))
-
-                .AddAttackCooldownCurrentTime()
-                .AddInAttackCooldown()
+                .AddActiveSpellConfig(null)
+                .AddIsCasting()
+                .AddCastWindupCurrentTime()
+                .AddCastRequest(new ReactiveEvent())
 
                 .AddSpawnInitialTime(new ReactiveVariable<float>(config.SpawnProcessTime))
                 .AddSpawnCurrentTime()
                 .AddInSpawnProcess()
+
+                // Stub components required by legacy Views on the Hero prefab (AttackView, AttackAnimationSpeedView, CurrentTargetView).
+                // These Views are kept because the auto-attack system may be re-enabled; components hold inert defaults.
+                .AddInAttackProcess(new ReactiveVariable<bool>(false))
+                .AddAttackProcessInitialTime(new ReactiveVariable<float>(1f))
+                .AddAttackProcessModifiedTime(new ReactiveVariable<float>(1f))
+                .AddCurrentTarget(new ReactiveVariable<Entity>(null))
                 ;
 
             ICompositeCondition canMove = new CompositeCondition()
                 .Add(new FuncCondition(() => entity.IsDead.Value == false))
-                .Add(new FuncCondition(() => entity.InSpawnProcess.Value == false));
+                .Add(new FuncCondition(() => entity.InSpawnProcess.Value == false))
+                .Add(new FuncCondition(() => entity.IsCasting.Value == false));
 
             ICompositeCondition canRotate = new CompositeCondition()
                 .Add(new FuncCondition(() => entity.IsDead.Value == false))
-                .Add(new FuncCondition(() => entity.InAttackProcess.Value == false))
                 .Add(new FuncCondition(() => entity.InSpawnProcess.Value == false));
 
             ICompositeCondition mustDie = new CompositeCondition()
@@ -116,45 +106,23 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
                 .Add(new FuncCondition(() => entity.IsDead.Value == false))
                 .Add(new FuncCondition(() => entity.InSpawnProcess.Value == false));
 
-            ICompositeCondition canStartAttack = new CompositeCondition()
-                .Add(new FuncCondition(() => entity.IsDead.Value == false))
-                .Add(new FuncCondition(() => entity.InAttackProcess.Value == false))
-                .Add(new FuncCondition(() => entity.IsMoving.Value == false))
-                .Add(new FuncCondition(() => entity.InAttackCooldown.Value == false))
-                .Add(new FuncCondition(() => entity.InSpawnProcess.Value == false));
-
-            ICompositeCondition mustCancelAttack = new CompositeCondition(LogicOperations.Or)
-                .Add(new FuncCondition(() => entity.IsDead.Value == true))
-                .Add(new FuncCondition(() => entity.IsMoving.Value == true));
-
             entity
                 .AddCanMove(canMove)
                 .AddCanRotate(canRotate)
                 .AddMustDie(mustDie)
                 .AddMustSelfRelease(mustSelfRelease)
-                .AddCanApplyDamage(canApplyDamage)
-                .AddCanStartAttack(canStartAttack)
-                .AddMustCancelAttack(mustCancelAttack);
+                .AddCanApplyDamage(canApplyDamage);
 
             entity
                 .AddSystem(new StatEffectsApplierSystem())
                 .AddSystem(new MoveSpeedStatSynchronizerSystem())
                 .AddSystem(new MaxHealthStatSynchronizerSystem())
-                .AddSystem(new DamageStatSynchronizerSystem())
 
-                .AddSystem(new AttackTimeByAttackSpeedStatSyncronizerSystem())
-                .AddSystem(new AttackPerSecondStatSynchronizerSystem())
-
+                .AddSystem(new ManaRegenSystem())
+                .AddSystem(new SpellCastingWindupSystem(this, _entitiesLifeContext))
                 .AddSystem(new SpawnProcessTimerSystem())
                 .AddSystem(new RigidbodyMovementSystem())
                 .AddSystem(new RigidbodyRotationSystem())
-                .AddSystem(new AttackCancelSystem())
-                .AddSystem(new StartAttackSystem())
-                .AddSystem(new AttackProcessTimerSystem())
-                .AddSystem(new AttackDelayEndTriggerSystem())
-                .AddSystem(new DirectionsInstantShootSystem(this))
-                .AddSystem(new EndAttackSystem())
-                .AddSystem(new AttackCooldownTimerSystem())
                 .AddSystem(new ApplyDamageSystem())
                 .AddSystem(new DeathSystem())
                 .AddSystem(new DisableCollidersOnDeathSystem())
@@ -256,7 +224,8 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
                 .AddRotationDirection(new ReactiveVariable<Vector3>(direction))
                 .AddRotationSpeed(new ReactiveVariable<float>(9999))
                 .AddIsDead()
-                .AddContactsDetectingMask(LayersAPI.LayerMaskCharacters | LayersAPI.LayerMaskEnviroment)
+                // .AddContactsDetectingMask(LayersAPI.LayerMaskCharacters | LayersAPI.LayerMaskEnviroment)
+                .AddContactsDetectingMask(LayersAPI.LayerMaskDefault)
                 .AddContactCollidersBuffer(new Buffer<Collider>(64))
                 .AddContactEntitiesBuffer(new Buffer<Entity>(64))
                 .AddBodyContactDamage(new ReactiveVariable<float>(damage))

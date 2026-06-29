@@ -17,7 +17,6 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.AI
         private readonly TimerServiceFactory _timerServiceFactory;
         private readonly AIBrainsContext _brainsContext;
         private readonly IInputService _inputService;
-        private readonly EntitiesLifeContext _entitiesLifeContext;
 
         public BrainsFactory(DIContainer container)
         {
@@ -25,38 +24,14 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.AI
             _timerServiceFactory = _container.Resolve<TimerServiceFactory>();
             _brainsContext = _container.Resolve<AIBrainsContext>();
             _inputService = _container.Resolve<IInputService>();
-            _entitiesLifeContext = _container.Resolve<EntitiesLifeContext>();
         }
 
-        public StateMachineBrain CreateMainHeroBrain(Entity entity, ITargetSelector targetSelector)
+        public StateMachineBrain CreateMainHeroBrain(Entity entity)
         {
-            AIStateMachine combatState = CreateAutoAttackStateMachine(entity);
-
             PlayerInputMovementState movementState = new PlayerInputMovementState(entity, _inputService);
 
-            ReactiveVariable<Entity> currentTarget = entity.CurrentTarget;
-
-            ICompositeCondition fromMovementToCombatStateCondition = new CompositeCondition()
-                .Add(new FuncCondition(() => currentTarget.Value != null))
-                .Add(new FuncCondition(() => _inputService.MoveDirection == Vector3.zero));
-
-            ICompositeCondition fromCombatToMovementStateCondition = new CompositeCondition(LogicOperations.Or)
-                .Add(new FuncCondition(() => currentTarget.Value == null))
-                .Add(new FuncCondition(() => _inputService.MoveDirection != Vector3.zero));
-
-            AIStateMachine behaviour = new AIStateMachine();
-
-            behaviour.AddState(movementState);
-            behaviour.AddState(combatState);
-
-            behaviour.AddTransition(movementState, combatState, fromMovementToCombatStateCondition);
-            behaviour.AddTransition(combatState, movementState, fromCombatToMovementStateCondition);
-
-            FindTargetState findTargetState = new FindTargetState(targetSelector, _entitiesLifeContext, entity);
-            AIParallelState parallelState = new AIParallelState(findTargetState, behaviour);
-
             AIStateMachine rootStateMachine = new AIStateMachine();
-            rootStateMachine.AddState(parallelState);
+            rootStateMachine.AddState(movementState);
 
             StateMachineBrain brain = new StateMachineBrain(rootStateMachine);
             _brainsContext.SetFor(entity, brain);

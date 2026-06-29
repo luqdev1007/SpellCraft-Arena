@@ -17,6 +17,10 @@ namespace Assets._Project.Develop.Runtime.Configs.Gameplay.Entities
         [field: SerializeField, Min(0)] public float AttackCooldown { get; private set; } = 1f;
         [field: SerializeField, Min(0)] public float InstantAttackDamage { get; private set; } = 50;
 
+        [Header("Mana Settings")]
+        [field: SerializeField, Min(0)] public float MaxMana { get; private set; } = 100;
+        [field: SerializeField, Min(0)] public float ManaRegenRate { get; private set; } = 10;
+
         [Header("Life Cycle Settings")]
         [field: SerializeField, Min(0)] public float MaxHealth { get; private set; } = 100;
         [field: SerializeField, Min(0)] public float DeathProcessTime { get; private set; } = 2;

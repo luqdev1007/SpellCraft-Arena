@@ -43,5 +43,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.InputFeature
         }
 
         public bool IsAttackKeyPressed => Input.GetKeyDown(KeyCode.Mouse0);
+
+        public bool IsCastRequested => Input.GetKeyDown(KeyCode.Space);
     }
 }
