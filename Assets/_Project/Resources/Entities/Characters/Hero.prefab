@@ -17125,9 +17125,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Assets._Project.Develop.Runtime.Gameplay.Features.SpellcastingFeature.OrbsDisplayView
   _orbsRoot: {fileID: 4104953870440965243}
-  _orbHeight: 1
+  _orbHeight: 1.3
   _arcRadius: 1
-  _arcDegrees: 15
+  _arcDegrees: 25
   _castVfxPrefab: {fileID: 1346918073532921006, guid: 943c31ff935b47a4b915be715aaa5390, type: 3}
   _orbPrefabsByAspect:
   - {fileID: 111674, guid: 8eb36e8533db0334c88e703607efa78b, type: 3}

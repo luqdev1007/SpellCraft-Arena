@@ -189,9 +189,6 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
                 .AddCanApplyDamage(canApplyDamage);
 
             entity
-                .AddFireballExplosionVfx(null);
-
-            entity
                 .AddSystem(new RigidbodyMovementSystem())
                 .AddSystem(new RigidbodyRotationSystem())
                 .AddSystem(new ApplyDamageSystem())
@@ -254,16 +251,12 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
                 .AddMustSelfRelease(mustSelfRelease);
 
             entity
-                .AddFireballExplosionVfx(null);
-
-            entity
                 .AddSystem(new RigidbodyMovementSystem())
                 .AddSystem(new RigidbodyRotationSystem())
                 .AddSystem(new BodyContactDetectingSystem())
                 .AddSystem(new BodyContactsEntitiesFilterSystem(_collidersRegistryService))
                 .AddSystem(new DealDamageOnContactSystem())
                 .AddSystem(new DeathMaskTouchDetectorSystem())
-                .AddSystem(new FireballExplosionVfxSystem())
                 .AddSystem(new AnotherTeamTouchDetectorSystem())
                 .AddSystem(new DeathSystem())
                 .AddSystem(new DisableCollidersOnDeathSystem())
@@ -335,6 +328,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
         private Entity CreateEmpty() => new Entity();
     }
 }
+
 
 
 
