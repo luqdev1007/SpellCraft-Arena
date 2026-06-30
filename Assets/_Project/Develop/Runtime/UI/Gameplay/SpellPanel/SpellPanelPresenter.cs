@@ -58,6 +58,13 @@ namespace Assets._Project.Develop.Runtime.UI.Gameplay.SpellPanel
 
             _orbsDisplay = _heroEntity.Transform.GetComponentInChildren<OrbsDisplayView>();
 
+            if (_heroEntity.ActiveSpellConfig == null && _spellsContainer.DefaultSpell != null)
+                _heroEntity.ActiveSpellConfigC.Value = _spellsContainer.DefaultSpell;
+
+            SpellConfig initial = _heroEntity.ActiveSpellConfig;
+            if (initial != null && _view.ActiveSpellIcon != null && initial.Icon != null)
+                _view.ActiveSpellIcon.sprite = initial.Icon;
+
             UpdateCastButtonInteractable();
         }
 

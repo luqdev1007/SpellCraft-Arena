@@ -17,7 +17,7 @@ MonoBehaviour:
   <Icon>k__BackingField: {fileID: 21300000, guid: f5ab3f534c1138f4786f23cd74103223, type: 3}
   <Aspects>k__BackingField: 050000000400000003000000
   <ManaCost>k__BackingField: 35
-  <CastTime>k__BackingField: 0.4
+  <CastTime>k__BackingField: 1
   <CastType>k__BackingField: 2
   <PrefabPath>k__BackingField: Prefabs/Spells/FrostStrikeSpell
   <Damage>k__BackingField: 60

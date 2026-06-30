@@ -12,6 +12,9 @@ namespace Assets._Project.Develop.Runtime.Configs.Gameplay.Spells
         [Tooltip("Icons in Aspect enum order: Blood, Fire, Light, Death, Nature, Ice, Magic")]
         [field: SerializeField] public Sprite[] AspectIcons { get; private set; } = new Sprite[7];
 
+        [Tooltip("Spell shown and active immediately on game start, before the player picks a combo")]
+        [field: SerializeField] public SpellConfig DefaultSpell { get; private set; }
+
         public SpellConfig FindByAspects(IReadOnlyList<Aspect> aspects)
         {
             if (aspects == null || aspects.Count != 3)
