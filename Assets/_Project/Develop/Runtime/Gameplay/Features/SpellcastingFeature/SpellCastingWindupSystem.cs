@@ -20,7 +20,8 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.SpellcastingFeature
         private ReactiveVariable<bool> _isCasting;
         private ReactiveVariable<float> _windupCurrentTime;
         private ReactiveVariable<float> _currentMana;
-        private ReactiveVariable<float> _maxMana;
+
+        private bool _effectFired;
 
         private IDisposable _castRequestSub;
 
@@ -37,7 +38,6 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.SpellcastingFeature
             _isCasting = entity.IsCasting;
             _windupCurrentTime = entity.CastWindupCurrentTime;
             _currentMana = entity.CurrentMana;
-            _maxMana = entity.MaxMana;
 
             _castRequestSub = _castRequest.Subscribe(OnCastRequested);
         }
@@ -57,8 +57,19 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.SpellcastingFeature
 
             _windupCurrentTime.Value += deltaTime;
 
+            // Fire spell at CastMomentTime (scaled by same multiplier as animation speed)
+            // effectTime = CastMomentTime * (modifiedTime / initialTime) = CastMomentTime * CastTime / initialTime
+            float initialTime = _entity.AttackProcessInitialTime.Value;
+            float effectTime = config.CastMomentTime * config.CastTime / initialTime;
+
+            if (!_effectFired && _windupCurrentTime.Value >= effectTime)
+            {
+                FireSpellEffect(config);
+                _effectFired = true;
+            }
+
             if (_windupCurrentTime.Value >= config.CastTime)
-                ExecuteCast(config);
+                EndCast(config);
         }
 
         public void OnDispose()
@@ -84,20 +95,16 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.SpellcastingFeature
 
             _isCasting.Value = true;
             _windupCurrentTime.Value = 0f;
+            _effectFired = false;
             _entity.AttackProcessModifiedTime.Value = config.CastTime;
 
             if (config.CastType == SpellCastType.AreaOfEffect)
                 SpawnConeIndicator(config);
         }
 
-        private void ExecuteCast(SpellConfig config)
+        private void FireSpellEffect(SpellConfig config)
         {
             _currentMana.Value = Mathf.Max(0f, _currentMana.Value - config.ManaCost);
-            _isCasting.Value = false;
-            _windupCurrentTime.Value = 0f;
-            _entity.AttackProcessModifiedTime.Value = _entity.AttackProcessInitialTime.Value;
-
-            Debug.Log($"[SpellCast] ExecuteCast: {config.Name}, type={config.CastType}, dmg={config.Damage}");
 
             switch (config.CastType)
             {
@@ -116,17 +123,20 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.SpellcastingFeature
             }
         }
 
+        private void EndCast(SpellConfig config)
+        {
+            _isCasting.Value = false;
+            _windupCurrentTime.Value = 0f;
+            _entity.AttackProcessModifiedTime.Value = _entity.AttackProcessInitialTime.Value;
+        }
+
         private void CastProjectile(SpellConfig config)
         {
-            Debug.Log($"[SpellCast] CastProjectile start");
-
             if (_entity.TryGetShootPoint(out Transform shootPoint) == false)
                 shootPoint = _entity.Transform;
 
             Vector3 dir = shootPoint.forward;
-            Debug.Log($"[SpellCast] Spawning fireball at {shootPoint.position}, dir={dir}");
             _entitiesFactory.CreateFireballProjectile(shootPoint.position, dir, config.Damage, _entity);
-            Debug.Log($"[SpellCast] Fireball spawned OK");
         }
 
         private void CastAreaOfEffect(SpellConfig config)

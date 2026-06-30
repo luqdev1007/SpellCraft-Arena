@@ -13,6 +13,10 @@ namespace Assets._Project.Develop.Runtime.Configs.Gameplay.Spells
 
         [field: SerializeField, Min(0)] public float ManaCost { get; private set; } = 25f;
         [field: SerializeField, Min(0)] public float CastTime { get; private set; } = 0.4f;
+
+        [Tooltip("Moment when the spell fires, in seconds relative to a base 1-second animation. " +
+                 "Scaled by the same speed multiplier as the animation. Default 0.6 = frame at 60% of the swing.")]
+        [field: SerializeField, Min(0)] public float CastMomentTime { get; private set; } = 0.6f;
         [field: SerializeField] public SpellCastType CastType { get; private set; }
 
         [field: SerializeField] public string PrefabPath { get; private set; }
