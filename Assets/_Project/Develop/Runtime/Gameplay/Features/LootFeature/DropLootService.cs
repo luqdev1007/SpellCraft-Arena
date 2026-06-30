@@ -21,37 +21,8 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.LootFeature
         {
             Transform entityTransform = entity.Transform;
 
-            List<ExperienceLootConfig> expConfigs = _lootListConfig.LootConfigs
-                .Where(loot => loot.GetType() == typeof(ExperienceLootConfig))
-                .Cast<ExperienceLootConfig>()
-                .ToList();
-
-            if (expConfigs.Count > 0)
-                DropExp(entityTransform.position, expConfigs[Random.Range(0, expConfigs.Count)]);
-
             DropCoins(entityTransform.position);
             DropHealth(entityTransform.position);
-        }
-
-        private void DropExp(Vector3 position, ExperienceLootConfig experienceLootConfig)
-        {
-            int expInLootItem = 300;
-
-            if (experienceLootConfig.Experience < expInLootItem)
-            {
-                _lootFactory.CreateExperienceLoot(experienceLootConfig.PrefabPath, position, experienceLootConfig.Experience);
-            }
-            else
-            {
-                int restOfExp = experienceLootConfig.Experience % expInLootItem;
-
-                int potionNumbers = (experienceLootConfig.Experience - restOfExp) / expInLootItem;
-
-                for (int i = 0; i < potionNumbers; i++)
-                {
-                    _lootFactory.CreateExperienceLoot(experienceLootConfig.PrefabPath, position, expInLootItem);
-                }
-            }
         }
 
         public void DropCoins(Vector3 position)

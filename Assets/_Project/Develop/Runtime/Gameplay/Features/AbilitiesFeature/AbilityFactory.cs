@@ -20,20 +20,15 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.AbilitiesFeature
         {
             switch (config)
             {
-                case StatChangeAbilityConfig changeAbilityConfig:
-                    return new StatChangeAbility(entity, changeAbilityConfig, currentLevel);
 
-
-                case AdditionalDirectionsShotAbilityConfig additionalDirectionsShotAbilityConfig:
-                    return new AdditionalDirectionsShotAbility(additionalDirectionsShotAbilityConfig, entity, currentLevel);
-
-                case BounceProjectileAbilityConfig bounceProjectileAbilityConfig:
-                    return new BounceProjectileAbility(
-                        bounceProjectileAbilityConfig,
-                        entity,
-                        _container.Resolve<EntitiesLifeContext>(),
-                        currentLevel);
-
+                // ЗАКОММЕНТИРОВАНО: BounceProjectileAbility
+//                 case BounceProjectileAbilityConfig bounceProjectileAbilityConfig:
+//                     return new BounceProjectileAbility(
+//                         bounceProjectileAbilityConfig,
+//                         entity,
+//                         _container.Resolve<EntitiesLifeContext>(),
+//                         currentLevel);
+// 
                 default:
                     throw new ArgumentException();
             }

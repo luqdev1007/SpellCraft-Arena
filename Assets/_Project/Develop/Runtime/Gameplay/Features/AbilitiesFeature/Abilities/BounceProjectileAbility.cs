@@ -1,4 +1,10 @@
-﻿using Assets._Project.Develop.Runtime.Configs.Gameplay.Abilities;
+﻿/*
+// ЗАКОММЕНТИРОВАНО: BounceProjectileAbility
+// Причина: Bounce система будет переделана для работы с заклинаниями (spell bouncing)
+// Не удаляем, т.к. может понадобиться для будущего bounce-механизма в рогалике
+// Git хранит полную историю, можно восстановить когда понадобится
+
+using Assets._Project.Develop.Runtime.Configs.Gameplay.Abilities;
 using Assets._Project.Develop.Runtime.Gameplay.EntitiesCore;
 using Assets._Project.Develop.Runtime.Gameplay.Features.Attack;
 using Assets._Project.Develop.Runtime.Gameplay.Features.BounceFeature;
@@ -57,3 +63,4 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.AbilitiesFeature.Abi
         }
     }
 }
+*/
