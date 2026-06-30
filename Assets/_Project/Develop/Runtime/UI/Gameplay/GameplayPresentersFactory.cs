@@ -110,13 +110,6 @@ namespace Assets._Project.Develop.Runtime.UI.Gameplay
                 );
         }
 
-        public MainHeroExperiencePresenter CreateMainHeroExperiencePresenter(BarWithText view)
-        {
-            return new MainHeroExperiencePresenter(
-                _container.Resolve<MainHeroHolderService>(),
-                view,
-                _container.Resolve<ConfigsProviderService>().GetConfig<ExperienceForUpgradeLevelConfig>());
-        }
 
         public ManaBarPresenter CreateManaBarPresenter(BarWithText view, Entity entity)
         {
@@ -131,3 +124,4 @@ namespace Assets._Project.Develop.Runtime.UI.Gameplay
         }
     }
 }
+

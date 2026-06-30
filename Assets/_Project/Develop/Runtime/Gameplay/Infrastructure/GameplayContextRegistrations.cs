@@ -47,7 +47,6 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
             container.RegisterAsSingle(CreateDropLootService);
             container.RegisterAsSingle(CreateLootPullingService).NonLazy();
 
-            container.RegisterAsSingle(CreateDropAbilityOnMainHeroLevelUpService).NonLazy();
 
             container.RegisterAsSingle<IPauseService>(CreateTimeScalePauseService);
 
