@@ -78,8 +78,6 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
                 .AddSpawnCurrentTime()
                 .AddInSpawnProcess()
 
-                // Stub components required by legacy Views on the Hero prefab (AttackView, AttackAnimationSpeedView, CurrentTargetView).
-                // These Views are kept because the auto-attack system may be re-enabled; components hold inert defaults.
                 .AddInAttackProcess(new ReactiveVariable<bool>(false))
                 .AddAttackProcessInitialTime(new ReactiveVariable<float>(1f))
                 .AddAttackProcessModifiedTime(new ReactiveVariable<float>(1f))
@@ -224,8 +222,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
                 .AddRotationDirection(new ReactiveVariable<Vector3>(direction))
                 .AddRotationSpeed(new ReactiveVariable<float>(9999))
                 .AddIsDead()
-                // .AddContactsDetectingMask(LayersAPI.LayerMaskCharacters | LayersAPI.LayerMaskEnviroment)
-                .AddContactsDetectingMask(LayersAPI.LayerMaskDefault)
+                .AddContactsDetectingMask(LayersAPI.LayerMaskCharacters | LayersAPI.LayerMaskEnviroment)
                 .AddContactCollidersBuffer(new Buffer<Collider>(64))
                 .AddContactEntitiesBuffer(new Buffer<Entity>(64))
                 .AddBodyContactDamage(new ReactiveVariable<float>(damage))

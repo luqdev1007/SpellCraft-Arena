@@ -12,7 +12,9 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.AI.States
 
         private readonly ReactiveVariable<Vector3> _movementDirection;
         private readonly ReactiveVariable<Vector3> _rotationDirection;
+        private readonly ReactiveVariable<bool> _isCasting;
         private readonly ReactiveEvent _castRequest;
+        private readonly Transform _entityTransform;
 
         public PlayerInputMovementState(Entity entity, IInputService inputService)
         {
@@ -20,13 +22,30 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.AI.States
 
             _movementDirection = entity.MoveDirection;
             _rotationDirection = entity.RotationDirection;
+            _isCasting = entity.IsCasting;
             _castRequest = entity.CastRequest;
+            _entityTransform = entity.Transform;
         }
 
         public void Update(float deltaTime)
         {
-            _movementDirection.Value = _inputService.MoveDirection;
-            _rotationDirection.Value = _inputService.RotateDirection;
+            Vector3 moveDir = _inputService.MoveDirection;
+            _movementDirection.Value = moveDir;
+
+            if (_isCasting.Value)
+            {
+                // During cast windup: rotate toward mouse for aiming
+                Vector3 mouseWorldPos = _inputService.RotateDirection;
+                Vector3 heroFlat = new Vector3(_entityTransform.position.x, 0f, _entityTransform.position.z);
+                Vector3 aimDir = mouseWorldPos - heroFlat;
+                if (aimDir.sqrMagnitude > 0.01f)
+                    _rotationDirection.Value = aimDir.normalized;
+            }
+            else if (moveDir != Vector3.zero)
+            {
+                // Outside cast: rotate only toward movement direction
+                _rotationDirection.Value = moveDir;
+            }
 
             if (_inputService.IsCastRequested)
                 _castRequest.Invoke();

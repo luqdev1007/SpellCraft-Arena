@@ -163,6 +163,8 @@ Assets/
 | Spell cast system | `_Project/Develop/Runtime/Gameplay/Features/SpellcastingFeature/SpellCastingWindupSystem.cs` |
 | Spell components | `_Project/Develop/Runtime/Gameplay/Features/SpellcastingFeature/SpellcastingComponents.cs` |
 | Orb display (EntityView) | `_Project/Develop/Runtime/Gameplay/Features/SpellcastingFeature/OrbsDisplayView.cs` |
+| Orb idle animation | `_Project/Develop/Runtime/Gameplay/Features/SpellcastingFeature/OrbIdleView.cs` |
+| Cone AoE indicator (runtime + gizmo) | `_Project/Develop/Runtime/Gameplay/Features/SpellcastingFeature/SpellConeIndicatorView.cs` |
 | Cast animation (EntityView) | `_Project/Develop/Runtime/Gameplay/Features/SpellcastingFeature/SpellCastView.cs` |
 | Spell configs | `_Project/Resources/Configs/Gameplay/Spells/` (FireballSpell.asset, IceSpikesSpell.asset) |
 | Spell container | `_Project/Resources/Configs/Gameplay/Spells/SpellsConfigsContainer.asset` |
@@ -192,16 +194,22 @@ Assets/
 - **Aspect combo spell system**: 7 aspects (`Blood, Fire, Light, Death, Nature, Ice, Magic`); pick 3 to form a combo; `SpellsConfigsContainer.FindByAspects` does multiset (order-independent) matching
   - Fireball = Fire + Magic + Light (Projectile, 25 mana, 50 dmg)
   - Ice Spikes = Ice + Nature + Death (AoE r=3, 35 mana, 60 dmg, uses FrostStrikeSpell VFX)
-- **SpellCastingWindupSystem**: 0.4s windup, blocks movement (`IsCasting` in `canMove` condition), deducts mana, routes to projectile or AoE logic
+- **Teams**: Hero has `Team.MainHero`, Ghost has `Team.Enemies`; `EntitiesHelper.TryTakeDamageFrom` checks teams — same team = no damage; fireball inherits owner's team so it can't hurt the caster
+- **SpellCastingWindupSystem**: 0.4s windup, blocks movement (`IsCasting` in `canMove` condition), deducts mana, routes to projectile or AoE logic; on AoE cast: spawns `SpellConeIndicatorView` on hero (shows cone on ground for windup duration)
+- **Ice Spikes**: cone AoE — `ConeRange` (range, default 5f) and `ConeAngle` (degrees, default 60f) on `SpellConfig`; geometry: hit all enemies within range AND within half-angle of hero forward; both params are inspector-tunable on `IceSpikesSpell.asset`; VFX auto-destroyed after 4s
 - **SpellPanelView** (HUD): backed by `CombatActionsBarView.prefab` (nested in `GameplayScreenView.prefab`); 7 `AspectButtonView` components (short tap = add, long press ≥0.35s = remove), cast button (`AttackButton`), teleport/shield stub buttons; `OrbsDisplayView` on Hero prefab shows selected aspect orbs in world space
   - Orb prefab mapping (index = Aspect enum): [0]=Blood→orb01_red, [1]=Fire→orb02_red, [2]=Light→orb01_yellow, [3]=Death→orb01_purple, [4]=Nature→orb01_green, [5]=Ice→orb01_blue, [6]=Magic→orb02_purple
+  - Orbs arranged in arc above head (`arcRadius=0.55`, `arcDegrees=80`); each orb has idle bob+rotate via `OrbIdleView`; on cast all orbs fly to center + Magic circle VFX flash
+  - Selection frame DOTween fade-in/out (was behind `CircleMask` — fixed sibling order in prefab)
+- **Desktop rotation**: outside cast → hero rotates toward move direction only; during cast windup → hero rotates toward mouse (aiming window); controlled in `PlayerInputMovementState`
 - **Desktop cast**: Space key — `PlayerInputMovementState.Update()` calls `entity.CastRequest.Invoke()` when `_inputService.IsCastRequested`; **Mobile cast**: UI cast button in `SpellPanelView` fires same event
 - **MobileInput.cs**: `SimpleInput.GetAxis("Horizontal/Vertical")`, `IsCastRequested = false`; platform selected in `GameplayContextRegistrations`
 - **Cast animation**: `SpellCastView` (EntityView on HeroView GO) subscribes to `entity.IsCasting` → sets `Animator.SetBool("IsAttacking", value)`, reusing the existing attack animation
-- **Mana bar position**: follows hero in world space — `GameplayScreenPresenter.LateUpdate()` projects hero's `HealthBarPoint` to screen coords and offsets `ManaBarView` 30px below
+- **Mana bar**: follows hero in world space — `GameplayScreenPresenter.LateUpdate()` projects hero's `HealthBarPoint` to screen coords and offsets `ManaBarView` 30px below; bar is 175×25 (matching health bar size)
+- **Fireball**: contact mask = `Characters | Environment`; dies on Environment (DeathMask) or on another-team contact (IsTouchAnotherTeam); damages ghosts (Enemies team), ignores hero (same team)
 
 ### Stubs / VFX only, no code
-- `FrostStrikeSpell.prefab` — used as AoE VFX for Ice Spikes (loaded at runtime via `Resources.Load`)
+- `FrostStrikeSpell.prefab` — used as AoE VFX for Ice Spikes (loaded at runtime via `Resources.Load`, auto-destroyed after 4s)
 - `BlinkButton.prefab` — UI stub only (logs `Debug.Log` on press)
 - `PotionsView.prefab` — UI stub only
 

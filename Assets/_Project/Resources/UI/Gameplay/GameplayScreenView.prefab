@@ -399,6 +399,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: ManaBar
       objectReference: {fileID: 0}
+    - target: {fileID: 2354748693229272383, guid: 7449de44e7bbd4042989460b87d7c31a, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2354748693229272383, guid: 7449de44e7bbd4042989460b87d7c31a, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5771341413856023906, guid: 7449de44e7bbd4042989460b87d7c31a, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -425,11 +433,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5771341413856023906, guid: 7449de44e7bbd4042989460b87d7c31a, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 900
+      value: 175
       objectReference: {fileID: 0}
     - target: {fileID: 5771341413856023906, guid: 7449de44e7bbd4042989460b87d7c31a, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 45
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 5771341413856023906, guid: 7449de44e7bbd4042989460b87d7c31a, type: 3}
       propertyPath: m_LocalPosition.x

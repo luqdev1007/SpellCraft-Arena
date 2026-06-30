@@ -84,6 +84,9 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.SpellcastingFeature
 
             _isCasting.Value = true;
             _windupCurrentTime.Value = 0f;
+
+            if (config.CastType == SpellCastType.AreaOfEffect)
+                SpawnConeIndicator(config);
         }
 
         private void ExecuteCast(SpellConfig config)
@@ -126,16 +129,21 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.SpellcastingFeature
 
         private void CastAreaOfEffect(SpellConfig config)
         {
-            Vector3 spawnPos = _entity.Transform.position + _entity.Transform.forward * 3f;
+            Vector3 heroPos = _entity.Transform.position;
+            Vector3 heroForward = _entity.Transform.forward;
 
             if (!string.IsNullOrEmpty(config.PrefabPath))
             {
                 GameObject vfxPrefab = Resources.Load<GameObject>(config.PrefabPath);
                 if (vfxPrefab != null)
-                    Object.Instantiate(vfxPrefab, spawnPos, _entity.Transform.rotation);
+                {
+                    GameObject vfx = Object.Instantiate(vfxPrefab, heroPos, _entity.Transform.rotation);
+                    Object.Destroy(vfx, 4f);
+                }
             }
 
             IReadOnlyList<Entity> entities = _entitiesLifeContext.Entities;
+            float halfAngle = config.ConeAngle * 0.5f;
 
             for (int i = 0; i < entities.Count; i++)
             {
@@ -147,11 +155,28 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.SpellcastingFeature
                 if (target.TryGetComponent(out CurrentHealth _) == false)
                     continue;
 
-                float dist = Vector3.Distance(target.Transform.position, spawnPos);
+                Vector3 toTarget = target.Transform.position - heroPos;
+                toTarget.y = 0f;
 
-                if (dist <= config.AoeRadius)
-                    EntitiesHelper.TryTakeDamageFrom(_entity, target, config.Damage);
+                if (toTarget.magnitude > config.ConeRange)
+                    continue;
+
+                float angle = Vector3.Angle(heroForward, toTarget.normalized);
+                if (angle > halfAngle)
+                    continue;
+
+                EntitiesHelper.TryTakeDamageFrom(_entity, target, config.Damage);
             }
+        }
+
+        private void SpawnConeIndicator(SpellConfig config)
+        {
+            GameObject go = new GameObject("SpellConeIndicator");
+            go.transform.SetParent(_entity.Transform, false);
+            go.transform.localPosition = Vector3.zero;
+
+            SpellConeIndicatorView indicator = go.AddComponent<SpellConeIndicatorView>();
+            indicator.Init(config.ConeRange, config.ConeAngle, config.CastTime + 0.1f);
         }
     }
 }

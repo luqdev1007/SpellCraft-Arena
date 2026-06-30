@@ -1,4 +1,5 @@
 using Assets._Project.Develop.Runtime.Configs.Gameplay.Spells;
+using DG.Tweening;
 using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -30,6 +31,14 @@ namespace Assets._Project.Develop.Runtime.UI.Gameplay.SpellPanel
             if (icon != null && _icon != null)
                 _icon.sprite = icon;
 
+            if (_selectionFrame != null)
+            {
+                _selectionFrame.enabled = true;
+                Color c = _selectionFrame.color;
+                c.a = 0f;
+                _selectionFrame.color = c;
+            }
+
             SetSelected(false);
         }
 
@@ -37,8 +46,22 @@ namespace Assets._Project.Develop.Runtime.UI.Gameplay.SpellPanel
         {
             _isSelected = selected;
 
-            if (_selectionFrame != null)
-                _selectionFrame.enabled = selected;
+            if (_selectionFrame == null)
+                return;
+
+            _selectionFrame.enabled = true;
+            _selectionFrame.DOKill();
+            _selectionFrame.DOFade(selected ? 1f : 0f, 0.18f)
+                .SetUpdate(true)
+                .SetEase(selected ? Ease.OutQuad : Ease.InQuad);
+
+            if (selected)
+            {
+                _selectionFrame.transform.DOKill();
+                _selectionFrame.transform
+                    .DOPunchScale(Vector3.one * 0.12f, 0.18f, 4, 0.4f)
+                    .SetUpdate(true);
+            }
         }
 
         public void OnPointerDown(PointerEventData eventData)

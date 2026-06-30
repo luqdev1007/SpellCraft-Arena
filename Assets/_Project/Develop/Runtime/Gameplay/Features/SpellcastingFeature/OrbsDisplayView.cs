@@ -13,18 +13,20 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.SpellcastingFeature
     {
         [SerializeField] private Transform _orbsRoot;
         [SerializeField] private float _orbHeight = 2f;
-        [SerializeField] private float _orbSpacing = 0.5f;
+        [SerializeField] private float _arcRadius = 0.55f;
+        [SerializeField] private float _arcDegrees = 80f;
+
+        [Header("Cast flash VFX (assign in inspector)")]
+        [SerializeField] private GameObject _castVfxPrefab;
 
         [Header("Orb Prefabs (by Aspect enum order: Blood, Fire, Light, Death, Nature, Ice, Magic)")]
         [SerializeField] private GameObject[] _orbPrefabsByAspect = new GameObject[7];
 
         private readonly List<GameObject> _activeOrbs = new();
         private IDisposable _castingSub;
-        private Entity _entity;
 
         protected override void OnEntityStartedWork(Entity entity)
         {
-            _entity = entity;
             _castingSub = entity.IsCasting.Subscribe(OnCastingChanged);
         }
 
@@ -48,28 +50,86 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.SpellcastingFeature
                 GameObject orb = Object.Instantiate(_orbPrefabsByAspect[idx], GetOrbRoot());
                 orb.transform.localPosition = GetOrbLocalPosition(i, aspects.Count);
                 orb.transform.localScale = Vector3.zero;
-                orb.transform.DOScale(Vector3.one, 0.2f).SetEase(Ease.OutBack);
+                orb.transform.DOScale(Vector3.one, 0.22f).SetEase(Ease.OutBack);
+
+                OrbIdleView idle = orb.AddComponent<OrbIdleView>();
+                idle.SetBaseLocalPosition(GetOrbLocalPosition(i, aspects.Count));
 
                 _activeOrbs.Add(orb);
             }
         }
 
-        private Transform GetOrbRoot()
-        {
-            return _orbsRoot != null ? _orbsRoot : transform;
-        }
+        private Transform GetOrbRoot() => _orbsRoot != null ? _orbsRoot : transform;
 
         private Vector3 GetOrbLocalPosition(int index, int total)
         {
-            float totalWidth = (total - 1) * _orbSpacing;
-            float x = -totalWidth / 2f + index * _orbSpacing;
-            return new Vector3(x, _orbHeight, 0f);
+            if (total == 1)
+                return new Vector3(0f, _orbHeight, 0f);
+
+            float startAngle = -_arcDegrees * 0.5f;
+            float step = _arcDegrees / (total - 1);
+            float angleDeg = startAngle + index * step;
+            float rad = angleDeg * Mathf.Deg2Rad;
+
+            float x = Mathf.Sin(rad) * _arcRadius;
+            float yOffset = (Mathf.Cos(rad) - 1f) * _arcRadius * 0.25f;
+
+            return new Vector3(x, _orbHeight + yOffset, 0f);
         }
 
         private void OnCastingChanged(bool prev, bool isCasting)
         {
-            if (isCasting)
-                ClearOrbs(true);
+            if (!isCasting)
+                return;
+
+            if (_activeOrbs.Count == 0)
+                return;
+
+            PlayCastAnimation();
+        }
+
+        private void PlayCastAnimation()
+        {
+            Transform root = GetOrbRoot();
+            Vector3 worldTarget = root.TransformPoint(new Vector3(0f, _orbHeight, 0f));
+
+            List<GameObject> orbs = new List<GameObject>(_activeOrbs);
+            _activeOrbs.Clear();
+
+            int total = orbs.Count;
+            int done = 0;
+
+            foreach (GameObject orb in orbs)
+            {
+                if (orb == null)
+                {
+                    done++;
+                    if (done == total) SpawnCastFlash(worldTarget);
+                    continue;
+                }
+
+                OrbIdleView idle = orb.GetComponent<OrbIdleView>();
+                idle?.StopIdle();
+
+                orb.transform
+                    .DOMove(worldTarget, 0.28f)
+                    .SetEase(Ease.InCubic)
+                    .OnComplete(() =>
+                    {
+                        if (orb != null) Object.Destroy(orb);
+                        done++;
+                        if (done == total) SpawnCastFlash(worldTarget);
+                    });
+            }
+        }
+
+        private void SpawnCastFlash(Vector3 worldPos)
+        {
+            if (_castVfxPrefab == null)
+                return;
+
+            GameObject vfx = Object.Instantiate(_castVfxPrefab, worldPos, Quaternion.identity);
+            Object.Destroy(vfx, 3f);
         }
 
         private void ClearOrbs(bool animated)

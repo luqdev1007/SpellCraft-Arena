@@ -17,6 +17,12 @@ namespace Assets._Project.Develop.Runtime.Configs.Gameplay.Spells
 
         [field: SerializeField] public string PrefabPath { get; private set; }
         [field: SerializeField] public float Damage { get; private set; } = 50f;
+
+        [Header("Circle AoE (legacy)")]
         [field: SerializeField] public float AoeRadius { get; private set; } = 3f;
+
+        [Header("Cone AoE")]
+        [field: SerializeField, Min(0.5f)] public float ConeRange { get; private set; } = 5f;
+        [field: SerializeField, Range(10f, 180f)] public float ConeAngle { get; private set; } = 60f;
     }
 }

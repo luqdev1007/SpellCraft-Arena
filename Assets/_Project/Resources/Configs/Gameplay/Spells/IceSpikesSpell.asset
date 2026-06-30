@@ -22,3 +22,5 @@ MonoBehaviour:
   <PrefabPath>k__BackingField: Prefabs/Spells/FrostStrikeSpell
   <Damage>k__BackingField: 60
   <AoeRadius>k__BackingField: 3
+  <ConeRange>k__BackingField: 7.5
+  <ConeAngle>k__BackingField: 70
