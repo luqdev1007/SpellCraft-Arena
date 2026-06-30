@@ -16,19 +16,6 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.LootFeature
             _entitiesLifeContext = container.Resolve<EntitiesLifeContext>();
         }
 
-        public Entity CreateExperienceLoot(string prefabPath, Vector3 position, float experience)
-        {
-            Entity pullableBase = _entityFactory.CreatePullable(prefabPath, position);
-
-            pullableBase
-                .AddExperience(new ReactiveVariable<float>(experience))
-                .AddSystem(new CollectExperienceToTargetSystem());
-
-            _entitiesLifeContext.Add(pullableBase);
-
-            return pullableBase;
-        }
-
         public Entity CreateCoinsLoot(string prefabPath, Vector3 position, int coins)
         {
             Entity pullableBase = _entityFactory.CreatePullable(prefabPath, position);

@@ -1,5 +1,4 @@
 ﻿using Assets._Project.Develop.Runtime.Gameplay.EntitiesCore;
-using Assets._Project.Develop.Runtime.Gameplay.Features.LevelUPFeature;
 using Assets._Project.Develop.Runtime.Gameplay.Features.MainHero;
 using Assets._Project.Develop.Runtime.UI.Core;
 using Assets._Project.Develop.Runtime.UI.Gameplay.HealthDisplay;
@@ -51,7 +50,6 @@ namespace Assets._Project.Develop.Runtime.UI.Gameplay
 
             CreateStageNumber();
             CreateEntitiesHealthDisplay();
-            CreateMainHeroExperienceView();
 
             _mainHeroHolderServiceDisposable = _mainHeroHolderService.HeroRegistred.Subscribe(OnHeroRegistred);
 
@@ -123,13 +121,6 @@ namespace Assets._Project.Develop.Runtime.UI.Gameplay
             _entitiesHealthDisplayPresenter = _gameplayPresentersFactory.CreateEntitiesHealthDisplayPresenter(_screen.EntitiesHealthDisplay);
 
             _childPresenters.Add(_entitiesHealthDisplayPresenter);
-        }
-
-        private void CreateMainHeroExperienceView()
-        {
-            MainHeroExperiencePresenter experiencePresenter = _gameplayPresentersFactory.CreateMainHeroExperiencePresenter(_screen.ExpBarView);
-
-            _childPresenters.Add(experiencePresenter);
         }
     }
 }

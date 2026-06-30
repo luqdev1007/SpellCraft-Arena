@@ -1,9 +1,7 @@
 ﻿using Assets._Project.Develop.Runtime.Configs.Gameplay;
 using Assets._Project.Develop.Runtime.Configs.Gameplay.Entities;
 using Assets._Project.Develop.Runtime.Gameplay.EntitiesCore;
-using Assets._Project.Develop.Runtime.Gameplay.Features.AbilitiesFeature;
 using Assets._Project.Develop.Runtime.Gameplay.Features.AI;
-using Assets._Project.Develop.Runtime.Gameplay.Features.LevelUPFeature;
 using Assets._Project.Develop.Runtime.Gameplay.Features.StatsFeature;
 using Assets._Project.Develop.Runtime.Gameplay.Features.TeamsFeature;
 using System.Collections.Generic;
@@ -48,16 +46,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.MainHero
                 .AddTeam(new ReactiveVariable<Teams>(Teams.MainHero));
 
             entity
-                .AddAbilities()
-                .AddSystem(new AbilityOnAddActivatorSystem());
-
-            entity
                 .AddCoins();
-
-            entity
-                .AddLevel(new ReactiveVariable<int>(1))
-                .AddExperience()
-                .AddSystem(new LevelUpSystem(_configsProviderService.GetConfig<ExperienceForUpgradeLevelConfig>()));
 
             SpellsConfigsContainer spellsContainer = _configsProviderService.GetConfig<SpellsConfigsContainer>();
             SpellConfig defaultSpell = spellsContainer.Spells.Count > 0 ? spellsContainer.Spells[0] : null;

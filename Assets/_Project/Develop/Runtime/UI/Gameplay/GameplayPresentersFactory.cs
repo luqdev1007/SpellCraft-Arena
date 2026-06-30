@@ -5,7 +5,6 @@ using Assets._Project.Develop.Runtime.Configs.Gameplay.Spells;
 using Assets._Project.Develop.Runtime.Gameplay.EntitiesCore;
 using Assets._Project.Develop.Runtime.Gameplay.Features.AbilitiesDroppingFeature;
 using Assets._Project.Develop.Runtime.Gameplay.Features.AbilitiesFeature;
-using Assets._Project.Develop.Runtime.Gameplay.Features.LevelUPFeature;
 using Assets._Project.Develop.Runtime.Gameplay.Features.MainHero;
 using Assets._Project.Develop.Runtime.Gameplay.Features.StageFeature;
 using Assets._Project.Develop.Runtime.UI.CommonViews;
