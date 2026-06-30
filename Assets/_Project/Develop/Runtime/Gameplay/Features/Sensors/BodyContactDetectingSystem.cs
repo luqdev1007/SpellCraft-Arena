@@ -22,15 +22,33 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.Sensors
 
         public void OnUpdate(float deltaTime)
         {
+            GetCapsulePoints(out Vector3 p1, out Vector3 p2);
+
             _contacts.Count = Physics.OverlapCapsuleNonAlloc(
-                _body.bounds.min,
-                _body.bounds.max,
+                p1,
+                p2,
                 _body.radius,
                 _contacts.Items,
-                _mask, 
+                _mask,
                 QueryTriggerInteraction.Ignore);
 
             RemoveSelfFromContacts();
+        }
+
+        private void GetCapsulePoints(out Vector3 p1, out Vector3 p2)
+        {
+            Vector3 worldCenter = _body.transform.TransformPoint(_body.center);
+            float offset = Mathf.Max(0f, _body.height * 0.5f - _body.radius);
+
+            Vector3 axis = _body.direction switch
+            {
+                0 => _body.transform.right,
+                2 => _body.transform.forward,
+                _ => _body.transform.up,
+            };
+
+            p1 = worldCenter + axis * offset;
+            p2 = worldCenter - axis * offset;
         }
 
         private void RemoveSelfFromContacts()

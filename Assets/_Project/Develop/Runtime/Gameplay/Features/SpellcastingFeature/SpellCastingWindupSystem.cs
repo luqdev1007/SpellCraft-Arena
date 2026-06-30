@@ -84,6 +84,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.SpellcastingFeature
 
             _isCasting.Value = true;
             _windupCurrentTime.Value = 0f;
+            _entity.AttackProcessModifiedTime.Value = config.CastTime;
 
             if (config.CastType == SpellCastType.AreaOfEffect)
                 SpawnConeIndicator(config);
@@ -94,6 +95,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.SpellcastingFeature
             _currentMana.Value = Mathf.Max(0f, _currentMana.Value - config.ManaCost);
             _isCasting.Value = false;
             _windupCurrentTime.Value = 0f;
+            _entity.AttackProcessModifiedTime.Value = _entity.AttackProcessInitialTime.Value;
 
             Debug.Log($"[SpellCast] ExecuteCast: {config.Name}, type={config.CastType}, dmg={config.Damage}");
 
