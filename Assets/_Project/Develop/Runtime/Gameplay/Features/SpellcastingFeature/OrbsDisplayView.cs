@@ -1,4 +1,4 @@
-using Assets._Project.Develop.Runtime.Configs.Gameplay.Spells;
+﻿using Assets._Project.Develop.Runtime.Configs.Gameplay.Spells;
 using Assets._Project.Develop.Runtime.Gameplay.EntitiesCore;
 using Assets._Project.Develop.Runtime.Gameplay.EntitiesCore.Mono;
 using DG.Tweening;
@@ -12,9 +12,9 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.SpellcastingFeature
     public class OrbsDisplayView : EntityView
     {
         [SerializeField] private Transform _orbsRoot;
-        [SerializeField] private float _orbHeight = 2f;
-        [SerializeField] private float _arcRadius = 0.55f;
-        [SerializeField] private float _arcDegrees = 80f;
+        [SerializeField] private float _orbHeight = 2.3f;
+        [SerializeField] private float _arcRadius = 0.85f;
+        [SerializeField] private float _arcDegrees = 110f;
 
         [Header("Cast flash VFX (assign in inspector)")]
         [SerializeField] private GameObject _castVfxPrefab;
@@ -23,11 +23,11 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.SpellcastingFeature
         [SerializeField] private GameObject[] _orbPrefabsByAspect = new GameObject[7];
 
         private readonly List<GameObject> _activeOrbs = new();
-        private IDisposable _castingSub;
+        private IDisposable _castingSub; // Not used anymore
 
         protected override void OnEntityStartedWork(Entity entity)
         {
-            _castingSub = entity.IsCasting.Subscribe(OnCastingChanged);
+            // Cast animation now triggered from SpellPanelPresenter on 3rd aspect, not on cast button
         }
 
         public override void Cleanup(Entity entity)
@@ -77,18 +77,9 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.SpellcastingFeature
             return new Vector3(x, _orbHeight + yOffset, 0f);
         }
 
-        private void OnCastingChanged(bool prev, bool isCasting)
-        {
-            if (!isCasting)
-                return;
 
-            if (_activeOrbs.Count == 0)
-                return;
 
-            PlayCastAnimation();
-        }
-
-        private void PlayCastAnimation()
+        public void PlayCastAnimation()
         {
             Transform root = GetOrbRoot();
             Vector3 worldTarget = root.TransformPoint(new Vector3(0f, _orbHeight, 0f));
@@ -155,3 +146,5 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.SpellcastingFeature
         }
     }
 }
+
+

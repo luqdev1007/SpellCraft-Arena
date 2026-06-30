@@ -1012,54 +1012,6 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
 			return AddComponent(new Assets._Project.Develop.Runtime.Gameplay.Features.LifeCycle.DisableCollidersOnDeath() {Value = value}); 
 		}
 
-		public Assets._Project.Develop.Runtime.Gameplay.Features.LevelUPFeature.Experience ExperienceC => GetComponent<Assets._Project.Develop.Runtime.Gameplay.Features.LevelUPFeature.Experience>();
-
-		public Assets._Project.Develop.Runtime.Utilites.Reactive.ReactiveVariable<System.Single> Experience => ExperienceC.Value;
-
-		public bool TryGetExperience(out Assets._Project.Develop.Runtime.Utilites.Reactive.ReactiveVariable<System.Single> value)
-		{
-			bool result = TryGetComponent(out Assets._Project.Develop.Runtime.Gameplay.Features.LevelUPFeature.Experience component);
-			if (result)
-				value = component.Value;
-			else
-				value = default(Assets._Project.Develop.Runtime.Utilites.Reactive.ReactiveVariable<System.Single>);
-			return result;
-		}
-
-		public Assets._Project.Develop.Runtime.Gameplay.EntitiesCore.Entity AddExperience()
-		{
-			return AddComponent(new Assets._Project.Develop.Runtime.Gameplay.Features.LevelUPFeature.Experience() { Value = new Assets._Project.Develop.Runtime.Utilites.Reactive.ReactiveVariable<System.Single>() }); 
-		}
-
-		public Assets._Project.Develop.Runtime.Gameplay.EntitiesCore.Entity AddExperience(Assets._Project.Develop.Runtime.Utilites.Reactive.ReactiveVariable<System.Single> value)
-		{
-			return AddComponent(new Assets._Project.Develop.Runtime.Gameplay.Features.LevelUPFeature.Experience() {Value = value}); 
-		}
-
-		public Assets._Project.Develop.Runtime.Gameplay.Features.LevelUPFeature.Level LevelC => GetComponent<Assets._Project.Develop.Runtime.Gameplay.Features.LevelUPFeature.Level>();
-
-		public Assets._Project.Develop.Runtime.Utilites.Reactive.ReactiveVariable<System.Int32> Level => LevelC.Value;
-
-		public bool TryGetLevel(out Assets._Project.Develop.Runtime.Utilites.Reactive.ReactiveVariable<System.Int32> value)
-		{
-			bool result = TryGetComponent(out Assets._Project.Develop.Runtime.Gameplay.Features.LevelUPFeature.Level component);
-			if (result)
-				value = component.Value;
-			else
-				value = default(Assets._Project.Develop.Runtime.Utilites.Reactive.ReactiveVariable<System.Int32>);
-			return result;
-		}
-
-		public Assets._Project.Develop.Runtime.Gameplay.EntitiesCore.Entity AddLevel()
-		{
-			return AddComponent(new Assets._Project.Develop.Runtime.Gameplay.Features.LevelUPFeature.Level() { Value = new Assets._Project.Develop.Runtime.Utilites.Reactive.ReactiveVariable<System.Int32>() }); 
-		}
-
-		public Assets._Project.Develop.Runtime.Gameplay.EntitiesCore.Entity AddLevel(Assets._Project.Develop.Runtime.Utilites.Reactive.ReactiveVariable<System.Int32> value)
-		{
-			return AddComponent(new Assets._Project.Develop.Runtime.Gameplay.Features.LevelUPFeature.Level() {Value = value}); 
-		}
-
 		public Assets._Project.Develop.Runtime.Gameplay.Features.ContactTakeDamage.BodyContactDamage BodyContactDamageC => GetComponent<Assets._Project.Develop.Runtime.Gameplay.Features.ContactTakeDamage.BodyContactDamage>();
 
 		public Assets._Project.Develop.Runtime.Utilites.Reactive.ReactiveVariable<System.Single> BodyContactDamage => BodyContactDamageC.Value;

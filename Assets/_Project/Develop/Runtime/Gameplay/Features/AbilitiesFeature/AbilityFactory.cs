@@ -1,8 +1,6 @@
 ﻿using Assets._Project.Develop.Infrastructure.DI;
 using Assets._Project.Develop.Runtime.Configs.Gameplay.Abilities;
 using Assets._Project.Develop.Runtime.Gameplay.EntitiesCore;
-using Assets._Project.Develop.Runtime.Gameplay.Features.AbilitiesFeature.Abilities;
-using Assets.CourseGame.Develop.Configs.Gameplay.Abilities;
 using System;
 
 namespace Assets._Project.Develop.Runtime.Gameplay.Features.AbilitiesFeature

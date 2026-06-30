@@ -1,4 +1,4 @@
-using Assets._Project.Develop.Runtime.Configs.Gameplay.Spells;
+﻿using Assets._Project.Develop.Runtime.Configs.Gameplay.Spells;
 using Assets._Project.Develop.Runtime.Gameplay.EntitiesCore;
 using Assets._Project.Develop.Runtime.Gameplay.Features.SpellcastingFeature;
 using Assets._Project.Develop.Runtime.UI.Core;
@@ -49,10 +49,10 @@ namespace Assets._Project.Develop.Runtime.UI.Gameplay.SpellPanel
             _view.CastButton.onClick.AddListener(OnCastClicked);
 
             if (_view.TeleportButton != null)
-                _view.TeleportButton.onClick.AddListener(() => Debug.Log("[UI] Телепорт — не реализовано"));
+                _view.TeleportButton.onClick.AddListener(() => Debug.Log("[UI] РўРµР»РµРїРѕСЂС‚ вЂ” РЅРµ СЂРµР°Р»РёР·РѕРІР°РЅРѕ"));
 
             if (_view.ShieldButton != null)
-                _view.ShieldButton.onClick.AddListener(() => Debug.Log("[UI] Щит — не реализовано"));
+                _view.ShieldButton.onClick.AddListener(() => Debug.Log("[UI] Р©РёС‚ вЂ” РЅРµ СЂРµР°Р»РёР·РѕРІР°РЅРѕ"));
 
             _castingSubscription = _heroEntity.IsCasting.Subscribe(OnCastingChanged);
 
@@ -124,7 +124,7 @@ namespace Assets._Project.Develop.Runtime.UI.Gameplay.SpellPanel
             else
             {
                 string combo = string.Join("+", _selectedAspects);
-                Debug.Log($"[SpellPanel] Комбинация {combo} не найдена в SpellsConfigsContainer");
+                Debug.Log($"[SpellPanel] РљРѕРјР±РёРЅР°С†РёСЏ {combo} РЅРµ РЅР°Р№РґРµРЅР° РІ SpellsConfigsContainer");
             }
 
             ClearSelection();
@@ -183,3 +183,4 @@ namespace Assets._Project.Develop.Runtime.UI.Gameplay.SpellPanel
         }
     }
 }
+

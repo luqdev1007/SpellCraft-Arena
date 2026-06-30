@@ -1,13 +1,13 @@
-using DG.Tweening;
+﻿using DG.Tweening;
 using UnityEngine;
 
 namespace Assets._Project.Develop.Runtime.Gameplay.Features.SpellcastingFeature
 {
     public class OrbIdleView : MonoBehaviour
     {
-        private const float BobAmplitude = 0.06f;
-        private const float BobDuration = 0.9f;
-        private const float RotateSpeed = 80f;
+        private const float BobAmplitude = 0.12f;
+        private const float BobDuration = 1.4f;
+        private const float RotateSpeed = 45f;
 
         private Vector3 _baseLocalPos;
         private Tween _bobTween;
@@ -47,3 +47,4 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.SpellcastingFeature
         }
     }
 }
+
