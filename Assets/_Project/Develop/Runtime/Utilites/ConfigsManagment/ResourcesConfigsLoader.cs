@@ -1,4 +1,4 @@
-using Assets._Project.Develop.Runtime.Configs.Gameplay;
+﻿using Assets._Project.Develop.Runtime.Configs.Gameplay;
 using Assets._Project.Develop.Runtime.Configs.Gameplay.Abilities;
 using Assets._Project.Develop.Runtime.Configs.Gameplay.Entities;
 using Assets._Project.Develop.Runtime.Configs.Gameplay.Levels;
@@ -36,8 +36,7 @@ namespace Assets._Project.Develop.Runtime.Utilites.ConfigsManagment
 
             { typeof(SpellsConfigsContainer), "Configs/Gameplay/Spells/SpellsConfigsContainer" },
 
-            { typeof(ExperienceForUpgradeLevelConfig), "Configs/Gameplay/ExperienceForUpgradeLevelConfig" },
-        };
+       };
 
         public ResourcesConfigsLoader(ResourcesAssetsLoader resources)
         {
@@ -60,3 +59,4 @@ namespace Assets._Project.Develop.Runtime.Utilites.ConfigsManagment
         }
     }
 }
+

@@ -9,7 +9,6 @@ using Assets._Project.Develop.Runtime.Gameplay.Features.AbilitiesFeature;
 using Assets._Project.Develop.Runtime.Gameplay.Features.AI;
 using Assets._Project.Develop.Runtime.Gameplay.Features.Enemies;
 using Assets._Project.Develop.Runtime.Gameplay.Features.InputFeature;
-using Assets._Project.Develop.Runtime.Gameplay.Features.LevelUPFeature;
 using Assets._Project.Develop.Runtime.Gameplay.Features.LootFeature;
 using Assets._Project.Develop.Runtime.Gameplay.Features.MainHero;
 using Assets._Project.Develop.Runtime.Gameplay.Features.PauseFeature;
@@ -116,14 +115,6 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
             return new TimeScalePauseService();
         }
 
-        private static DropAbilityOnMainHeroLevelUpService CreateDropAbilityOnMainHeroLevelUpService(DIContainer c)
-        {
-            return new DropAbilityOnMainHeroLevelUpService(
-                c.Resolve<MainHeroHolderService>(),
-                c.Resolve<GameplayPopupService>(),
-                c.Resolve<ICoroutinesPerformer>(),
-                c.Resolve<IPauseService>());
-        }
 
         private static AbilityDropService CreateAbilityDropService(DIContainer container)
         {
@@ -266,3 +257,4 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Infrastructure
         }
     }
 }
+
