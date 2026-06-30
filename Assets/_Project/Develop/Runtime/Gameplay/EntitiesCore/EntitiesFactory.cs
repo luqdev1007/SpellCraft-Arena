@@ -189,7 +189,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
                 .AddCanApplyDamage(canApplyDamage);
 
             entity
-                .AddFireballExplosionVfx(new FireballExplosionVfx { ExplosionVfxPrefab = null });
+                .AddFireballExplosionVfx(null);
 
             entity
                 .AddSystem(new RigidbodyMovementSystem())
@@ -254,7 +254,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
                 .AddMustSelfRelease(mustSelfRelease);
 
             entity
-                .AddFireballExplosionVfx(new FireballExplosionVfx { ExplosionVfxPrefab = null });
+                .AddFireballExplosionVfx(null);
 
             entity
                 .AddSystem(new RigidbodyMovementSystem())
@@ -335,6 +335,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
         private Entity CreateEmpty() => new Entity();
     }
 }
+
 
 
 

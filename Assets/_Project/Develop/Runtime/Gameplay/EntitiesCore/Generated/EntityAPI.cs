@@ -122,6 +122,13 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
 			return AddComponent(new Assets._Project.Develop.Runtime.Gameplay.Features.StatsFeature.AttacksPerSecond() {Value = value}); 
 		}
 
+		public Assets._Project.Develop.Runtime.Gameplay.Features.SpellcastingFeature.FireballExplosionVfx FireballExplosionVfxC => GetComponent<Assets._Project.Develop.Runtime.Gameplay.Features.SpellcastingFeature.FireballExplosionVfx>();
+
+		public Assets._Project.Develop.Runtime.Gameplay.EntitiesCore.Entity AddFireballExplosionVfx(UnityEngine.GameObject explosionVfxPrefab)
+		{
+			return AddComponent(new Assets._Project.Develop.Runtime.Gameplay.Features.SpellcastingFeature.FireballExplosionVfx() {ExplosionVfxPrefab = explosionVfxPrefab}); 
+		}
+
 		public Assets._Project.Develop.Runtime.Gameplay.Features.SpellcastingFeature.ActiveSpellConfig ActiveSpellConfigC => GetComponent<Assets._Project.Develop.Runtime.Gameplay.Features.SpellcastingFeature.ActiveSpellConfig>();
 
 		public Assets._Project.Develop.Runtime.Configs.Gameplay.Spells.SpellConfig ActiveSpellConfig => ActiveSpellConfigC.Value;
