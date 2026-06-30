@@ -25,5 +25,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.InputFeature
         public bool IsAttackKeyPressed => false;
 
         public bool IsCastRequested => false;
+
+        public bool IsBlinkRequested => false;
     }
 }

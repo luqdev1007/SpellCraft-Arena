@@ -1,4 +1,5 @@
 ﻿using Assets._Project.Develop.Runtime.Configs.Gameplay;
+using Assets._Project.Develop.Runtime.Configs.Gameplay.Blink;
 using Assets._Project.Develop.Runtime.Configs.Gameplay.Entities;
 using Assets._Project.Develop.Runtime.Gameplay.EntitiesCore;
 using Assets._Project.Develop.Runtime.Gameplay.Features.AI;
@@ -38,8 +39,9 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.MainHero
         public Entity Create(Vector3 position)
         {
             HeroConfig config = _configsProviderService.GetConfig<HeroConfig>();
+            BlinkConfig blinkConfig = _configsProviderService.GetConfig<BlinkConfig>();
 
-            Entity entity = _entitiesFactory.CreateHero(position, config, GetStats());
+            Entity entity = _entitiesFactory.CreateHero(position, config, blinkConfig, GetStats());
 
             entity
                 .AddIsMainHero()

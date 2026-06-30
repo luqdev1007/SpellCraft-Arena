@@ -14,6 +14,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.AI.States
         private readonly ReactiveVariable<Vector3> _rotationDirection;
         private readonly ReactiveVariable<bool> _isCasting;
         private readonly ReactiveEvent _castRequest;
+        private readonly ReactiveEvent _blinkRequest;
         private readonly Transform _entityTransform;
 
         public PlayerInputMovementState(Entity entity, IInputService inputService)
@@ -24,6 +25,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.AI.States
             _rotationDirection = entity.RotationDirection;
             _isCasting = entity.IsCasting;
             _castRequest = entity.CastRequest;
+            _blinkRequest = entity.BlinkRequest;
             _entityTransform = entity.Transform;
         }
 
@@ -49,6 +51,9 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.AI.States
 
             if (_inputService.IsCastRequested)
                 _castRequest.Invoke();
+
+            if (_inputService.IsBlinkRequested)
+                _blinkRequest.Invoke();
         }
 
         public override void Exit()

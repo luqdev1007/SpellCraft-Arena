@@ -10,5 +10,6 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.InputFeature
         Vector3 RotateDirection { get; }
         bool IsAttackKeyPressed { get; }
         bool IsCastRequested { get; }
+        bool IsBlinkRequested { get; }
     }
 }

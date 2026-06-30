@@ -19,6 +19,7 @@ namespace Assets._Project.Develop.Runtime.UI.Gameplay.SpellPanel
         private readonly List<Aspect> _selectedAspects = new(3);
         private OrbsDisplayView _orbsDisplay;
         private IDisposable _castingSubscription;
+        private IDisposable _blinkCooldownSubscription;
 
         public SpellPanelPresenter(
             SpellPanelView view,
@@ -49,12 +50,14 @@ namespace Assets._Project.Develop.Runtime.UI.Gameplay.SpellPanel
             _view.CastButton.onClick.AddListener(OnCastClicked);
 
             if (_view.TeleportButton != null)
-                _view.TeleportButton.onClick.AddListener(() => Debug.Log("[UI] РўРµР»РµРїРѕСЂС‚ вЂ” РЅРµ СЂРµР°Р»РёР·РѕРІР°РЅРѕ"));
+                _view.TeleportButton.onClick.AddListener(OnTeleportClicked);
 
             if (_view.ShieldButton != null)
                 _view.ShieldButton.onClick.AddListener(() => Debug.Log("[UI] Р©РёС‚ вЂ” РЅРµ СЂРµР°Р»РёР·РѕРІР°РЅРѕ"));
 
             _castingSubscription = _heroEntity.IsCasting.Subscribe(OnCastingChanged);
+            _blinkCooldownSubscription = _heroEntity.BlinkCooldownCurrentTime.Subscribe(OnBlinkCooldownTimeChanged);
+            UpdateBlinkCooldownFill();
 
             _orbsDisplay = _heroEntity.Transform.GetComponentInChildren<OrbsDisplayView>();
 
@@ -79,6 +82,11 @@ namespace Assets._Project.Develop.Runtime.UI.Gameplay.SpellPanel
 
             _view.CastButton.onClick.RemoveListener(OnCastClicked);
             _castingSubscription?.Dispose();
+
+            if (_view.TeleportButton != null)
+                _view.TeleportButton.onClick.RemoveListener(OnTeleportClicked);
+
+            _blinkCooldownSubscription?.Dispose();
         }
 
         private void OnAspectClicked(Aspect aspect)
@@ -138,6 +146,28 @@ namespace Assets._Project.Develop.Runtime.UI.Gameplay.SpellPanel
         private void OnCastingChanged(bool prev, bool isCasting)
         {
             UpdateCastButtonInteractable();
+        }
+
+        private void OnTeleportClicked()
+        {
+            _heroEntity.BlinkRequest.Invoke();
+        }
+
+        private void OnBlinkCooldownTimeChanged(float previous, float current)
+        {
+            UpdateBlinkCooldownFill();
+        }
+
+        private void UpdateBlinkCooldownFill()
+        {
+            if (_view.BlinkCooldownFillImage == null)
+                return;
+
+            float initial = _heroEntity.BlinkCooldownInitialTime.Value;
+
+            _view.BlinkCooldownFillImage.fillAmount = _heroEntity.InBlinkCooldown.Value && initial > 0f
+                ? Mathf.Clamp01(_heroEntity.BlinkCooldownCurrentTime.Value / initial)
+                : 0f;
         }
 
         private void UpdateCastButtonInteractable()
