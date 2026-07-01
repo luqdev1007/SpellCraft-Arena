@@ -292,6 +292,92 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
 			return AddComponent(new Assets._Project.Develop.Runtime.Gameplay.Features.SpawnFeature.InSpawnProcess() {Value = value}); 
 		}
 
+		public Assets._Project.Develop.Runtime.Gameplay.Features.Shield.ShieldToggleRequest ShieldToggleRequestC => GetComponent<Assets._Project.Develop.Runtime.Gameplay.Features.Shield.ShieldToggleRequest>();
+
+		public Assets._Project.Develop.Runtime.Utilites.Reactive.ReactiveEvent ShieldToggleRequest => ShieldToggleRequestC.Value;
+
+		public bool TryGetShieldToggleRequest(out Assets._Project.Develop.Runtime.Utilites.Reactive.ReactiveEvent value)
+		{
+			bool result = TryGetComponent(out Assets._Project.Develop.Runtime.Gameplay.Features.Shield.ShieldToggleRequest component);
+			if (result)
+				value = component.Value;
+			else
+				value = default(Assets._Project.Develop.Runtime.Utilites.Reactive.ReactiveEvent);
+			return result;
+		}
+
+		public Assets._Project.Develop.Runtime.Gameplay.EntitiesCore.Entity AddShieldToggleRequest()
+		{
+			return AddComponent(new Assets._Project.Develop.Runtime.Gameplay.Features.Shield.ShieldToggleRequest() { Value = new Assets._Project.Develop.Runtime.Utilites.Reactive.ReactiveEvent() }); 
+		}
+
+		public Assets._Project.Develop.Runtime.Gameplay.EntitiesCore.Entity AddShieldToggleRequest(Assets._Project.Develop.Runtime.Utilites.Reactive.ReactiveEvent value)
+		{
+			return AddComponent(new Assets._Project.Develop.Runtime.Gameplay.Features.Shield.ShieldToggleRequest() {Value = value}); 
+		}
+
+		public Assets._Project.Develop.Runtime.Gameplay.Features.Shield.IsShieldActive IsShieldActiveC => GetComponent<Assets._Project.Develop.Runtime.Gameplay.Features.Shield.IsShieldActive>();
+
+		public Assets._Project.Develop.Runtime.Utilites.Reactive.ReactiveVariable<System.Boolean> IsShieldActive => IsShieldActiveC.Value;
+
+		public bool TryGetIsShieldActive(out Assets._Project.Develop.Runtime.Utilites.Reactive.ReactiveVariable<System.Boolean> value)
+		{
+			bool result = TryGetComponent(out Assets._Project.Develop.Runtime.Gameplay.Features.Shield.IsShieldActive component);
+			if (result)
+				value = component.Value;
+			else
+				value = default(Assets._Project.Develop.Runtime.Utilites.Reactive.ReactiveVariable<System.Boolean>);
+			return result;
+		}
+
+		public Assets._Project.Develop.Runtime.Gameplay.EntitiesCore.Entity AddIsShieldActive()
+		{
+			return AddComponent(new Assets._Project.Develop.Runtime.Gameplay.Features.Shield.IsShieldActive() { Value = new Assets._Project.Develop.Runtime.Utilites.Reactive.ReactiveVariable<System.Boolean>() }); 
+		}
+
+		public Assets._Project.Develop.Runtime.Gameplay.EntitiesCore.Entity AddIsShieldActive(Assets._Project.Develop.Runtime.Utilites.Reactive.ReactiveVariable<System.Boolean> value)
+		{
+			return AddComponent(new Assets._Project.Develop.Runtime.Gameplay.Features.Shield.IsShieldActive() {Value = value}); 
+		}
+
+		public Assets._Project.Develop.Runtime.Gameplay.Features.Shield.ShieldAbsorbPercent ShieldAbsorbPercentC => GetComponent<Assets._Project.Develop.Runtime.Gameplay.Features.Shield.ShieldAbsorbPercent>();
+
+		public System.Single ShieldAbsorbPercent => ShieldAbsorbPercentC.Value;
+
+		public bool TryGetShieldAbsorbPercent(out System.Single value)
+		{
+			bool result = TryGetComponent(out Assets._Project.Develop.Runtime.Gameplay.Features.Shield.ShieldAbsorbPercent component);
+			if (result)
+				value = component.Value;
+			else
+				value = default(System.Single);
+			return result;
+		}
+
+		public Assets._Project.Develop.Runtime.Gameplay.EntitiesCore.Entity AddShieldAbsorbPercent(System.Single value)
+		{
+			return AddComponent(new Assets._Project.Develop.Runtime.Gameplay.Features.Shield.ShieldAbsorbPercent() {Value = value}); 
+		}
+
+		public Assets._Project.Develop.Runtime.Gameplay.Features.Shield.ShieldManaPerUnit ShieldManaPerUnitC => GetComponent<Assets._Project.Develop.Runtime.Gameplay.Features.Shield.ShieldManaPerUnit>();
+
+		public System.Single ShieldManaPerUnit => ShieldManaPerUnitC.Value;
+
+		public bool TryGetShieldManaPerUnit(out System.Single value)
+		{
+			bool result = TryGetComponent(out Assets._Project.Develop.Runtime.Gameplay.Features.Shield.ShieldManaPerUnit component);
+			if (result)
+				value = component.Value;
+			else
+				value = default(System.Single);
+			return result;
+		}
+
+		public Assets._Project.Develop.Runtime.Gameplay.EntitiesCore.Entity AddShieldManaPerUnit(System.Single value)
+		{
+			return AddComponent(new Assets._Project.Develop.Runtime.Gameplay.Features.Shield.ShieldManaPerUnit() {Value = value}); 
+		}
+
 		public Assets._Project.Develop.Runtime.Gameplay.Features.Sensors.BodyCollider BodyColliderC => GetComponent<Assets._Project.Develop.Runtime.Gameplay.Features.Sensors.BodyCollider>();
 
 		public UnityEngine.CapsuleCollider BodyCollider => BodyColliderC.Value;

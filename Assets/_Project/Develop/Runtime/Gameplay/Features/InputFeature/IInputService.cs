@@ -11,5 +11,6 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.InputFeature
         bool IsAttackKeyPressed { get; }
         bool IsCastRequested { get; }
         bool IsBlinkRequested { get; }
+        bool IsShieldToggleRequested { get; }
     }
 }

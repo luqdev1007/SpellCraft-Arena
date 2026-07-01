@@ -15,6 +15,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.AI.States
         private readonly ReactiveVariable<bool> _isCasting;
         private readonly ReactiveEvent _castRequest;
         private readonly ReactiveEvent _blinkRequest;
+        private readonly ReactiveEvent _shieldToggleRequest;
         private readonly Transform _entityTransform;
 
         public PlayerInputMovementState(Entity entity, IInputService inputService)
@@ -26,6 +27,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.AI.States
             _isCasting = entity.IsCasting;
             _castRequest = entity.CastRequest;
             _blinkRequest = entity.BlinkRequest;
+            _shieldToggleRequest = entity.ShieldToggleRequest;
             _entityTransform = entity.Transform;
         }
 
@@ -54,6 +56,9 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.AI.States
 
             if (_inputService.IsBlinkRequested)
                 _blinkRequest.Invoke();
+
+            if (_inputService.IsShieldToggleRequested)
+                _shieldToggleRequest.Invoke();
         }
 
         public override void Exit()

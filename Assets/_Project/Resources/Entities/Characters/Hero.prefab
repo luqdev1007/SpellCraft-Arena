@@ -304,6 +304,7 @@ GameObject:
   - component: {fileID: 5391122438515149102}
   - component: {fileID: 1643336810972295028}
   - component: {fileID: -7080358920657778261}
+  - component: {fileID: 3345514813798861242}
   m_Layer: 0
   m_Name: HeroView
   m_TagString: Untagged
@@ -451,6 +452,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Assets._Project.Develop.Runtime.Gameplay.Features.SpellcastingFeature.SpellCastView
   _animator: {fileID: 508756629486973984}
+--- !u!114 &3345514813798861242
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1521096026066847836}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dab0ef4676eb4020a61a52f14abcc034, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Assets._Project.Develop.Runtime.Gameplay.Features.Shield.ShieldBarrierView
+  _magicBarrier: {fileID: 6824522189607280074}
 --- !u!1 &1527990921519031720
 GameObject:
   m_ObjectHideFlags: 0

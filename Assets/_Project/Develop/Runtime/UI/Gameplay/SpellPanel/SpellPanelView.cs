@@ -12,5 +12,7 @@ namespace Assets._Project.Develop.Runtime.UI.Gameplay.SpellPanel
         [field: SerializeField] public Button TeleportButton { get; private set; }
         [field: SerializeField] public Image BlinkCooldownFillImage { get; private set; }
         [field: SerializeField] public Button ShieldButton { get; private set; }
+        [field: SerializeField] public Image ShieldFrameImage { get; private set; }
+        [field: SerializeField] public Image ShieldIconImage { get; private set; }
     }
 }

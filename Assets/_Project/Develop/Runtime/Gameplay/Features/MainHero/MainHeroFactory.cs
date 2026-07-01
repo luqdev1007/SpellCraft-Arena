@@ -1,6 +1,7 @@
 ﻿using Assets._Project.Develop.Runtime.Configs.Gameplay;
 using Assets._Project.Develop.Runtime.Configs.Gameplay.Blink;
 using Assets._Project.Develop.Runtime.Configs.Gameplay.Entities;
+using Assets._Project.Develop.Runtime.Configs.Gameplay.Shield;
 using Assets._Project.Develop.Runtime.Gameplay.EntitiesCore;
 using Assets._Project.Develop.Runtime.Gameplay.Features.AI;
 using Assets._Project.Develop.Runtime.Gameplay.Features.StatsFeature;
@@ -40,8 +41,9 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.MainHero
         {
             HeroConfig config = _configsProviderService.GetConfig<HeroConfig>();
             BlinkConfig blinkConfig = _configsProviderService.GetConfig<BlinkConfig>();
+            ShieldConfig shieldConfig = _configsProviderService.GetConfig<ShieldConfig>();
 
-            Entity entity = _entitiesFactory.CreateHero(position, config, blinkConfig, GetStats());
+            Entity entity = _entitiesFactory.CreateHero(position, config, blinkConfig, shieldConfig, GetStats());
 
             entity
                 .AddIsMainHero()

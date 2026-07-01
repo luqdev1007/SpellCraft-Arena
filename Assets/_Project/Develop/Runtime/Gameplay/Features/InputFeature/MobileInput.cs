@@ -27,5 +27,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.InputFeature
         public bool IsCastRequested => false;
 
         public bool IsBlinkRequested => false;
+
+        public bool IsShieldToggleRequested => false;
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Assets._Project.Develop.Infrastructure.DI;
 using Assets._Project.Develop.Runtime.Configs.Gameplay.Blink;
 using Assets._Project.Develop.Runtime.Configs.Gameplay.Entities;
+using Assets._Project.Develop.Runtime.Configs.Gameplay.Shield;
 using Assets._Project.Develop.Runtime.Gameplay.EntitiesCore.Mono;
 using Assets._Project.Develop.Runtime.Gameplay.Features.ApplyDamage;
 using Assets._Project.Develop.Runtime.Gameplay.Features.BlinkFeature;
@@ -11,6 +12,7 @@ using Assets._Project.Develop.Runtime.Gameplay.Features.LootFeature;
 using Assets._Project.Develop.Runtime.Gameplay.Features.ManaFeature;
 using Assets._Project.Develop.Runtime.Gameplay.Features.MovementFeature;
 using Assets._Project.Develop.Runtime.Gameplay.Features.Sensors;
+using Assets._Project.Develop.Runtime.Gameplay.Features.Shield;
 using Assets._Project.Develop.Runtime.Gameplay.Features.SpawnFeature;
 using Assets._Project.Develop.Runtime.Gameplay.Features.SpellcastingFeature;
 using Assets._Project.Develop.Runtime.Gameplay.Features.StatsFeature;
@@ -40,7 +42,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
             _collidersRegistryService = container.Resolve<CollidersRegistryService>();
         }
 
-        public Entity CreateHero(Vector3 position, HeroConfig config, BlinkConfig blinkConfig, Dictionary<StatTypes, float> baseStats)
+        public Entity CreateHero(Vector3 position, HeroConfig config, BlinkConfig blinkConfig, ShieldConfig shieldConfig, Dictionary<StatTypes, float> baseStats)
         {
             Entity entity = CreateEmpty();
 
@@ -81,6 +83,11 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
                 .AddBlinkCooldownInitialTime(new ReactiveVariable<float>(blinkConfig.CooldownDuration))
                 .AddBlinkCooldownCurrentTime()
                 .AddInBlinkCooldown(new ReactiveVariable<bool>(false))
+
+                .AddShieldToggleRequest(new ReactiveEvent())
+                .AddIsShieldActive(new ReactiveVariable<bool>(shieldConfig.ActiveByDefault))
+                .AddShieldAbsorbPercent(shieldConfig.AbsorbPercent)
+                .AddShieldManaPerUnit(shieldConfig.ManaPerUnit)
 
                 .AddSpawnInitialTime(new ReactiveVariable<float>(config.SpawnProcessTime))
                 .AddSpawnCurrentTime()
@@ -128,6 +135,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
                 .AddSystem(new SpellCastingWindupSystem(this, _entitiesLifeContext))
                 .AddSystem(new BlinkSystem(blinkConfig))
                 .AddSystem(new BlinkCooldownTimerSystem())
+                .AddSystem(new ShieldToggleSystem())
                 .AddSystem(new SpawnProcessTimerSystem())
                 .AddSystem(new RigidbodyMovementSystem())
                 .AddSystem(new RigidbodyRotationSystem())

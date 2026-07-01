@@ -1,5 +1,6 @@
 ﻿using Assets._Project.Develop.Runtime.Gameplay.EntitiesCore;
 using Assets._Project.Develop.Runtime.Gameplay.EntitiesCore.Systems;
+using Assets._Project.Develop.Runtime.Gameplay.Features.Shield;
 using Assets._Project.Develop.Runtime.Utilites.Conditions;
 using Assets._Project.Develop.Runtime.Utilites.Reactive;
 using System;
@@ -9,6 +10,8 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.ApplyDamage
 {
     public class ApplyDamageSystem : IInitializableSystem, IDisposableSystem
     {
+        private Entity _entity;
+
         private ReactiveEvent<float> _damageRequest;
         private ReactiveEvent<float> _damageEvent;
 
@@ -22,6 +25,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.ApplyDamage
 
         public void OnInit(Entity entity)
         {
+            _entity = entity;
             _entityName = entity.Transform.gameObject.name;
 
             _damageRequest = entity.TakeDamageRequest;
@@ -47,8 +51,10 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.ApplyDamage
             if (_canApplyDamage.Evaluate() == false)
                 return;
 
-            _health.Value = MathF.Max(_health.Value - damage, 0);
-            _damageEvent.Invoke(damage);
+            float passthrough = ShieldAbsorptionResolver.Resolve(_entity, damage);
+
+            _health.Value = MathF.Max(_health.Value - passthrough, 0);
+            _damageEvent.Invoke(passthrough);
 
             // Debug.Log($"{_entityName} получил урон, у него осталось {_health.Value} ед. здоровья");
         }

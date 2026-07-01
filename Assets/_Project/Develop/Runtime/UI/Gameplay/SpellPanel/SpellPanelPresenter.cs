@@ -6,11 +6,16 @@ using DG.Tweening;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Assets._Project.Develop.Runtime.UI.Gameplay.SpellPanel
 {
     public class SpellPanelPresenter : IPresenter
     {
+        private const float ShieldActiveAlpha = 1f;
+        private const float ShieldInactiveAlpha = 0.65f;
+        private const float ShieldFadeDuration = 0.18f;
+
         private readonly SpellPanelView _view;
         private readonly Entity _heroEntity;
         private readonly SpellsConfigsContainer _spellsContainer;
@@ -20,6 +25,7 @@ namespace Assets._Project.Develop.Runtime.UI.Gameplay.SpellPanel
         private OrbsDisplayView _orbsDisplay;
         private IDisposable _castingSubscription;
         private IDisposable _blinkCooldownSubscription;
+        private IDisposable _shieldActiveSubscription;
 
         public SpellPanelPresenter(
             SpellPanelView view,
@@ -53,11 +59,14 @@ namespace Assets._Project.Develop.Runtime.UI.Gameplay.SpellPanel
                 _view.TeleportButton.onClick.AddListener(OnTeleportClicked);
 
             if (_view.ShieldButton != null)
-                _view.ShieldButton.onClick.AddListener(() => Debug.Log("[UI] Р©РёС‚ вЂ” РЅРµ СЂРµР°Р»РёР·РѕРІР°РЅРѕ"));
+                _view.ShieldButton.onClick.AddListener(OnShieldButtonClicked);
 
             _castingSubscription = _heroEntity.IsCasting.Subscribe(OnCastingChanged);
             _blinkCooldownSubscription = _heroEntity.BlinkCooldownCurrentTime.Subscribe(OnBlinkCooldownTimeChanged);
             UpdateBlinkCooldownFill();
+
+            _shieldActiveSubscription = _heroEntity.IsShieldActive.Subscribe(OnShieldActiveChanged);
+            SetShieldVisualActive(_heroEntity.IsShieldActive.Value, instant: true);
 
             _orbsDisplay = _heroEntity.Transform.GetComponentInChildren<OrbsDisplayView>();
 
@@ -87,6 +96,14 @@ namespace Assets._Project.Develop.Runtime.UI.Gameplay.SpellPanel
                 _view.TeleportButton.onClick.RemoveListener(OnTeleportClicked);
 
             _blinkCooldownSubscription?.Dispose();
+
+            if (_view.ShieldButton != null)
+                _view.ShieldButton.onClick.RemoveListener(OnShieldButtonClicked);
+
+            _shieldActiveSubscription?.Dispose();
+
+            _view.ShieldFrameImage?.DOKill();
+            _view.ShieldIconImage?.DOKill();
         }
 
         private void OnAspectClicked(Aspect aspect)
@@ -132,7 +149,7 @@ namespace Assets._Project.Develop.Runtime.UI.Gameplay.SpellPanel
             else
             {
                 string combo = string.Join("+", _selectedAspects);
-                Debug.Log($"[SpellPanel] РљРѕРјР±РёРЅР°С†РёСЏ {combo} РЅРµ РЅР°Р№РґРµРЅР° РІ SpellsConfigsContainer");
+                Debug.Log($"[SpellPanel] Комбинация {combo} не найдена в SpellsConfigsContainer");
             }
 
             ClearSelection();
@@ -168,6 +185,44 @@ namespace Assets._Project.Develop.Runtime.UI.Gameplay.SpellPanel
             _view.BlinkCooldownFillImage.fillAmount = _heroEntity.InBlinkCooldown.Value && initial > 0f
                 ? Mathf.Clamp01(_heroEntity.BlinkCooldownCurrentTime.Value / initial)
                 : 0f;
+        }
+
+        private void OnShieldButtonClicked()
+        {
+            _heroEntity.ShieldToggleRequest.Invoke();
+        }
+
+        private void OnShieldActiveChanged(bool prev, bool isActive)
+        {
+            SetShieldVisualActive(isActive, instant: false);
+        }
+
+        private void SetShieldVisualActive(bool active, bool instant)
+        {
+            float targetAlpha = active ? ShieldActiveAlpha : ShieldInactiveAlpha;
+
+            ApplyShieldFade(_view.ShieldFrameImage, targetAlpha, instant, active);
+            ApplyShieldFade(_view.ShieldIconImage, targetAlpha, instant, active);
+        }
+
+        private void ApplyShieldFade(Image image, float targetAlpha, bool instant, bool active)
+        {
+            if (image == null)
+                return;
+
+            image.DOKill();
+
+            if (instant)
+            {
+                Color color = image.color;
+                color.a = targetAlpha;
+                image.color = color;
+                return;
+            }
+
+            image.DOFade(targetAlpha, ShieldFadeDuration)
+                .SetUpdate(true)
+                .SetEase(active ? Ease.OutQuad : Ease.InQuad);
         }
 
         private void UpdateCastButtonInteractable()
@@ -213,4 +268,3 @@ namespace Assets._Project.Develop.Runtime.UI.Gameplay.SpellPanel
         }
     }
 }
-

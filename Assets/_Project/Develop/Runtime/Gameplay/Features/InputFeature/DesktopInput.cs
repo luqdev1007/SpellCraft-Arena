@@ -47,5 +47,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.InputFeature
         public bool IsCastRequested => Input.GetKeyDown(KeyCode.Space);
 
         public bool IsBlinkRequested => Input.GetKeyDown(KeyCode.LeftShift);
+
+        public bool IsShieldToggleRequested => Input.GetKeyDown(KeyCode.F);
     }
 }
