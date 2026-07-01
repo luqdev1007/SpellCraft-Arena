@@ -122,6 +122,61 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
 			return AddComponent(new Assets._Project.Develop.Runtime.Gameplay.Features.StatsFeature.AttacksPerSecond() {Value = value}); 
 		}
 
+		public Assets._Project.Develop.Runtime.Gameplay.Features.SpellcastingFeature.ChainLightningActive ChainLightningActiveC => GetComponent<Assets._Project.Develop.Runtime.Gameplay.Features.SpellcastingFeature.ChainLightningActive>();
+
+		public Assets._Project.Develop.Runtime.Utilites.Reactive.ReactiveVariable<System.Boolean> ChainLightningActive => ChainLightningActiveC.Value;
+
+		public bool TryGetChainLightningActive(out Assets._Project.Develop.Runtime.Utilites.Reactive.ReactiveVariable<System.Boolean> value)
+		{
+			bool result = TryGetComponent(out Assets._Project.Develop.Runtime.Gameplay.Features.SpellcastingFeature.ChainLightningActive component);
+			if (result)
+				value = component.Value;
+			else
+				value = default(Assets._Project.Develop.Runtime.Utilites.Reactive.ReactiveVariable<System.Boolean>);
+			return result;
+		}
+
+		public Assets._Project.Develop.Runtime.Gameplay.EntitiesCore.Entity AddChainLightningActive()
+		{
+			return AddComponent(new Assets._Project.Develop.Runtime.Gameplay.Features.SpellcastingFeature.ChainLightningActive() { Value = new Assets._Project.Develop.Runtime.Utilites.Reactive.ReactiveVariable<System.Boolean>() }); 
+		}
+
+		public Assets._Project.Develop.Runtime.Gameplay.EntitiesCore.Entity AddChainLightningActive(Assets._Project.Develop.Runtime.Utilites.Reactive.ReactiveVariable<System.Boolean> value)
+		{
+			return AddComponent(new Assets._Project.Develop.Runtime.Gameplay.Features.SpellcastingFeature.ChainLightningActive() {Value = value}); 
+		}
+
+		public Assets._Project.Develop.Runtime.Gameplay.Features.SpellcastingFeature.ChainLightningJumpTimer ChainLightningJumpTimerC => GetComponent<Assets._Project.Develop.Runtime.Gameplay.Features.SpellcastingFeature.ChainLightningJumpTimer>();
+
+		public Assets._Project.Develop.Runtime.Utilites.Reactive.ReactiveVariable<System.Single> ChainLightningJumpTimer => ChainLightningJumpTimerC.Value;
+
+		public bool TryGetChainLightningJumpTimer(out Assets._Project.Develop.Runtime.Utilites.Reactive.ReactiveVariable<System.Single> value)
+		{
+			bool result = TryGetComponent(out Assets._Project.Develop.Runtime.Gameplay.Features.SpellcastingFeature.ChainLightningJumpTimer component);
+			if (result)
+				value = component.Value;
+			else
+				value = default(Assets._Project.Develop.Runtime.Utilites.Reactive.ReactiveVariable<System.Single>);
+			return result;
+		}
+
+		public Assets._Project.Develop.Runtime.Gameplay.EntitiesCore.Entity AddChainLightningJumpTimer()
+		{
+			return AddComponent(new Assets._Project.Develop.Runtime.Gameplay.Features.SpellcastingFeature.ChainLightningJumpTimer() { Value = new Assets._Project.Develop.Runtime.Utilites.Reactive.ReactiveVariable<System.Single>() }); 
+		}
+
+		public Assets._Project.Develop.Runtime.Gameplay.EntitiesCore.Entity AddChainLightningJumpTimer(Assets._Project.Develop.Runtime.Utilites.Reactive.ReactiveVariable<System.Single> value)
+		{
+			return AddComponent(new Assets._Project.Develop.Runtime.Gameplay.Features.SpellcastingFeature.ChainLightningJumpTimer() {Value = value}); 
+		}
+
+		public Assets._Project.Develop.Runtime.Gameplay.Features.SpellcastingFeature.ChainLightningState ChainLightningStateC => GetComponent<Assets._Project.Develop.Runtime.Gameplay.Features.SpellcastingFeature.ChainLightningState>();
+
+		public Assets._Project.Develop.Runtime.Gameplay.EntitiesCore.Entity AddChainLightningState(System.Collections.Generic.List<Assets._Project.Develop.Runtime.Gameplay.EntitiesCore.Entity> hitTargets,Assets._Project.Develop.Runtime.Gameplay.EntitiesCore.Entity currentTarget,System.Int32 jumpsRemaining,System.Single currentDamage,Assets._Project.Develop.Runtime.Configs.Gameplay.Spells.SpellConfig config)
+		{
+			return AddComponent(new Assets._Project.Develop.Runtime.Gameplay.Features.SpellcastingFeature.ChainLightningState() {HitTargets = hitTargets, CurrentTarget = currentTarget, JumpsRemaining = jumpsRemaining, CurrentDamage = currentDamage, Config = config}); 
+		}
+
 		public Assets._Project.Develop.Runtime.Gameplay.Features.SpellcastingFeature.FireballExplosionVfx FireballExplosionVfxC => GetComponent<Assets._Project.Develop.Runtime.Gameplay.Features.SpellcastingFeature.FireballExplosionVfx>();
 
 		public Assets._Project.Develop.Runtime.Gameplay.EntitiesCore.Entity AddFireballExplosionVfx(UnityEngine.GameObject explosionVfxPrefab)

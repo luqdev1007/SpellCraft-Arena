@@ -162,6 +162,10 @@ Assets/
 | Mana regen system | `_Project/Develop/Runtime/Gameplay/Features/ManaFeature/ManaRegenSystem.cs` |
 | Spell cast system | `_Project/Develop/Runtime/Gameplay/Features/SpellcastingFeature/SpellCastingWindupSystem.cs` |
 | Spell components | `_Project/Develop/Runtime/Gameplay/Features/SpellcastingFeature/SpellcastingComponents.cs` |
+| Chain Lightning components | `_Project/Develop/Runtime/Gameplay/Features/SpellcastingFeature/ChainLightningComponents.cs` |
+| Chain Lightning bounce system | `_Project/Develop/Runtime/Gameplay/Features/SpellcastingFeature/ChainLightningSystem.cs` |
+| Chain Lightning targeting (virtual SphereCast + jump search) | `_Project/Develop/Runtime/Gameplay/Features/SpellcastingFeature/ChainLightningTargeting.cs` |
+| Chain Lightning beam VFX (LineRenderer) | `_Project/Develop/Runtime/Gameplay/Features/SpellcastingFeature/LightningBeamView.cs` |
 | Orb display (EntityView) | `_Project/Develop/Runtime/Gameplay/Features/SpellcastingFeature/OrbsDisplayView.cs` |
 | Orb idle animation | `_Project/Develop/Runtime/Gameplay/Features/SpellcastingFeature/OrbIdleView.cs` |
 | Cone AoE indicator (runtime + gizmo) | `_Project/Develop/Runtime/Gameplay/Features/SpellcastingFeature/SpellConeIndicatorView.cs` |
@@ -194,6 +198,7 @@ Assets/
 - **Aspect combo spell system**: 7 aspects (`Blood, Fire, Light, Death, Nature, Ice, Magic`); pick 3 to form a combo; `SpellsConfigsContainer.FindByAspects` does multiset (order-independent) matching
   - Fireball = Fire + Magic + Light (Projectile, 25 mana, 50 dmg)
   - Ice Spikes = Ice + Nature + Death (AoE r=3, 35 mana, 60 dmg, uses FrostStrikeSpell VFX)
+  - Chain Lightning = aspects TBD (`ChainLightningSpell.asset`, placeholder Magic+Magic+Magic — pick real combo + icon separately), `CastType.ChainLightning`, 40 mana, 45 dmg first hit, 3 bounces
 - **Teams**: Hero has `Team.MainHero`, Ghost has `Team.Enemies`; `EntitiesHelper.TryTakeDamageFrom` checks teams — same team = no damage; fireball inherits owner's team so it can't hurt the caster
 - **SpellCastingWindupSystem**: 0.4s windup, blocks movement (`IsCasting` in `canMove` condition), deducts mana, routes to projectile or AoE logic; on AoE cast: spawns `SpellConeIndicatorView` on hero (shows cone on ground for windup duration)
 - **Ice Spikes**: cone AoE — `ConeRange` (range, default 5f) and `ConeAngle` (degrees, default 60f) on `SpellConfig`; geometry: hit all enemies within range AND within half-angle of hero forward; both params are inspector-tunable on `IceSpikesSpell.asset`; VFX auto-destroyed after 4s
@@ -207,6 +212,7 @@ Assets/
 - **Cast animation**: `SpellCastView` (EntityView on HeroView GO) subscribes to `entity.IsCasting` → sets `Animator.SetBool("IsAttacking", value)`, reusing the existing attack animation
 - **Mana bar**: follows hero in world space — `GameplayScreenPresenter.LateUpdate()` projects hero's `HealthBarPoint` to screen coords and offsets `ManaBarView` 30px below; bar is 175×25 (matching health bar size)
 - **Fireball**: contact mask = `Characters | Environment`; dies on Environment (DeathMask) or on another-team contact (IsTouchAnotherTeam); damages ghosts (Enemies team), ignores hero (same team)
+- **Chain Lightning**: `SpellCastType.ChainLightning` — first hit is a *virtual* SphereCast (no Physics query; the project resolves no Collider→Entity anywhere, so it walks `EntitiesLifeContext.Entities` and tests dot/perpendicular-distance against the aim ray, same data source as Ice Spikes/AI targeting); on hit, jumps to the nearest not-yet-hit living enemy within `BounceRange` of the *current* target (re-searched fresh at each jump, `JumpDelay` apart), damage multiplies by `DamageFalloff` per jump, chain ends early if no target is in range; bounce state (`ChainLightningActive`, `ChainLightningJumpTimer`, `ChainLightningState`) lives on the hero entity next to the windup timer, ticked by `ChainLightningSystem`, not a separate projectile entity; one short-lived `LightningBeamView` (LineRenderer, zigzag points set once, UV-scroll material, DOTween fade) per chain segment, plus an impact VFX per hit
 
 ### Stubs / VFX only, no code
 - `FrostStrikeSpell.prefab` — used as AoE VFX for Ice Spikes (loaded at runtime via `Resources.Load`, auto-destroyed after 4s)
@@ -249,6 +255,10 @@ Assets/
 | Crystals front | `Hovl Studio/Magic effects pack/Prefabs/AoE effects/Crystals front attack.prefab` |
 | Magic circles | `Hovl Studio/Magic effects pack/Prefabs/Magic circles/` |
 | Orbs 3D (25 variants) | `3D Items - Wand Pack/Prefabs/orb0X (color).prefab` |
+| Lightning/electro texture (used for Chain Lightning beam, copied into Resources) | `Vefects/Zap VFX URP/VFX/Zap/Textures/T_VFX_Zap_Lightning_01_Opti.tga` → `_Project/Resources/Textures/VFX/` |
+| Lightning/electro hit impact (used for Chain Lightning, copied into Resources) | `Hovl Studio/Magic effects pack/Prefabs/Hits and explosions/Electro hit.prefab` → `_Project/Resources/Prefabs/Spells/ChainLightningImpact.prefab` |
+| Electric arcs/sparks (CFXR, unused so far) | `JMO Assets/Cartoon FX Remaster/CFXR Assets/Graphics/cfxr electric *` |
+| Lightning aura (unused so far) | `Hovl Studio/Magic effects pack/Prefabs/Character auras/Lightning aura.prefab` |
 
 ## Aspect/Class Icons Quick Reference
 

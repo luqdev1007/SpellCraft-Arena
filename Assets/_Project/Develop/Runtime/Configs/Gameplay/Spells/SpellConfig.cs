@@ -28,5 +28,14 @@ namespace Assets._Project.Develop.Runtime.Configs.Gameplay.Spells
         [Header("Cone AoE")]
         [field: SerializeField, Min(0.5f)] public float ConeRange { get; private set; } = 5f;
         [field: SerializeField, Range(10f, 180f)] public float ConeAngle { get; private set; } = 60f;
+
+        [Header("Chain Lightning")]
+        [field: SerializeField, Min(0.05f)] public float HitscanRadius { get; private set; } = 0.5f;
+        [field: SerializeField, Min(1f)] public float HitscanRange { get; private set; } = 20f;
+        [field: SerializeField, Min(0)] public int BounceCount { get; private set; } = 3;
+        [field: SerializeField, Min(0.1f)] public float BounceRange { get; private set; } = 6f;
+        [field: SerializeField, Range(0f, 1f)] public float DamageFalloff { get; private set; } = 0.75f;
+        [field: SerializeField, Min(0)] public float JumpDelay { get; private set; } = 0.15f;
+        [field: SerializeField] public bool CanHitSameTarget { get; private set; } = false;
     }
 }

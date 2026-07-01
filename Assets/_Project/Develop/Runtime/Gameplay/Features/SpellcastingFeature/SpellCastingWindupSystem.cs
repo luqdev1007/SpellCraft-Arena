@@ -116,6 +116,10 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.SpellcastingFeature
                     CastAreaOfEffect(config);
                     break;
 
+                case SpellCastType.ChainLightning:
+                    CastChainLightning(config);
+                    break;
+
                 default:
                     string aspects = config.Aspects != null ? string.Join("+", config.Aspects) : "unknown";
                     Debug.Log($"[SpellCast] {config.Name} [{aspects}] — not implemented yet");
@@ -179,6 +183,31 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.SpellcastingFeature
 
                 EntitiesHelper.TryTakeDamageFrom(_entity, target, config.Damage);
             }
+        }
+
+        private void CastChainLightning(SpellConfig config)
+        {
+            if (_entity.TryGetShootPoint(out Transform shootPoint) == false)
+                shootPoint = _entity.Transform;
+
+            Vector3 origin = shootPoint.position;
+            Vector3 direction = shootPoint.forward;
+
+            if (ChainLightningTargeting.TryVirtualSphereCast(_entity, _entitiesLifeContext, origin, direction, config.HitscanRadius, config.HitscanRange, out Entity firstTarget) == false)
+                return;
+
+            EntitiesHelper.TryTakeDamageFrom(_entity, firstTarget, config.Damage);
+            ChainLightningSystem.SpawnBeamAndImpact(config, origin, firstTarget.Transform.position);
+
+            ChainLightningState state = _entity.ChainLightningStateC;
+            state.Config = config;
+            state.CurrentTarget = firstTarget;
+            state.CurrentDamage = config.Damage;
+            state.JumpsRemaining = config.BounceCount;
+            state.HitTargets = new List<Entity> { firstTarget };
+
+            _entity.ChainLightningJumpTimer.Value = 0f;
+            _entity.ChainLightningActive.Value = config.BounceCount > 0;
         }
 
         private void SpawnConeIndicator(SpellConfig config)

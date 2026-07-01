@@ -15,6 +15,7 @@ MonoBehaviour:
   <Spells>k__BackingField:
   - {fileID: 11400000, guid: f1e3f3f04d953424b9696bc313e8bbb2, type: 2}
   - {fileID: 11400000, guid: eec59cd850971c941b89e7e1b2da2783, type: 2}
+  - {fileID: 11400000, guid: 6a7e7bd290994d31b4951cefd9faefe6, type: 2}
   <AspectIcons>k__BackingField:
   - {fileID: 21300000, guid: e691198d56e3a1848b5009e1ff94dbb5, type: 3}
   - {fileID: 21300000, guid: 8ec5b52b09d90074a83d61c1334190f9, type: 3}

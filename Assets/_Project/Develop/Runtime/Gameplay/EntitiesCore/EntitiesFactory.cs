@@ -78,6 +78,10 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
                 .AddCastWindupCurrentTime()
                 .AddCastRequest(new ReactiveEvent())
 
+                .AddChainLightningActive(new ReactiveVariable<bool>(false))
+                .AddChainLightningJumpTimer()
+                .AddChainLightningState(new List<Entity>(), null, 0, 0f, null)
+
                 .AddBlinkRequest(new ReactiveEvent())
                 .AddBlinkExecutedEvent(new ReactiveEvent())
                 .AddBlinkCooldownInitialTime(new ReactiveVariable<float>(blinkConfig.CooldownDuration))
@@ -133,6 +137,7 @@ namespace Assets._Project.Develop.Runtime.Gameplay.EntitiesCore
 
                 .AddSystem(new ManaRegenSystem())
                 .AddSystem(new SpellCastingWindupSystem(this, _entitiesLifeContext))
+                .AddSystem(new ChainLightningSystem(_entitiesLifeContext))
                 .AddSystem(new BlinkSystem(blinkConfig))
                 .AddSystem(new BlinkCooldownTimerSystem())
                 .AddSystem(new ShieldToggleSystem())
