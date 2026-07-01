@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6, type: 3}
   m_Name: BlinkConfig
   m_EditorClassIdentifier: Assembly-CSharp::Assets._Project.Develop.Runtime.Configs.Gameplay.Blink.BlinkConfig
-  <ManaCost>k__BackingField: 15
-  <Distance>k__BackingField: 4.5
-  <CooldownDuration>k__BackingField: 2
+  <ManaCost>k__BackingField: 10
+  <Distance>k__BackingField: 6
+  <CooldownDuration>k__BackingField: 1.5
   <SphereCastRadius>k__BackingField: 0.45
   <WallBuffer>k__BackingField: 0.1
   <VfxPrefabPath>k__BackingField: Prefabs/Blink/Teleport

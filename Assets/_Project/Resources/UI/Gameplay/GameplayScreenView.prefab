@@ -56,7 +56,6 @@ MonoBehaviour:
   <StageNumberView>k__BackingField: {fileID: 7720688752611924023}
   <CoinsView>k__BackingField: {fileID: 5218823322127224635}
   <EntitiesHealthDisplay>k__BackingField: {fileID: 175194284390868695}
-  <ExpBarView>k__BackingField: {fileID: 0}
   <ManaBarView>k__BackingField: {fileID: 806881285030660314}
   <SpellPanelView>k__BackingField: {fileID: 6305385857800074593}
 --- !u!1 &1883571742710467595
@@ -598,6 +597,14 @@ PrefabInstance:
     - target: {fileID: 6319476949616109836, guid: c02499e84aa210445be47450afda8d06, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9100000000000000104, guid: c02499e84aa210445be47450afda8d06, type: 3}
+      propertyPath: m_Type
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 9100000000000000104, guid: c02499e84aa210445be47450afda8d06, type: 3}
+      propertyPath: m_FillAmount
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
