@@ -37,5 +37,6 @@ namespace Assets._Project.Develop.Runtime.Configs.Gameplay.Spells
         [field: SerializeField, Range(0f, 1f)] public float DamageFalloff { get; private set; } = 0.75f;
         [field: SerializeField, Min(0)] public float JumpDelay { get; private set; } = 0.15f;
         [field: SerializeField] public bool CanHitSameTarget { get; private set; } = false;
+        [field: SerializeField, Min(0.1f)] public float BeamDisplayDuration { get; private set; } = 0.6f;
     }
 }

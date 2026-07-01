@@ -25,10 +25,11 @@ MonoBehaviour:
   <AoeRadius>k__BackingField: 3
   <ConeRange>k__BackingField: 5
   <ConeAngle>k__BackingField: 60
-  <HitscanRadius>k__BackingField: 0.5
+  <HitscanRadius>k__BackingField: 1
   <HitscanRange>k__BackingField: 20
-  <BounceCount>k__BackingField: 3
+  <BounceCount>k__BackingField: 10
   <BounceRange>k__BackingField: 20
   <DamageFalloff>k__BackingField: 0.75
   <JumpDelay>k__BackingField: 0.15
   <CanHitSameTarget>k__BackingField: 0
+  <BeamDisplayDuration>k__BackingField: 0.6

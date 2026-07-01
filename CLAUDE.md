@@ -166,6 +166,8 @@ Assets/
 | Chain Lightning bounce system | `_Project/Develop/Runtime/Gameplay/Features/SpellcastingFeature/ChainLightningSystem.cs` |
 | Chain Lightning targeting (virtual SphereCast + jump search) | `_Project/Develop/Runtime/Gameplay/Features/SpellcastingFeature/ChainLightningTargeting.cs` |
 | Chain Lightning beam VFX (LineRenderer) | `_Project/Develop/Runtime/Gameplay/Features/SpellcastingFeature/LightningBeamView.cs` |
+| Chain Lightning beam prefab | `_Project/Resources/Prefabs/Spells/LightningBeam.prefab` |
+| Chain Lightning beam material | `_Project/Resources/Materials/ChainLightningBeam.mat` |
 | Orb display (EntityView) | `_Project/Develop/Runtime/Gameplay/Features/SpellcastingFeature/OrbsDisplayView.cs` |
 | Orb idle animation | `_Project/Develop/Runtime/Gameplay/Features/SpellcastingFeature/OrbIdleView.cs` |
 | Cone AoE indicator (runtime + gizmo) | `_Project/Develop/Runtime/Gameplay/Features/SpellcastingFeature/SpellConeIndicatorView.cs` |
@@ -213,6 +215,8 @@ Assets/
 - **Mana bar**: follows hero in world space — `GameplayScreenPresenter.LateUpdate()` projects hero's `HealthBarPoint` to screen coords and offsets `ManaBarView` 30px below; bar is 175×25 (matching health bar size)
 - **Fireball**: contact mask = `Characters | Environment`; dies on Environment (DeathMask) or on another-team contact (IsTouchAnotherTeam); damages ghosts (Enemies team), ignores hero (same team)
 - **Chain Lightning**: `SpellCastType.ChainLightning` — first hit is a *virtual* SphereCast (no Physics query; the project resolves no Collider→Entity anywhere, so it walks `EntitiesLifeContext.Entities` and tests dot/perpendicular-distance against the aim ray, same data source as Ice Spikes/AI targeting); on hit, jumps to the nearest not-yet-hit living enemy within `BounceRange` of the *current* target (re-searched fresh at each jump, `JumpDelay` apart), damage multiplies by `DamageFalloff` per jump, chain ends early if no target is in range; bounce state (`ChainLightningActive`, `ChainLightningJumpTimer`, `ChainLightningState`) lives on the hero entity next to the windup timer, ticked by `ChainLightningSystem`, not a separate projectile entity; one short-lived `LightningBeamView` (LineRenderer, zigzag points set once, UV-scroll material, DOTween fade) per chain segment, plus an impact VFX per hit
+  - Beam visual is a **prefab**, not a runtime-built GameObject: `_Project/Resources/Prefabs/Spells/LightningBeam.prefab` (LineRenderer + `LightningBeamView`), instantiated via `Resources.Load` in `ChainLightningSystem.SpawnBeamAndImpact`. Material/width/alignment/cap-smoothing live on the prefab's LineRenderer for inspector tuning — `LightningBeamView.Init` only sets zigzag points, UV-scroll, DOTween fade, and self-destroy; it no longer builds a material at runtime
+  - Material asset: `_Project/Resources/Materials/ChainLightningBeam.mat`, shader `Universal Render Pipeline/Particles/Unlit`, Surface=Transparent, Blend=Additive (`_SrcBlend`/`_DstBlend`=One/One, `_ZWrite`=0, renderQueue=3000), texture = `T_VFX_Zap_Lightning_01_Opti` (see VFX Assets Quick Reference). Built with a Built-in RP `Sprites/Default` shader first, which rendered black under URP — replaced with this URP-native shader
 
 ### Stubs / VFX only, no code
 - `FrostStrikeSpell.prefab` — used as AoE VFX for Ice Spikes (loaded at runtime via `Resources.Load`, auto-destroyed after 4s)

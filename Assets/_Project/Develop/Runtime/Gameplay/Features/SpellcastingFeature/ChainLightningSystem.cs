@@ -10,8 +10,8 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.SpellcastingFeature
 {
     public class ChainLightningSystem : IInitializableSystem, IUpdatableSystem
     {
-        private const float BeamDuration = 0.15f;
         private const float ImpactDuration = 1.5f;
+        private const string BeamPrefabPath = "Prefabs/Spells/LightningBeam";
 
         private readonly EntitiesLifeContext _entitiesLifeContext;
 
@@ -77,9 +77,22 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.SpellcastingFeature
 
         public static void SpawnBeamAndImpact(SpellConfig config, Vector3 from, Vector3 to)
         {
-            GameObject beamGameObject = new GameObject("LightningBeam");
-            LightningBeamView beam = beamGameObject.AddComponent<LightningBeamView>();
-            beam.Init(from, to, BeamDuration);
+            GameObject beamPrefab = Resources.Load<GameObject>(BeamPrefabPath);
+
+            Debug.Log($"[CLDebug] SpawnBeamAndImpact: path={BeamPrefabPath} beamPrefab={(beamPrefab != null)}");
+
+            if (beamPrefab != null)
+            {
+                GameObject beamGameObject = Object.Instantiate(beamPrefab);
+
+                Debug.Log($"[CLDebug] Instantiate result: beamGameObject={(beamGameObject != null)} name={(beamGameObject != null ? beamGameObject.name : "NULL")}");
+
+                LightningBeamView beam = beamGameObject.GetComponent<LightningBeamView>();
+
+                Debug.Log($"[CLDebug] LightningBeamView component={(beam != null)}");
+
+                beam.Init(from, to, config.BeamDisplayDuration);
+            }
 
             if (string.IsNullOrEmpty(config.PrefabPath))
                 return;

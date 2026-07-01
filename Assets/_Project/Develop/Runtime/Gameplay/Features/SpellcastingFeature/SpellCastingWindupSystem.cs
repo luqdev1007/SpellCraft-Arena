@@ -187,7 +187,9 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.SpellcastingFeature
 
         private void CastChainLightning(SpellConfig config)
         {
-            if (_entity.TryGetShootPoint(out Transform shootPoint) == false)
+            bool foundShootPoint = _entity.TryGetShootPoint(out Transform shootPoint);
+
+            if (foundShootPoint == false)
                 shootPoint = _entity.Transform;
 
             Vector3 origin = shootPoint.position;

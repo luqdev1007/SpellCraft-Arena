@@ -9,28 +9,24 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.SpellcastingFeature
         private const int SegmentCount = 6;
         private const float ZigzagAmplitude = 0.25f;
         private const float ScrollSpeed = 3f;
-        private const float FadeDuration = 0.12f;
-        private const float BeamWidth = 0.15f;
-
-        private static Material _materialTemplate;
+        private const float FadeDuration = 0.15f;
 
         private LineRenderer _lineRenderer;
         private float _elapsed;
+        private bool _loggedRenderStats;
 
         public void Init(Vector3 from, Vector3 to, float duration)
         {
             _lineRenderer = GetComponent<LineRenderer>();
             _lineRenderer.useWorldSpace = true;
-            _lineRenderer.alignment = LineAlignment.View;
-            _lineRenderer.textureMode = LineTextureMode.Tile;
-            _lineRenderer.widthMultiplier = BeamWidth;
-            _lineRenderer.material = new Material(GetOrCreateMaterialTemplate());
 
             BuildZigzagPoints(from, to);
 
+            Debug.Log($"[CLDebug] Init: duration={duration} parent={(transform.parent != null ? transform.parent.name : "null")} goPos={transform.position}");
+            Debug.Log($"[CLDebug] Init: firstPoint={_lineRenderer.GetPosition(0)} lastPoint={_lineRenderer.GetPosition(SegmentCount)}");
+
             DOTween.To(() => 1f, SetAlpha, 0f, FadeDuration)
-                .SetDelay(Mathf.Max(0f, duration - FadeDuration))
-                .SetUpdate(true);
+                .SetDelay(Mathf.Max(0f, duration - FadeDuration));
 
             Destroy(gameObject, duration + 0.05f);
         }
@@ -41,6 +37,12 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.SpellcastingFeature
 
             if (_lineRenderer.material != null)
                 _lineRenderer.material.mainTextureOffset = new Vector2(_elapsed * ScrollSpeed, 0f);
+
+            if (_loggedRenderStats == false)
+            {
+                _loggedRenderStats = true;
+                Debug.Log($"[CLDebug] RenderStats: isVisible={_lineRenderer.isVisible} bounds={_lineRenderer.bounds}");
+            }
         }
 
         private void OnDestroy()
@@ -82,24 +84,6 @@ namespace Assets._Project.Develop.Runtime.Gameplay.Features.SpellcastingFeature
             end.a = alpha;
             _lineRenderer.startColor = start;
             _lineRenderer.endColor = end;
-        }
-
-        private static Material GetOrCreateMaterialTemplate()
-        {
-            if (_materialTemplate != null)
-                return _materialTemplate;
-
-            _materialTemplate = new Material(Shader.Find("Sprites/Default"))
-            {
-                color = new Color(0.6f, 0.85f, 1f, 1f)
-            };
-
-            Texture2D texture = Resources.Load<Texture2D>("Textures/VFX/T_VFX_Zap_Lightning_01_Opti");
-
-            if (texture != null)
-                _materialTemplate.mainTexture = texture;
-
-            return _materialTemplate;
         }
     }
 }
