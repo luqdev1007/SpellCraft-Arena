@@ -19978,7 +19978,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5434716446443282704}
-  m_Mesh: {fileID: 7158796146257112550, guid: 51015ae579b4d7346883f24607139ca8, type: 3}
+  m_Mesh: {fileID: 4300000, guid: 6c9b634eb90533d4ba94f660d6a11fc5, type: 2}
 --- !u!199 &8937333232689975960
 ParticleSystemRenderer:
   serializedVersion: 7
