@@ -1,0 +1,2 @@
+# Large source FBX models — stored via Git LFS (raw, uncompressed)
+Assets/_Project/Art/Models/Tower/*.fbx filter=lfs diff=lfs merge=lfs -text
