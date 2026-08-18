@@ -503,12 +503,12 @@ MonoBehaviour:
     rotation: 0
     windRotation: 0
     layers:
-    - offset: {x: 0.4671367, y: -0.12297788}
+    - offset: {x: 0.4681357, y: -0.50929624}
       scale: 2
       intensity: 0.1
       wind: {x: 4.977632, y: 8.67313}
       rotation: 30
-    - offset: {x: 0.036730662, y: -0.54823095}
+    - offset: {x: 0.033350743, y: -0.08906813}
       scale: 4
       intensity: 0.075
       wind: {x: 5.616666, y: 4.177687}
@@ -698,12 +698,12 @@ MonoBehaviour:
   rotation: 0
   windRotation: 0
   layers:
-  - offset: {x: 0.17633893, y: 0.32251623}
+  - offset: {x: 0.17633893, y: 0.30621865}
     scale: 1
     intensity: 0.6
     wind: {x: 23.959064, y: 18.054451}
     rotation: 53
-  - offset: {x: 0.3405395, y: 0.7563425}
+  - offset: {x: 0.3405395, y: 0.72700703}
     scale: 2
     intensity: 0.4
     wind: {x: 26.079996, y: 6.988115}
@@ -1232,12 +1232,12 @@ MonoBehaviour:
   rotation: 0
   windRotation: 0
   layers:
-  - offset: {x: 0.12308288, y: 0.7416925}
+  - offset: {x: 0.113214, y: 0.72123134}
     scale: 0.7
     intensity: 0.6
     wind: {x: 10.426869, y: 21.616669}
     rotation: 0
-  - offset: {x: 0.3058778, y: 0.2866204}
+  - offset: {x: 0.27917004, y: 0.28238034}
     scale: 1
     intensity: 0.4
     wind: {x: 19.75271, y: 3.13535}
@@ -1314,12 +1314,12 @@ MonoBehaviour:
     rotation: 0
     windRotation: 0
     layers:
-    - offset: {x: 0.25860825, y: 0.8287955}
+    - offset: {x: 0.25860825, y: 0.72014385}
       scale: 1
       intensity: 0.1
       wind: {x: 17.975882, y: 8.767423}
       rotation: 64
-    - offset: {x: 0.07431734, y: 0.071969375}
+    - offset: {x: 0.07431734, y: -0.12360475}
       scale: 2
       intensity: 0.075
       wind: {x: 16.68931, y: 6.7429194}
@@ -7097,12 +7097,12 @@ MonoBehaviour:
     rotation: 0
     windRotation: 0
     layers:
-    - offset: {x: -0.008022707, y: 0.9250352}
+    - offset: {x: -0.44262376, y: 0.9277363}
       scale: 1
       intensity: 0.1
       wind: {x: 10.672279, y: 10.540516}
       rotation: 315
-    - offset: {x: 0.106861606, y: 0.42617938}
+    - offset: {x: -0.38317445, y: 0.91954565}
       scale: 2
       intensity: 0.075
       wind: {x: 10.979013, y: 4.8436823}
@@ -7191,12 +7191,12 @@ MonoBehaviour:
   rotation: 0
   windRotation: 0
   layers:
-  - offset: {x: 0.9313988, y: 0.96401465}
+  - offset: {x: 0.91729236, y: 0.93721384}
     scale: 0.7
     intensity: 0.6
     wind: {x: 7.451944, y: 14.158691}
     rotation: 0
-  - offset: {x: -0.021126995, y: 0.3350409}
+  - offset: {x: -0.053136274, y: 0.3297063}
     scale: 1
     intensity: 0.4
     wind: {x: 11.836726, y: 1.9727893}
