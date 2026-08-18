@@ -232,6 +232,182 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: -228.4, z: 0}
+--- !u!1 &169317972
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 169317973}
+  - component: {fileID: 169317974}
+  m_Layer: 0
+  m_Name: Clouds Low
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &169317973
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 169317972}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1735157757}
+  m_Father: {fileID: 2110183589}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &169317974
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 169317972}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a7df06871462dc408c35bb3c999c066, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ShapedClouds.CloudsController
+  pauseInEditor: 0
+  height: 1500
+  curvature: 0.5
+  depth: 1000
+  orthographicFOV: 60
+  timeScale: 1
+  baseBlur:
+    enabled: 1
+    sampleCount: 2
+    intensity: 0.02
+    shader: {fileID: 4800000, guid: def0f14b99e26e94aa3abb0fb712e885, type: 3}
+  finalBlur:
+    enabled: 0
+    sampleCount: 1
+    intensity: 0
+    shader: {fileID: 4800000, guid: def0f14b99e26e94aa3abb0fb712e885, type: 3}
+  filter:
+    noiseTexture: {fileID: 2800000, guid: 26611875cce396846baf644d66f2f19d, type: 3}
+    density: 4
+    scale: 1
+    timeScale: 1
+    rotation: 0
+    windRotation: 0
+    layers:
+    - offset: {x: 0.46663594, y: 0.071009815}
+      scale: 2
+      intensity: 0.1
+      wind: {x: 4.977632, y: 8.67313}
+      rotation: 30
+    - offset: {x: 0.038427852, y: -0.27665254}
+      scale: 4
+      intensity: 0.075
+      wind: {x: 5.616666, y: 4.177687}
+      rotation: 53
+    colorAbsorption: 1.6
+    color: {r: 0.93, g: 0.93, b: 1, a: 1}
+    sunsetColor: {r: 1, g: 0.5, b: 0, a: 1}
+    moonColor: {r: 0, g: 0.02, b: 0.05, a: 1}
+    ambientDay: 0.3
+    ambientNight: 0.1
+    shader: {fileID: 4800000, guid: e673fb2594548fc4d91e020728bdc66e, type: 3}
+    useCustomAmbientColor: 0
+    customAmbientColor: {r: 0, g: 0, b: 0, a: 0}
+    useCustomSunLight: 0
+    sun: {fileID: 0}
+    useCustomMoonLight: 0
+    moon: {fileID: 0}
+    fadeDistance: 0
+    fadeLength: 0.25
+    detailLevel: 0.5
+  finalResolution: 3
+  baseResolution: 6
+  filterMode: 1
+  useDynamicScale: 1
+  finalColorFormat: 9
+  baseColorFormat: 9
+  ignoreCameraLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  ignoreCameraTypes: 20
+  order: 0
+  blitShader: {fileID: 4800000, guid: c0ae63d42fe813145aefbfe501ae3baf, type: 3}
+  renderAboveOpaques: 1
+  separateDepthCurvature: 0
+  depthCurvature: 1
+  enqueuePass: 1
+--- !u!1 &274872502
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 274872503}
+  - component: {fileID: 274872504}
+  m_Layer: 0
+  m_Name: Base Noise
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &274872503
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 274872502}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 835427247}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &274872504
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 274872502}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d2a10d8ba7f48d48ba7c5900c074442, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ShapedClouds.CloudRenderers.CloudBaseNoiseRenderer
+  noiseTexture: {fileID: 2800000, guid: fe29323fb15a0a34ab41d5a87817b02a, type: 3}
+  density: 0.5
+  cloudiness: 0.56
+  scale: 0.15
+  timeScale: 1
+  rotation: 0
+  windRotation: 0
+  layers:
+  - offset: {x: 0.17633893, y: 0.33069953}
+    scale: 1
+    intensity: 0.6
+    wind: {x: 23.959064, y: 18.054451}
+    rotation: 53
+  - offset: {x: 0.3405395, y: 0.77107304}
+    scale: 2
+    intensity: 0.4
+    wind: {x: 26.079996, y: 6.988115}
+    rotation: 75
+  shader: {fileID: 4800000, guid: aa3638b560009584aa93f7ac1e9d94c4, type: 3}
+  cloudinessBase: -1
+  cloudinessMult: 1
 --- !u!1 &330585543
 GameObject:
   m_ObjectHideFlags: 0
@@ -496,6 +672,182 @@ MonoBehaviour:
   m_ShadowLayerMask: 1
   m_RenderingLayers: 1
   m_ShadowRenderingLayers: 1
+--- !u!1 &763542263
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 763542264}
+  - component: {fileID: 763542265}
+  m_Layer: 0
+  m_Name: Base Noise
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &763542264
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 763542263}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1724531740}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &763542265
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 763542263}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d2a10d8ba7f48d48ba7c5900c074442, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ShapedClouds.CloudRenderers.CloudBaseNoiseRenderer
+  noiseTexture: {fileID: 2800000, guid: 178e604d7367fa04cbe610d0b0dae4b5, type: 3}
+  density: 4
+  cloudiness: 0.46
+  scale: 0.14
+  timeScale: 1
+  rotation: 0
+  windRotation: 0
+  layers:
+  - offset: {x: 0.12803833, y: 0.7519661}
+    scale: 0.7
+    intensity: 0.6
+    wind: {x: 10.426869, y: 21.616669}
+    rotation: 0
+  - offset: {x: 0.3192894, y: 0.28874946}
+    scale: 1
+    intensity: 0.4
+    wind: {x: 19.75271, y: 3.13535}
+    rotation: 0
+  shader: {fileID: 4800000, guid: aa3638b560009584aa93f7ac1e9d94c4, type: 3}
+  cloudinessBase: -1
+  cloudinessMult: 1
+--- !u!1 &835427246
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 835427247}
+  - component: {fileID: 835427248}
+  m_Layer: 0
+  m_Name: Clouds High
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &835427247
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 835427246}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 274872503}
+  m_Father: {fileID: 2110183589}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &835427248
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 835427246}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a7df06871462dc408c35bb3c999c066, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ShapedClouds.CloudsController
+  pauseInEditor: 0
+  height: 8000
+  curvature: 0.25
+  depth: 500
+  orthographicFOV: 60
+  timeScale: 1
+  baseBlur:
+    enabled: 1
+    sampleCount: 2
+    intensity: 0.02
+    shader: {fileID: 4800000, guid: def0f14b99e26e94aa3abb0fb712e885, type: 3}
+  finalBlur:
+    enabled: 0
+    sampleCount: 1
+    intensity: 0
+    shader: {fileID: 4800000, guid: def0f14b99e26e94aa3abb0fb712e885, type: 3}
+  filter:
+    noiseTexture: {fileID: 2800000, guid: fe29323fb15a0a34ab41d5a87817b02a, type: 3}
+    density: 3
+    scale: 1.5
+    timeScale: 1
+    rotation: 0
+    windRotation: 0
+    layers:
+    - offset: {x: 0.25860825, y: 0.88335496}
+      scale: 1
+      intensity: 0.1
+      wind: {x: 17.975882, y: 8.767423}
+      rotation: 64
+    - offset: {x: 0.07431734, y: 0.17017601}
+      scale: 2
+      intensity: 0.075
+      wind: {x: 16.68931, y: 6.7429194}
+      rotation: 68
+    colorAbsorption: 2.6
+    color: {r: 0.88, g: 0.88, b: 1, a: 1}
+    sunsetColor: {r: 1, g: 0.5, b: 0, a: 1}
+    moonColor: {r: 0, g: 0.02, b: 0.05, a: 1}
+    ambientDay: 0.3
+    ambientNight: 0.1
+    shader: {fileID: 4800000, guid: e673fb2594548fc4d91e020728bdc66e, type: 3}
+    useCustomAmbientColor: 0
+    customAmbientColor: {r: 0, g: 0, b: 0, a: 0}
+    useCustomSunLight: 0
+    sun: {fileID: 0}
+    useCustomMoonLight: 0
+    moon: {fileID: 0}
+    fadeDistance: 0
+    fadeLength: 0.25
+    detailLevel: 0.7
+  finalResolution: 2
+  baseResolution: 4
+  filterMode: 1
+  useDynamicScale: 1
+  finalColorFormat: 9
+  baseColorFormat: 9
+  ignoreCameraLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  ignoreCameraTypes: 20
+  order: 0
+  blitShader: {fileID: 4800000, guid: c0ae63d42fe813145aefbfe501ae3baf, type: 3}
+  renderAboveOpaques: 1
+  separateDepthCurvature: 0
+  depthCurvature: 1
+  enqueuePass: 1
 --- !u!1 &1456479535
 GameObject:
   m_ObjectHideFlags: 0
@@ -647,8 +999,218 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4cbde4fc42b3261498f103feb1ae5ba3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Assets._Project.Develop.Runtime.Meta.Infrastructure.DevAutoGameplayLauncher
-  _autoStart: 1
+  _autoStart: 0
   _levelNumber: 1
+--- !u!1 &1724531739
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1724531740}
+  - component: {fileID: 1724531741}
+  m_Layer: 0
+  m_Name: Clouds Mid
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1724531740
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1724531739}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 763542264}
+  m_Father: {fileID: 2110183589}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1724531741
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1724531739}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a7df06871462dc408c35bb3c999c066, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ShapedClouds.CloudsController
+  pauseInEditor: 0
+  height: 3000
+  curvature: 0.5
+  depth: 2000
+  orthographicFOV: 60
+  timeScale: 1
+  baseBlur:
+    enabled: 1
+    sampleCount: 2
+    intensity: 0.02
+    shader: {fileID: 4800000, guid: def0f14b99e26e94aa3abb0fb712e885, type: 3}
+  finalBlur:
+    enabled: 0
+    sampleCount: 1
+    intensity: 0
+    shader: {fileID: 4800000, guid: def0f14b99e26e94aa3abb0fb712e885, type: 3}
+  filter:
+    noiseTexture: {fileID: 2800000, guid: 3b00fb04dabc32440bb0f9a5b231aa15, type: 3}
+    density: 5
+    scale: 3
+    timeScale: 1
+    rotation: 0
+    windRotation: 0
+    layers:
+    - offset: {x: 0.21021001, y: 0.92368025}
+      scale: 1
+      intensity: 0.1
+      wind: {x: 10.672279, y: 10.540516}
+      rotation: 315
+    - offset: {x: 0.3529309, y: 0.17843772}
+      scale: 2
+      intensity: 0.075
+      wind: {x: 10.979013, y: 4.8436823}
+      rotation: 291
+    colorAbsorption: 2.2
+    color: {r: 0.9, g: 0.9, b: 1, a: 1}
+    sunsetColor: {r: 1, g: 0.5, b: 0, a: 1}
+    moonColor: {r: 0, g: 0.02, b: 0.05, a: 1}
+    ambientDay: 0.3
+    ambientNight: 0.1
+    shader: {fileID: 4800000, guid: e673fb2594548fc4d91e020728bdc66e, type: 3}
+    useCustomAmbientColor: 0
+    customAmbientColor: {r: 0, g: 0, b: 0, a: 0}
+    useCustomSunLight: 0
+    sun: {fileID: 0}
+    useCustomMoonLight: 0
+    moon: {fileID: 0}
+    fadeDistance: 0
+    fadeLength: 0.25
+    detailLevel: 0.5
+  finalResolution: 3
+  baseResolution: 6
+  filterMode: 1
+  useDynamicScale: 1
+  finalColorFormat: 9
+  baseColorFormat: 9
+  ignoreCameraLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  ignoreCameraTypes: 20
+  order: 0
+  blitShader: {fileID: 4800000, guid: c0ae63d42fe813145aefbfe501ae3baf, type: 3}
+  renderAboveOpaques: 1
+  separateDepthCurvature: 0
+  depthCurvature: 1
+  enqueuePass: 1
+--- !u!1 &1735157756
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1735157757}
+  - component: {fileID: 1735157758}
+  m_Layer: 0
+  m_Name: Base Noise
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1735157757
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1735157756}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 169317973}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1735157758
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1735157756}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d2a10d8ba7f48d48ba7c5900c074442, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ShapedClouds.CloudRenderers.CloudBaseNoiseRenderer
+  noiseTexture: {fileID: 2800000, guid: 178e604d7367fa04cbe610d0b0dae4b5, type: 3}
+  density: 3
+  cloudiness: 0.42
+  scale: 0.14
+  timeScale: 1
+  rotation: 0
+  windRotation: 0
+  layers:
+  - offset: {x: 0.9384822, y: 0.9774726}
+    scale: 0.7
+    intensity: 0.6
+    wind: {x: 7.451944, y: 14.158691}
+    rotation: 0
+  - offset: {x: -0.00505368, y: 0.33771986}
+    scale: 1
+    intensity: 0.4
+    wind: {x: 11.836726, y: 1.9727893}
+    rotation: 0
+  shader: {fileID: 4800000, guid: aa3638b560009584aa93f7ac1e9d94c4, type: 3}
+  cloudinessBase: -1
+  cloudinessMult: 1
+--- !u!1 &2110183588
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2110183589}
+  m_Layer: 0
+  m_Name: Clouds
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2110183589
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2110183588}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 169317973}
+  - {fileID: 1724531740}
+  - {fileID: 835427247}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &110286477952049530
 GameObject:
   m_ObjectHideFlags: 0
@@ -10272,6 +10834,21 @@ Transform:
   m_Children: []
   m_Father: {fileID: 317856732835247127}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &2265462079759007014
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5712272350111623683}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 133.7, y: 6.2, z: 7.2}
+  m_LocalScale: {x: 5, y: 5, z: 5}
+  m_ConstrainProportionsScale: 1
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!199 &2654667468740576757
 ParticleSystemRenderer:
   serializedVersion: 7
@@ -10448,6 +11025,28 @@ ParticleSystemRenderer:
   m_MeshWeighting1: 1
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
+--- !u!64 &3415490587438433209
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5712272350111623683}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -5495902117074765545, guid: 2d8e15e9ceccc254c992989ee1f83d30, type: 3}
 --- !u!1 &3525524694311495880
 GameObject:
   m_ObjectHideFlags: 0
@@ -15232,6 +15831,14 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     vectorLabel1_3: W
+--- !u!33 &4513515712650647969
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5712272350111623683}
+  m_Mesh: {fileID: -5495902117074765545, guid: 2d8e15e9ceccc254c992989ee1f83d30, type: 3}
 --- !u!23 &4785584136443211732
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -20100,6 +20707,25 @@ Transform:
   - {fileID: 317856732835247127}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
+--- !u!1 &5712272350111623683
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2265462079759007014}
+  - component: {fileID: 4513515712650647969}
+  - component: {fileID: 7655120513342147396}
+  - component: {fileID: 3415490587438433209}
+  m_Layer: 0
+  m_Name: Tree_01
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 2147483647
+  m_IsActive: 1
 --- !u!33 &6872945931139659155
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -20141,6 +20767,55 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!23 &7655120513342147396
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5712272350111623683}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: cb1b3563d3837304a9855da8536b8020, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_MaskInteraction: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!4 &8251396328010056698
 Transform:
   m_ObjectHideFlags: 0
@@ -20377,3 +21052,5 @@ SceneRoots:
   - {fileID: 7552044533782198838}
   - {fileID: 2075706495334032716}
   - {fileID: 90015875}
+  - {fileID: 2265462079759007014}
+  - {fileID: 2110183589}
