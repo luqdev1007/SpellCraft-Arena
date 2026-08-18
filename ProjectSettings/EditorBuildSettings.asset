@@ -20,6 +20,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_Project/Scenes/CharacterPreviewScene.unity
     guid: 5b01b7f59b67b1c4bb407c046dc72dc7
+  - enabled: 1
+    path: Assets/_Project/Scenes/TowerInterior.unity
+    guid: 0b9b352019580614387dce36aae7f8b9
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
-  m_UseUCBPForAssetBundles: 0

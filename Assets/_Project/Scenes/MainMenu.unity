@@ -503,12 +503,12 @@ MonoBehaviour:
     rotation: 0
     windRotation: 0
     layers:
-    - offset: {x: 0.4681357, y: -0.50929624}
+    - offset: {x: 0.46976867, y: -0.14198862}
       scale: 2
       intensity: 0.1
       wind: {x: 4.977632, y: 8.67313}
       rotation: 30
-    - offset: {x: 0.033350743, y: -0.08906813}
+    - offset: {x: 0.02781535, y: -0.9748238}
       scale: 4
       intensity: 0.075
       wind: {x: 5.616666, y: 4.177687}
@@ -698,12 +698,12 @@ MonoBehaviour:
   rotation: 0
   windRotation: 0
   layers:
-  - offset: {x: 0.17633893, y: 0.30621865}
+  - offset: {x: 0.17633893, y: 0.2795278}
     scale: 1
     intensity: 0.6
     wind: {x: 23.959064, y: 18.054451}
     rotation: 53
-  - offset: {x: 0.3405395, y: 0.72700703}
+  - offset: {x: 0.3405395, y: 0.67896205}
     scale: 2
     intensity: 0.4
     wind: {x: 26.079996, y: 6.988115}
@@ -1232,12 +1232,12 @@ MonoBehaviour:
   rotation: 0
   windRotation: 0
   layers:
-  - offset: {x: 0.113214, y: 0.72123134}
+  - offset: {x: 0.09705133, y: 0.6877228}
     scale: 0.7
     intensity: 0.6
     wind: {x: 10.426869, y: 21.616669}
     rotation: 0
-  - offset: {x: 0.27917004, y: 0.28238034}
+  - offset: {x: 0.23542887, y: 0.2754368}
     scale: 1
     intensity: 0.4
     wind: {x: 19.75271, y: 3.13535}
@@ -1314,12 +1314,12 @@ MonoBehaviour:
     rotation: 0
     windRotation: 0
     layers:
-    - offset: {x: 0.25860825, y: 0.72014385}
+    - offset: {x: 0.25860825, y: 0.5421974}
       scale: 1
       intensity: 0.1
       wind: {x: 17.975882, y: 8.767423}
       rotation: 64
-    - offset: {x: 0.07431734, y: -0.12360475}
+    - offset: {x: 0.07431734, y: -0.44390592}
       scale: 2
       intensity: 0.075
       wind: {x: 16.68931, y: 6.7429194}
@@ -6824,7 +6824,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4cbde4fc42b3261498f103feb1ae5ba3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Assets._Project.Develop.Runtime.Meta.Infrastructure.DevAutoGameplayLauncher
-  _autoStart: 0
+  _autoStart: 1
   _levelNumber: 1
 --- !u!1001 &1623206176
 PrefabInstance:
@@ -7097,12 +7097,12 @@ MonoBehaviour:
     rotation: 0
     windRotation: 0
     layers:
-    - offset: {x: -0.44262376, y: 0.9277363}
+    - offset: {x: -0.15439019, y: 0.9321563}
       scale: 1
       intensity: 0.1
       wind: {x: 10.672279, y: 10.540516}
       rotation: 315
-    - offset: {x: -0.38317445, y: 0.91954565}
+    - offset: {x: -0.18573007, y: 0.72755694}
       scale: 2
       intensity: 0.075
       wind: {x: 10.979013, y: 4.8436823}
@@ -7191,12 +7191,12 @@ MonoBehaviour:
   rotation: 0
   windRotation: 0
   layers:
-  - offset: {x: 0.91729236, y: 0.93721384}
+  - offset: {x: 0.8941896, y: 0.8933204}
     scale: 0.7
     intensity: 0.6
     wind: {x: 7.451944, y: 14.158691}
     rotation: 0
-  - offset: {x: -0.053136274, y: 0.3297063}
+  - offset: {x: -0.105559535, y: 0.32096982}
     scale: 1
     intensity: 0.4
     wind: {x: 11.836726, y: 1.9727893}
